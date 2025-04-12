@@ -8,13 +8,17 @@ pre: "<b> 2.1. </b>"
 
 ### Giới thiệu
 
-<!-- TODO: Thêm hình ảnh IAM Role -->
+
 IAM Role là tính năng giúp nâng cao tính bảo mật trên AWS. Một IAM Role có thể được gán tạm thời cho các IAM User và các tài nguyên AWS trong nội bộ (internal) hoặc bên ngoài (external) tài khoản của bạn. Giả sử, khi một IAM User tiếp nhận (assume) một IAM Role, IAM User đó sẽ tạm thời có được những quyền hạn của IAM Role đó. Bạn nên sử dụng IAM Role khi bạn muốn cung cấp quyền truy cập ngắn hạn cho một IAM User hoặc tài nguyên AWS.
 
 Để một IAM User có thể tiếp nhận (assume) IAM Role, thì bản thân IAM Role cần cho phép User thực hiện thao tác tiếp nhận (trust policy).
 
 Một đặc tính quan trọng của IAM Role là không có thông tin chứng thực (credentials) nên bạn sẽ không thể đăng nhập trực tiếp vào tài khoản AWS bằng IAM Role.
 
+![IAM ROLE](ECS-Lab-IAM-Role.png)
+
+<!-- TODO: tách phần này thành 2.1. chuẩn bị môi trường development -->
+---
 #### 1. Tạo IAM Role cho EC2 Instance
 
 IAM Role cho phép EC2 instance truy cập an toàn đến các dịch vụ AWS như S3, CloudWatch Logs và Systems Manager mà không cần credentials cố định.
@@ -74,7 +78,7 @@ Role này cho phép ứng dụng trong container truy cập các dịch vụ AWS
    - **Use case**: `Elastic Container Service`
    - **Service or Use Case**: `Elastic Container Task`
 
-![Chọn Trusted Entity ECS](image-5.png)
+![Chọn ECS Task](image-1.png)
 
 2. Bỏ qua bước Add permissions (sẽ thêm inline policy sau)
 
@@ -84,7 +88,7 @@ Role này cho phép ứng dụng trong container truy cập các dịch vụ AWS
 Tên role phải chính xác là `retailStoreEcsTaskRole` để tương thích với các câu lệnh CLI!
 {{% /notice %}}
 
-![Tạo Role ECS Task](image-6.png)
+![Tạo Role ECS Task](image-5.png)
 
 ![Hoàn tất tạo Role](image-7.png)
 
@@ -94,13 +98,9 @@ Tên role phải chính xác là `retailStoreEcsTaskRole` để tương thích v
 
 1. Chọn role > **Add permissions** > **Create inline policy**
 
-2. Chuyển sang tab **JSON**, thêm policy sau:
+![Role Detail](image-6.png)
 
-```bash
-# Thiết lập biến môi trường trên Linux
-export aws_region = ap-southeast-1
-export aws_account_id = 11111111111
-```
+2. Chuyển sang tab **JSON**, thêm policy sau:
 
 ```json
 {
@@ -123,8 +123,8 @@ export aws_account_id = 11111111111
         "ecs:DescribeTasks"
       ],
       "Resource": [
-        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:task/retail-store-ecs-cluster/*",
-        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:cluster/*"
+        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:task/retail-store-ecs-cluster/*", // Thay thế biến môi trường
+        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:cluster/*" // Thay thế biến môi trường
       ]
     }
   ]
@@ -135,13 +135,14 @@ export aws_account_id = 11111111111
 
 3. Review và tạo policy:
 
-![Đặt tên Policy](image-11.png)
+![Đặt tên Policy](image-9.png)
 
 Xác nhận policy đã được gán:
 
 ![Xác nhận policy](image-10.png)
 
-#### ✅ Tổng kết
+---
+### Tổng kết
 
 Bạn đã hoàn thành:
 - Tạo IAM Role cho EC2 
