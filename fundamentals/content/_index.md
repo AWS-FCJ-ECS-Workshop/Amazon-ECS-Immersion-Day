@@ -11,11 +11,11 @@ Welcome to the workshop series on Amazon Elastic Container Service!
 This workshop series includes **7 practical exercises** to help you comprehensively understand Amazon Elastic Container Services.
 
 1. [Fundamentals](#) - Build foundational knowledge about Network, deploy sample applications and initialize ECS Services
-2. [Auto Scaling](../../../auto-scaling/) - Automatically adjust application scale based on actual demands
-3. [Networking](../../../networking/) - Design and implement optimal network models
-4. [Observability](../../../observability/) - Build comprehensive monitoring and observation systems
-5. [Security](../../../security/) - Deploy security solutions and access control
-6. [Automation](../../../automation/) - Automate application deployment processes
+2. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Automatically adjust application scale based on actual demands
+3. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Design and implement optimal network models
+4. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Build comprehensive monitoring and observation systems
+5. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Deploy security solutions and access control
+6. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Automate application deployment processes
 
 ![alt text](/images/image.png)
 

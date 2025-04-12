@@ -19,11 +19,11 @@ This is the core foundation, creating a solid premise for implementing the advan
 
 To continue your journey exploring Amazon ECS, we invite you to discover the following workshop sections:
 
-1. [Auto Scaling](/auto-scaling/) - Automatically adjust application scale
-2. [Networking](../../../networking/) - Design and implement network models
-3. [Observability](../../../observability/) - System monitoring and observation
-4. [Security](../../../security/) - Security and access control
-5. [Automation](../../../automation/) - Automate deployment processes
+1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Automatically adjust application scale
+2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Design and implement network models
+3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - System monitoring and observation
+4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Security and access control
+5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Automate deployment processes
 
 Each workshop section will help you build in-depth knowledge about a specific aspect of Amazon ECS, enabling you to effectively apply it to real projects.
 

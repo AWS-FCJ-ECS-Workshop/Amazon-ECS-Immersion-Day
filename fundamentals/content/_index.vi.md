@@ -11,11 +11,11 @@ Chào mừng bạn đến với chuỗi workshop về Amazon Elastic Container S
 Chuỗi workshop này bao gồm **7 bài thực hành** giúp bạn tìm hiểu toàn diện về Amazon Elastic Container Services.
 
 1. [Fundamentals](#) - Xây dựng kiến thức nền tảng về Network, triển khai ứng dụng mẫu và khởi tạo ECS Services
-2. [Auto Scaling](/auto-scaling) - Tự động điều chỉnh quy mô ứng dụng theo nhu cầu thực tế
-3. [Networking](/networking) - Thiết kế và triển khai mô hình mạng tối ưu
-4. [Observability](/observability) - Xây dựng hệ thống giám sát và quan sát toàn diện
-5. [Security](/security) - Triển khai các giải pháp bảo mật và kiểm soát truy cập
-6. [Automation](/automation) - Tự động hóa quy trình triển khai ứng dụng
+1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling) - Tự động điều chỉnh quy mô ứng dụng
+2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking) - Thiết kế và triển khai mô hình mạng
+3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability) - Giám sát và quan sát hệ thống
+4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security) - Bảo mật và kiểm soát truy cập
+5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation) - Tự động hóa quy trình triển khai
 
 ![alt text](/images/image.png)
 
