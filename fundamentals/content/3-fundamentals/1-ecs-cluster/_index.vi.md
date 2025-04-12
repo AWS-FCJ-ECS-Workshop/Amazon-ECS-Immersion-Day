@@ -53,6 +53,6 @@ Sau khi thực thi lệnh, bạn sẽ nhận được kết quả như sau, tron
 1. Truy cập vào [Amazon ECS Console](https://console.aws.amazon.com/ecs/)
 2. Tìm và chọn cluster có tên `retail-store-ecs-cluster`
 
-![alt text](images/3-fundamentals/1-ecs-cluster/image-1.png)
+![alt text](/images/3-fundamentals/1-ecs-cluster/image-1.png)
 
 Sau khi hoàn thành việc tạo cluster, hãy tiếp tục bước tiếp theo để tạo ECS Task Definition - định nghĩa cách triển khai dịch vụ UI.

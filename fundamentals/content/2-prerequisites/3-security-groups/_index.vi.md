@@ -11,7 +11,7 @@ pre: "<b> 2.3. </b>"
 
 [Security Group (SG)](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html#:~:text=A%20security%20group%20controls%20the,with%20a%20default%20security%20group.) là một tường lửa ảo bảo vệ các tài nguyên AWS khỏi các truy cập trái phép. Security Group kiểm soát lưu lượng mạng đến (inbound) và đi ra (outbound) cho các tài nguyên thông qua việc định nghĩa các quy tắc (rules).
 
-![ECS-lab-security-group](/images/2-prerequisites/3-security-groups/ECS-Lab-Security Group.png)
+![ECS-lab-security-group](/images/2-prerequisites/3-security-groups/ECS-Lab-Security-Group.png)
 
 ### Các thành phần chính của Security Group
 

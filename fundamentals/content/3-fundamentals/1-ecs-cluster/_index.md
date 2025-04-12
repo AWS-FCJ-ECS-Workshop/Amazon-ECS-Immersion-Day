@@ -53,6 +53,6 @@ To view details about the cluster you just created:
 1. Go to [Amazon ECS Console](https://console.aws.amazon.com/ecs/)
 2. Find and select the cluster named `retail-store-ecs-cluster`
 
-![alt text](/images/3-fundamentals/image-1.png)
+![alt text](/images/3-fundamentals/1-ecs-cluster/image-1.png)
 
 After completing the cluster creation, proceed to the next step to create an ECS Task Definition - defining how to deploy the UI service.

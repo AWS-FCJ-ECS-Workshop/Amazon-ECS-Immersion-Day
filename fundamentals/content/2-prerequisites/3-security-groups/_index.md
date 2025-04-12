@@ -10,7 +10,7 @@ pre: "<b> 2.3. </b>"
 
 [Security Group (SG)](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html#:~:text=A%20security%20group%20controls%20the,with%20a%20default%20security%20group.) is a virtual firewall that protects AWS resources from unauthorized access. Security Group controls inbound and outbound network traffic for resources by defining rules.
 
-![ECS-lab-security-group](/images/2-prerequisites/3-security-groups/ECS-Lab-Security Group.png)
+![ECS-lab-security-group](/images/2-prerequisites/3-security-groups/ECS-Lab-Security-Group.png)
 
 ### Main Components of Security Group
 
