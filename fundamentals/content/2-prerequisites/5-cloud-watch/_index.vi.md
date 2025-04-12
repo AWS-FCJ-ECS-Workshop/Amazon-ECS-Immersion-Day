@@ -1,5 +1,5 @@
 ---
-title: "CloudWatch Monitoring"
+title: "CloudWatch - Giám sát ứng dụng"
 date: "`r Sys.Date()`"
 weight: 5
 chapter: false
@@ -7,7 +7,6 @@ pre: "<b> 2.5. </b>"
 ---
 
 
-<!-- TODO: Thêm hình arch -->
 ### CloudWatch là gì
 
 Amazon CloudWatch là dịch vụ giám sát và quan sát toàn diện được xây dựng cho các nhà phát triển, kỹ sư vận hành, quản trị viên site reliability engineer (SRE) và quản trị viên IT. CloudWatch cung cấp dữ liệu và góc nhìn có thể thực thi để giám sát các ứng dụng, phản hồi các thay đổi hiệu suất trên toàn hệ thống, tối ưu hóa việc sử dụng tài nguyên và có cái nhìn thống nhất về tình trạng hoạt động. CloudWatch thu thập dữ liệu vận hành và giám sát dưới dạng logs, metrics và events, cung cấp cái nhìn thống nhất về các tài nguyên, ứng dụng và dịch vụ AWS đang chạy trên AWS và cơ sở hạ tầng tại chỗ.
@@ -22,7 +21,7 @@ Trong bài thực hành này, chúng ta sẽ tìm hiểu cách sử dụng Amazo
 
 2. Điều hướng đến CloudWatch Logs Group và chọn Create Log Group
 
-![alt text](image.png)
+![alt text](/images/2-prerequisites/5-cloud-watch/image.png)
 
 3. Nhập thông tin cấu hình:
 - Tên Log Group: `retail-store-ecs-tasks`  
@@ -33,8 +32,8 @@ Trong bài thực hành này, chúng ta sẽ tìm hiểu cách sử dụng Amazo
 Lưu ý: Tên Log Group `retail-store-ecs-tasks` sẽ được sử dụng xuyên suốt trong các lệnh CLI của bài thực hành này!
 {{% /notice %}}
 
-![alt text](image-1.png)
+![alt text](/images/2-prerequisites/5-cloud-watch/image-1.png)
 
 4. Xác nhận Log Group đã được tạo thành công
 
-![alt text](image-2.png)
+![alt text](/images/2-prerequisites/5-cloud-watch/image-2.png)

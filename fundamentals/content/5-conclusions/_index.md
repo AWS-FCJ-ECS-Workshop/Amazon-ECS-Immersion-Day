@@ -1,53 +1,39 @@
-+++
-title = "Getting Support for Account Authentication"
-date = 2020
-weight = 4
-chapter = false
-pre = "<b>4. </b>"
-+++
+---
+title: "Conclusion"
+date: "`r Sys.Date()`"
+weight: 5
+chapter: false
+pre: "<b> 5. </b>"
+---
 
-During AWS account setup, sometimes problems may arise when validating contact number information, such as failure to receive SMS messages or calls from the AWS. To remediate this issue, please follow the following steps to complete the vation of the account information:
+<!-- Add final architecture image -->
+In this first Fundamentals section of the Amazon ECS workshop series, we have completed the following important contents:
 
-**Content:**
-- [Verify your account information](#verify-your-account-information)
-- [Create a support case with AWS Support](#create-a-support-case-with-aws-support)
+1. Set up the foundation environment
+2. Deploy and operate Amazon ECS Cluster
+3. Configure and manage ECS Services
 
-#### Verify your account information
+This is the core foundation, creating a solid premise for implementing the advanced labs that follow in the workshop series.
 
-Kindly check your account details again and make sure they are entered correctly:
-  - Check that the phone number and international calling code are correctly enetered to receive SMS or calls.
-  - If you use a mobile phone, check your phone to make sure you are still within coverage to receive SMS or calls.
-  - Check that the payment method information has been entered correctly.
+### Next Steps
 
-#### Create a support case with AWS Support
+To continue your journey exploring Amazon ECS, we invite you to discover the following workshop sections:
 
- If you are still not able to receive an SMS message or authentication call even after verifying your account information, please contact AWS Support to assist you in manually activating your account.
+1. [Auto Scaling](/auto-scaling/) - Automatically adjust application scale
+2. [Networking](../../../networking/) - Design and implement network models
+3. [Observability](../../../observability/) - System monitoring and observation
+4. [Security](../../../security/) - Security and access control
+5. [Automation](../../../automation/) - Automate deployment processes
 
-1. Go to the [AWS Support Console](https://aws.amazon.com/support/) and select **Create case**.
+Each workshop section will help you build in-depth knowledge about a specific aspect of Amazon ECS, enabling you to effectively apply it to real projects.
 
-![AWS Support](/images/1-account-setup/1.png?width=90pc)
+### Credits
 
-2. Select **Account and billing support** and enter the support information:
-   
-   **Type:** Select **Account**.
-    
-   **Category:** Select **Activation**.
-   
-   **Subject:** Write your encounter briefly (e.g. **Did not receive an SMS message or call for verification**)
-   
-   **Description:** Provide details of your situation.
-   
-   **Attachments:** Attach any images which may lend greater clarify to the situation.
+Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
-![AWS Support](/images/1-account-setup/2.png?width=90pc)
+Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 
-3. Under **Contact options**, select **Chat** in **Contact methods**.
+### References
 
-![AWS Support](/images/1-account-setup/3.png?width=90pc)
-
-4. Click **Submit**.
-5. The AWS Support team will contact you and assist in activating your account.
-
-{{% notice note%}}
-You can create support requests with AWS Support even if your account is not activated.
-{{% /notice%}}
+Getting Started - https://catalog.workshops.aws/ecs-immersion-day/en-US/20-introduction
+Fundamentals - https://catalog.workshops.aws/ecs-immersion-day/en-US/30-basic

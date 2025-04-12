@@ -137,11 +137,11 @@ aws ecs update-service --cluster retail-store-ecs-cluster --service ui --task-de
 aws ecs wait services-stable --cluster retail-store-ecs-cluster --services ui
 ```
 
-![alt text](image-1.png)
+![alt text](/images/3-fundamentals/4-update-service/image-1.png)
 
 Làm mới trình duyệt của bạn, bạn sẽ thấy banner đã được thêm vào dựa trên environment variables:
 
-![alt text](image-2.png)
+![alt text](/images/3-fundamentals/4-update-service/image-2.png)
 
 {{% notice note %}}
 **Mẹo**: Bạn có thể cần cuộn lên để xem banner.

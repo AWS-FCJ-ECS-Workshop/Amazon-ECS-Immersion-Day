@@ -162,7 +162,7 @@ cat /etc/os-release
 df -h
 ```
 
-![alt text](image-1.png)
+![alt text](/images/3-fundamentals/5-enable-exec/image-1.png)
 
 Để kết thúc phiên:
 

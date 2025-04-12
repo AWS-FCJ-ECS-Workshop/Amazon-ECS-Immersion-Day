@@ -1,32 +1,150 @@
-+++
-title = "Virtual MFA Devices"
-date = 2021
-weight = 1
-chapter = false
-pre = "<b>2.1. </b>"
-+++
+---
+title: "IAM Roles - Service Access Authorization"
+date: "`r Sys.Date()`"
+weight: 1
+chapter: false
+pre: "<b> 2.1. </b>"
+---
 
-{{% notice note%}}
-To enable MFA, you need to log in to AWS using the root user. 
-{{% /notice%}}
+### Introduction
 
-#### Activate virtual MFA devices via Console
+[IAM Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) is a feature that enhances security on AWS. An IAM Role can be temporarily assigned to IAM Users and AWS resources both internally and externally to your account. For example, when an IAM User assumes an IAM Role, that user temporarily gains the permissions of that role. You should use IAM Roles when you want to provide short-term access to an IAM User or AWS resource.
 
-To set up and activate virtual MFA devices:
+For an IAM User to assume an IAM Role, the role itself needs to allow the user to perform the assume action (trust policy).
 
-1. Sign-in to the AWS Console.
-2. In the upper right corner, you will see your account name. Click the drop-down and select **My Security Credentials**.
+An important characteristic of IAM Roles is that they don't have credentials, so you cannot directly log into AWS accounts using IAM Roles.
 
-![Virtual MFA Device](/images/1-account-setup/MySecurity_v1.png?width=15pc)
+![IAM ROLE](/images/2-prerequisites/1-iam-roles/ECS-Lab-IAM-Role.png)
 
-3. Expand **Multi-factor authentication (MFA)** and select **Active MFA**.
+<!-- TODO: split this section into 2.1. preparing development environment -->
+---
+#### 1. Create IAM Role for EC2 Instance
 
-![MFA Section](/images/1-account-setup/MFA.png?width=90pc)
+IAM Role allows EC2 instances to securely access AWS services like S3, CloudWatch Logs, and Systems Manager without fixed credentials.
 
-4. In Manage MFA Device, select **Virtual MFA device** then select **Continue**.
-5. Install a [compatible Authenticator application](https://aws.amazon.com/iam/features/mfa/#Virtual_MFA_Applications) on your phone.
-6. After installing the app, select **Show QR Code** and use your Authenticator application to scan the QR code.
-   - Sample MFA registration with _Microsoft Authenticator_:
-      ![MFA QR Scanner](/images/1-account-setup/MFAScannerQR.png?width=90pc)
-1. In the **MFA code 1** box, enter 6 numeric characters from the app. Wait 30 seconds or until the next refresh, then enter the next 6 characters into the **MFA Code 2** box and select **Assign MFA**.
-2. You have now completed activating your **virtual MFA device**!
+**Steps:**
+
+1. Access [IAM Dashboard](https://console.aws.amazon.com/iam/home)
+2. Select **Roles** > **Create Role**
+3. In the **Create Role** interface:
+   - **Trusted entity type**: Select `AWS Service`
+   - **Use case**: Select `EC2`
+   - Click **Next**
+   - Select appropriate policy (e.g., `AmazonSSMManagedInstanceCore`)
+   - Complete role creation
+
+#### 2. Create IAM Role for ECS Task Execution
+
+This role allows ECS to perform system tasks like pulling container images and writing logs.
+
+1. Access [IAM Dashboard](https://console.aws.amazon.com/iam/home)
+2. Select **Access Management** > **Roles** > **Create Role**
+
+![IAM Role Dashboard](/images/2-prerequisites/1-iam-roles/image.png)
+
+3. Configure role:
+   - **Trusted Entity Type**: `AWS Service`
+   - **Use Case**: `Elastic Container Service`
+   - **Service or Use Case**: `Elastic Container Task`
+   - Click **Next**
+
+![Select ECS Task](/images/2-prerequisites/1-iam-roles/image-1.png)
+
+4. Add permissions:
+   - Search and select `AmazonECSTaskExecutionRolePolicy`
+
+![Select Policy](/images/2-prerequisites/1-iam-roles/image-2.png)
+
+5. Name the role: `retailStoreECSTaskExecutionRole`
+
+{{% notice warning %}}
+The role name must be exactly `retailStoreECSTaskExecutionRole` to be compatible with CLI commands!
+{{% /notice %}}
+
+![Confirm Role](/images/2-prerequisites/1-iam-roles/image-3.png)
+
+Result after successful creation:
+
+![Created Role](/images/2-prerequisites/1-iam-roles/image-4.png)
+
+#### 3. Create IAM Role for ECS Task (Application Role)
+
+This role allows applications in containers to access AWS services and execute commands.
+
+1. At [IAM Dashboard](https://console.aws.amazon.com/iam/home):
+   - Select **Roles** > **Create Role**
+   - **Trusted Entity Type**: `AWS Service`
+   - **Use case**: `Elastic Container Service`
+   - **Service or Use Case**: `Elastic Container Task`
+
+![Select ECS Task](/images/2-prerequisites/1-iam-roles/image-1.png)
+
+2. Skip Add permissions step (will add inline policy later)
+
+3. Name the role: `retailStoreEcsTaskRole`
+
+{{% notice warning %}}
+The role name must be exactly `retailStoreEcsTaskRole` to be compatible with CLI commands!
+{{% /notice %}}
+
+![Create ECS Task Role](/images/2-prerequisites/1-iam-roles/image-5.png)
+
+![Complete Role Creation](/images/2-prerequisites/1-iam-roles/image-7.png)
+
+#### Add Inline Policy for ECS Task Role
+
+To allow ECS Tasks to execute remote commands via Systems Manager and interact with ECS API:
+
+1. Select role > **Add permissions** > **Create inline policy**
+
+![Role Detail](/images/2-prerequisites/1-iam-roles/image-6.png)
+
+2. Switch to **JSON** tab, add the following policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel", 
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow", 
+      "Action": [
+        "ecs:ExecuteCommand",
+        "ecs:DescribeTasks"
+      ],
+      "Resource": [
+        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:task/retail-store-ecs-cluster/*", // Replace environment variables
+        "arn:aws:ecs:${var.aws_region}:${var.aws_account_id}:cluster/*" // Replace environment variables
+      ]
+    }
+  ]
+}
+```
+
+![Paste JSON Policy](/images/2-prerequisites/1-iam-roles/image-8.png)
+
+3. Review and create policy:
+
+![Name Policy](/images/2-prerequisites/1-iam-roles/image-9.png)
+
+Confirm policy has been attached:
+
+![Confirm policy](/images/2-prerequisites/1-iam-roles/image-10.png)
+
+---
+### Summary
+
+You have completed:
+- Creating IAM Role for EC2
+- Creating Execution Role for ECS Task
+- Creating Application Role for ECS Task with inline policy
+- Setting up secure access for system components

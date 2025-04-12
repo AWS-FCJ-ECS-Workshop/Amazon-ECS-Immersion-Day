@@ -10,11 +10,11 @@ pre: "<b> 1. </b>"
 
 Hầu hết các bài thực hành trong workshop này sử dụng một ứng dụng mẫu chung với các thành phần được đóng gói dưới dạng container để thực hành. Ứng dụng mô phỏng một cửa hàng web đơn giản, nơi khách hàng có thể duyệt danh mục sản phẩm, thêm sản phẩm vào giỏ hàng và hoàn tất đơn hàng thông qua quy trình thanh toán.
 
-![alt text](image.png)
+![alt text](/images/1-getting-started/image.png)
 
 Ứng dụng bao gồm một số thành phần và phụ thuộc sau:
 
-![Service Components](image-1.png)
+![Service Components](/images/1-getting-started/image-1.png)
 
 **Kiến trúc ứng dụng mẫu:**
 
@@ -33,7 +33,7 @@ Mã nguồn đầy đủ có sẵn trên [GitHub](https://github.com/aws-contain
 
 #### Đóng gói các khối lượng công việc container
 
-Trước khi triển khai khối lượng công việc lên Amazon ECS, chúng cần được đóng gói thành container image và đẩy lên container registry. Mặc dù workshop này không đề cập đến các khái niệm cơ bản về container, nhưng các container image được xây dựng sẵn cho ứng dụng mẫu đã có sẵn trong Amazon Elastic Container Registry (ECR) để sử dụng trong các bài thực hành.
+Trước khi triển khai khối lượng công việc lên Amazon ECS, chúng cần được đóng gói thành container /images/1-getting-started/image và đẩy lên container registry. Mặc dù workshop này không đề cập đến các khái niệm cơ bản về container, nhưng các container /images/1-getting-started/image được xây dựng sẵn cho ứng dụng mẫu đã có sẵn trong Amazon Elastic Container Registry (ECR) để sử dụng trong các bài thực hành.
 
 Dưới đây là bảng liệt kê các đường dẫn tới ECR repository và Dockerfile tương ứng:
 

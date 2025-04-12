@@ -1,5 +1,5 @@
 ---
-title: "Fundamentals"
+title: "Amazon Elastic Container Service (ECS)"
 date: "`r Sys.Date()`"
 weight: 3
 chapter: false
@@ -8,7 +8,7 @@ pre: "<b> 3. </b>"
 
 ### Amazon ECS Core Components
 
-![alt text](image.png)
+![alt text](/images/3-fundamentals/image.png)
 
 Amazon ECS (Elastic Container Service) bao gồm 4 thành phần cốt lõi sau:
 
@@ -37,7 +37,7 @@ Amazon ECS (Elastic Container Service) bao gồm 4 thành phần cốt lõi sau:
 - Blueprint cho việc chạy containers trong ECS
 - Xác định:
   - Container images
-  - Yêu cầu về CPU và Memory
+  /images/3-fundamentals/- Yêu cầu về CPU và Memory
   - Ports và volumes mapping
   - Cấu hình networking
   - IAM roles

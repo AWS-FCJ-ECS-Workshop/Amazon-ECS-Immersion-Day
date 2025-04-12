@@ -6,7 +6,6 @@ chapter: false
 pre: "<b> 5. </b>"
 ---
 
-<!-- Thêm hình ảnh architecture cuối c -->
 Trong phần Fundamentals đầu tiên của chuỗi workshop Amazon ECS, chúng ta đã hoàn thành những nội dung quan trọng sau:
 
 1. Thiết lập môi trường nền tảng (foundation environment)
@@ -19,11 +18,11 @@ Trong phần Fundamentals đầu tiên của chuỗi workshop Amazon ECS, chúng
 
 Để tiếp tục hành trình tìm hiểu Amazon ECS, mời bạn khám phá các phần workshop sau:
 
-1. [Auto Scaling](../../../auto-scaling/) - Tự động điều chỉnh quy mô ứng dụng
-2. [Networking](../../../networking/) - Thiết kế và triển khai mô hình mạng
-3. [Observability](../../../observability/) - Giám sát và quan sát hệ thống
-4. [Security](../../../security/) - Bảo mật và kiểm soát truy cập
-5. [Automation](../../../automation/) - Tự động hóa quy trình triển khai
+1. [Auto Scaling](/auto-scaling) - Tự động điều chỉnh quy mô ứng dụng
+2. [Networking](/networking) - Thiết kế và triển khai mô hình mạng
+3. [Observability](/observability) - Giám sát và quan sát hệ thống
+4. [Security](/security) - Bảo mật và kiểm soát truy cập
+5. [Automation](/automation) - Tự động hóa quy trình triển khai
 
 Mỗi phần workshop sẽ giúp bạn xây dựng kiến thức chuyên sâu về một khía cạnh cụ thể của Amazon ECS, từ đó có thể vận dụng hiệu quả vào các dự án thực tế.
 
@@ -32,3 +31,8 @@ Mỗi phần workshop sẽ giúp bạn xây dựng kiến thức chuyên sâu v�
 Lê Minh Nghĩa - https://www.linkedin.com/in/minhnghia2k3/
 
 Trần Đoàn Công Lý - https://www.linkedin.com/in/trandoancongly/
+
+### References
+
+Getting Started - https://catalog.workshops.aws/ecs-immersion-day/en-US/20-introduction
+Fundamentals - https://catalog.workshops.aws/ecs-immersion-day/en-US/30-basic

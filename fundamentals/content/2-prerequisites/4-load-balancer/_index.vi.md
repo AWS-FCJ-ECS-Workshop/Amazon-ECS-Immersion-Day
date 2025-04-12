@@ -6,13 +6,13 @@ chapter: false
 pre: "<b> 2.4. </b>"
 ---
 
-<!-- TODO: Thêm hình ảnh Load Balancer trong VPC -->
-
 ### Cân bằng tải là gì?
 
 Cân bằng tải (Load Balancing) là một phương pháp phân phối lưu lượng mạng một cách đồng đều đến một nhóm tài nguyên phục vụ ứng dụng. Trong thời đại số hóa hiện nay, các ứng dụng cần phải đáp ứng hàng triệu người dùng đồng thời và phân phối nhiều loại nội dung như văn bản, video, hình ảnh một cách nhanh chóng và đáng tin cậy. 
 
 Để xử lý khối lượng truy cập lớn, các ứng dụng thường được triển khai trên nhiều máy chủ với dữ liệu được sao chép. Bộ cân bằng tải đóng vai trò trung gian giữa người dùng và nhóm máy chủ, đảm bảo việc phân phối tải một cách công bằng và hiệu quả đến tất cả các máy chủ.
+
+![Load balancer](/images/2-prerequisites/4-load-balancer/ECS-Lab-Networking-LoadBalancer.png)
 
 ### Các loại cân bằng tải
 
@@ -56,33 +56,33 @@ Target Group là thành phần định nghĩa các đích đến (targets) mà L
    - VPC: `ecs-lab-vpc`
    - Health check path: `/actuator/health` (Path này từ application)
 
-![Target Group Configuration](image-4.png)
+![Target Group Configuration](/images/2-prerequisites/4-load-balancer/image-1.png)
 
-![Health Check Configuration](image-5.png)
+![Health Check Configuration](/images/2-prerequisites/4-load-balancer/image-2.png)
 
-![Target Group Creation Success](image-7.png)
+![Target Group Creation Success](/images/2-prerequisites/4-load-balancer/image-7.png)
 
 #### 2. Tạo Application Load Balancer
 
 1. Truy cập [Load Balancer Dashboard](console.aws.amazon.com/ec2/home#LoadBalancers)
 2. Chọn Application Load Balancer
 
-![Select ALB Type](image-8.png)
+![Select ALB Type](/images/2-prerequisites/4-load-balancer/image-3.png)
 
 3. Cấu hình cơ bản:
    - Đặt tên cho Load Balancer
    - Scheme: Internet-facing
 
-![ALB Basic Configuration](image-9.png)
+![ALB Basic Configuration](/images/2-prerequisites/4-load-balancer/image-5.png)
 
    - Network: Chọn VPC và public subnets
-![Network Configuration](image-10.png)
+![Network Configuration](/images/2-prerequisites/4-load-balancer/image-6.png)
 
    - Security Group: `ecs-lab-ui-sg` (cho phép inbound HTTP 80)
    - Listener: HTTP 80 forward đến target group `ui-application`
-![Listener Configuration](image-11.png)
+![Listener Configuration](/images/2-prerequisites/4-load-balancer/image-8.png)
 
-![ALB Creation Success](image-12.png)
+![ALB Creation Success](/images/2-prerequisites/4-load-balancer/image-12.png)
 
 ### Kết luận
 

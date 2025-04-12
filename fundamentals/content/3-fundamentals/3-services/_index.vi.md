@@ -56,7 +56,7 @@ aws ecs create-service \
 
 Theo dõi trạng thái service qua [Amazon ECS Console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/ui)
 
-![alt text](image-2.png)
+![alt text](/images/3-fundamentals/3-services/image-2.png)
 
 Hoặc đợi service ổn định bằng AWS CLI:
 
@@ -86,11 +86,11 @@ echo http://${RETAIL_ALB}
 
 Truy cập URL trong trình duyệt để xem ứng dụng:
 
-![alt text](image-3.png)
+![alt text](/images/3-fundamentals/3-services/image-3.png)
 
 ---
 ### Kiến trúc hiện tại
 
 Sau khi hoàn tất các bước trên, kiến trúc dịch vụ sẽ như sau:
 
-![alt text](image-1.png)
+![alt text](/images/3-fundamentals/3-services/ECS-Lab-Networking-Current-Architecture.png)

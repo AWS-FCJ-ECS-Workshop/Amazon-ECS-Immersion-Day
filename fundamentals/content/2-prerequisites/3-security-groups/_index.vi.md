@@ -6,10 +6,12 @@ chapter: false
 pre: "<b> 2.3. </b>"
 ---
 
-<!-- TODO: Thêm hình ảnh Architect Security Group -->
+
 ### Giới thiệu
 
-Security Group (SG) là một tường lửa ảo bảo vệ các tài nguyên AWS khỏi các truy cập trái phép. Security Group kiểm soát lưu lượng mạng đến (inbound) và đi ra (outbound) cho các tài nguyên thông qua việc định nghĩa các quy tắc (rules).
+[Security Group (SG)](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html#:~:text=A%20security%20group%20controls%20the,with%20a%20default%20security%20group.) là một tường lửa ảo bảo vệ các tài nguyên AWS khỏi các truy cập trái phép. Security Group kiểm soát lưu lượng mạng đến (inbound) và đi ra (outbound) cho các tài nguyên thông qua việc định nghĩa các quy tắc (rules).
+
+![ECS-lab-security-group](/images/2-prerequisites/3-security-groups/ECS-Lab-Security Group.png)
 
 ### Các thành phần chính của Security Group
 
@@ -49,8 +51,8 @@ Chúng ta sẽ khởi tạo 3 Security Group cho kiến trúc của mình:
 1. Truy cập [Security Group Dashboard](console.aws.amazon.com/ec2/home#SecurityGroups)
 2. Chọn Create Security Group
 3. Cấu hình:
-   - Tên: Public SG
-   - VPC: ecs-lab-vpc
+   - Tên: `ecs-lab-public-vpc`
+   - VPC: `ecs-lab-vpc`
    - Inbound Rules:
      - Port 80 (HTTP)
      - Port 443 (HTTPS)
@@ -58,8 +60,8 @@ Chúng ta sẽ khởi tạo 3 Security Group cho kiến trúc của mình:
 4. Thêm tags (tùy chọn)
 5. Chọn Create Security Group
 
-![Public SG Creation](image.png)
-![Public SG Success](image-1.png)
+![Public SG Creation](/images/2-prerequisites/3-security-groups/image.png)
+![Public SG Success](/images/2-prerequisites/3-security-groups/image-1.png)
 
 #### 2. Private Security Group 
 **Mục đích**: Bảo vệ Amazon Fargate tasks trong Private Subnet
@@ -67,8 +69,8 @@ Chúng ta sẽ khởi tạo 3 Security Group cho kiến trúc của mình:
 **Các bước thực hiện**:
 1. Tạo Security Group mới
 2. Cấu hình:
-   - Tên: Private SG
-   - VPC: ecs-lab-vpc
+   - Tên: `ecs-lab-private-sg`
+   - VPC: `ecs-lab-vpc`
    - Inbound Rules: 
      - Port 8080 (TCP) từ Public Security Group
    - Outbound Rules: Cho phép tất cả lưu lượng
@@ -77,17 +79,19 @@ Chúng ta sẽ khởi tạo 3 Security Group cho kiến trúc của mình:
 Security Best Practices: Chỉ cho phép Inbound Rule TCP 8080 từ Public SG để đảm bảo chỉ ALB mới có thể truy cập các instance trong Private Subnet.
 {{% /notice %}}
 
-![Private SG Creation](image-2.png)
-![Private SG Success](image-3.png)
+![Private SG Creation](/images/2-prerequisites/3-security-groups/image-2.png)
+![Private SG Success](/images/2-prerequisites/3-security-groups/image-3.png)
 
 #### 3. UI Security Group
 **Mục đích**: Bảo vệ Fargate tasks cho UI Service
 
 **Cấu hình**:
-- Tên: UI-SG
-- VPC: ecs-lab-vpc
+- Tên: `ecs-lab-ui-sg`
+- VPC: `ecs-lab-vpc`
 - Inbound Rules:
   - Port 8080 (TCP) từ Public Security Group
 - Outbound Rules: Cho phép tất cả lưu lượng
 
-<!-- TODO: Thêm Hình ảnh UI SG -->
+![UI Security Group](/images/2-prerequisites/3-security-groups/image-4.png)
+
+![Created UI SG](/images/2-prerequisites/3-security-groups/image-5.png)

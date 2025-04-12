@@ -4,44 +4,56 @@ date :  "`r Sys.Date()`"
 chapter : false
 ---
 
-
 # Series of Amazon Elastic Container Services
 
-Welcome to the Series of Amazon Elastic Container Service!
+Welcome to the workshop series on Amazon Elastic Container Service!
 
-This series includes **7 workshops** will guide you through comprehensive hands-on on Amazon Elastic Container Services.
+This workshop series includes **7 practical exercises** to help you comprehensively understand Amazon Elastic Container Services.
 
-![alt text](image.png)
+1. [Fundamentals](#) - Build foundational knowledge about Network, deploy sample applications and initialize ECS Services
+2. [Auto Scaling](../../../auto-scaling/) - Automatically adjust application scale based on actual demands
+3. [Networking](../../../networking/) - Design and implement optimal network models
+4. [Observability](../../../observability/) - Build comprehensive monitoring and observation systems
+5. [Security](../../../security/) - Deploy security solutions and access control
+6. [Automation](../../../automation/) - Automate application deployment processes
 
-**Amazon Elastic Container Service (ECS)** is a fully managed container orchestration service that enables you to deploy, manage, and scale containerized applications more efficiently. It seamlessly integrates with the AWS ecosystem to provide an easy-to-use solution for running container workloads in the cloud and on-premises, featuring advanced security capabilities through Amazon ECS Anywhere.
+![alt text](/images/image.png)
 
-**AWS Fargate** is a serverless, pay-as-you-go compute engine that allows you to focus on building applications without the burden of managing servers. By offloading tasks such as server management, resource allocation, and scaling to AWS, you can not only enhance your operational posture but also accelerate the journey from idea to production in the cloud while reducing total cost of ownership.
+#### What is Amazon Elastic Container Service?
 
-#### What will I learn?
-This workshop offers a modular experience to explore a wide range of topics related to Amazon ECS, including:
+**Amazon Elastic Container Service (ECS)** is AWS's fully managed container orchestration service. This service allows you to deploy, manage, and scale container applications efficiently. ECS integrates tightly with the AWS ecosystem, providing a simple solution for operating container workloads in cloud and on-premises environments, with enhanced security features through Amazon ECS Anywhere.
 
-1. Understanding the fundamentals of **Amazon ECS and Fargate**, such as clusters, tasks, and services
-2. **Implementing autoscaling** for your workloads to accommodate varying loads
-3. **Monitoring workload** behavior through logs, metrics, and traces
-4. Gaining insights into AWS Fargate networking and **advanced networking concepts**
-5. Exploring various **security aspects**, including secure credential and secret management
-6. **Automating workload deployments** to Amazon ECS using CI/CD pipelines
+**AWS Fargate** is a serverless computing technology with a pay-as-you-go model. Fargate allows you to focus on application development without managing infrastructure. By delegating server management, resource allocation, and scaling tasks to AWS, you not only optimize operations but also accelerate product development in the cloud while optimizing overall costs.
 
-#### Target audience
+#### What will you learn?
+This workshop is designed in modules to help you explore important topics about Amazon ECS:
 
-This **200+ level** workshop is designed for software engineers, platform engineers, and IT professionals who want to gain hands-on experience with Amazon ECS. It's ideal for those looking to familiarize themselves with the core components and key features of Amazon ECS, as well as its practical application in deploying and managing containerized workloads.
+1. Master the fundamentals of **Amazon ECS and Fargate**, including clusters, tasks, and services
+2. Deploy **auto scaling** systems to automatically adjust to load
+3. Build **comprehensive monitoring** systems through logs, metrics, and traces
+4. Deep dive into AWS Fargate networking and **advanced network architecture**
+5. Deploy **comprehensive security** solutions, including credential and secrets management
+6. Build **automated deployment** processes on Amazon ECS using CI/CD pipelines
 
-#### Pre-requisites
-This workshop is not intended as an introductory session on containers. Participants are expected to have a foundational understanding of relevant container concepts. The following topics are considered pre-requisites for fully comprehending the material:
+#### Target Audience
 
-1. [Understanding of containers](https://www.docker.com/resources/what-container/), including the ability to build containers using a Dockerfile
-2. General familiarity with the AWS console and/or AWS APIs
-3. Experience with VSCode (familiarity with any IDE should be sufficient)
+This **200+** level workshop is designed for:
+- Software Development Engineers
+- Platform Engineers
+- IT Professionals
 
+Suitable for those who want hands-on experience with Amazon ECS, from basic components to advanced features in deploying and managing container workloads.
 
-#### Main concepts
+#### Prerequisites
+This workshop is not an introductory course on containers. Participants should have foundational knowledge of:
 
-1. [Getting started](1-getting-started/)
+1. [Understanding of containers](https://www.docker.com/resources/what-container/), including the ability to create containers using Dockerfile
+2. Experience using AWS Management Console and/or AWS APIs
+3. Experience working with Visual Studio Code (or equivalent IDE)
+
+#### Key Concepts
+
+1. [Getting Started](1-getting-started/)
 2. [Prerequisites](2-prerequisites/)
 3. [Fundamentals](3-fundamentals/)
-4. [Clean resources](4-clean-resources/)
+4. [Clean Up Resources](4-clean-resources/)

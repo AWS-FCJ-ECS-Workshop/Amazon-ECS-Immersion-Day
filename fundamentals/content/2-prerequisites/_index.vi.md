@@ -8,7 +8,7 @@ pre: "<b> 2. </b>"
 
 Trước khi triển khai ứng dụng trên Amazon ECS và AWS Fargate, chúng ta cần xây dựng một môi trường hạ tầng cơ bản, bao gồm thiết lập quyền truy cập, cấu hình mạng, bảo mật và cân bằng tải. Mục tiêu là đảm bảo môi trường đủ điều kiện để chạy các container một cách an toàn, ổn định và có khả năng mở rộng.
 
-![ECS Networking Architecture](ECS-Lab-Networking.png)
+![ECS Networking Architecture](/images/2-prerequisites/ECS-Lab-Networking.png)
 
 ---
 

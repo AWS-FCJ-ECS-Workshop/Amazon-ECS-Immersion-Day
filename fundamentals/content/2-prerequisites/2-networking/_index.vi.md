@@ -6,11 +6,11 @@ chapter: false
 pre: "<b> 2.2. </b>"
 ---
 
-<!-- TODO: Thêm hình ảnh Architect VPC -->
-
 ### Giới thiệu
 
-Amazon Virtual Private Cloud (Amazon VPC) là dịch vụ cho phép bạn khởi tạo một môi trường mạng riêng ảo được cô lập hoàn toàn trên AWS Cloud. Trong môi trường này, bạn có thể triển khai và quản lý các tài nguyên AWS một cách linh hoạt theo nhu cầu của tổ chức.
+[Amazon Virtual Private Cloud (Amazon VPC)](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) là dịch vụ cho phép bạn khởi tạo một môi trường mạng riêng ảo được cô lập hoàn toàn trên AWS Cloud. Trong môi trường này, bạn có thể triển khai và quản lý các tài nguyên AWS một cách linh hoạt theo nhu cầu của tổ chức.
+
+![Networking](/images/2-prerequisites/2-networking/ECS-Lab-Networking.png)
 
 Trong phần này, chúng ta sẽ tìm hiểu cách thiết lập các thành phần mạng cơ bản sau:
 
@@ -28,7 +28,7 @@ Trong phần này, chúng ta sẽ tìm hiểu cách thiết lập các thành ph
 2. Truy cập [VPC Dashboard](http://console.aws.amazon.com/vpc/home)
 3. Chọn **Create VPC**
 
-![alt text](image.png)
+![alt text](/images/2-prerequisites/2-networking/image.png)
 
 #### Bước 2: Cấu hình VPC
 
@@ -43,7 +43,7 @@ Trong giao diện Create VPC:
    - NAT Gateway: Tạo trong 1 AZ
    - VPC endpoints: Không tạo S3 Gateway
 
-![alt text](image-1.png)
+![alt text](/images/2-prerequisites/2-networking/image-1.png)
 
 {{% notice note %}}
 Sử dụng Preview Map để xác nhận cấu trúc mạng phù hợp với yêu cầu của bạn.
@@ -53,11 +53,11 @@ Sử dụng Preview Map để xác nhận cấu trúc mạng phù hợp với y�
 
 AWS sẽ tự động khởi tạo tuần tự các thành phần mạng theo cấu hình đã chọn.
 
-![alt text](image-2.png)
+![alt text](/images/2-prerequisites/2-networking/image-2.png)
 
 Sau khi hoàn tất, bạn có thể xem chi tiết cấu hình VPC:
 
-![alt text](image-3.png)
+![alt text](/images/2-prerequisites/2-networking/image-3.png)
 
 ### Tổng kết
 
