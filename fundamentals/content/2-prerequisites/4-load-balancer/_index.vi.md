@@ -76,9 +76,10 @@ Target Group là thành phần định nghĩa các đích đến (targets) mà L
 ![ALB Basic Configuration](/images/2-prerequisites/4-load-balancer/image-5.png)
 
    - Network: Chọn VPC và public subnets
+   - Security Group: `ecs-lab-public-sg` (cho phép inbound HTTP 80 & HTTPS 443)
+
 ![Network Configuration](/images/2-prerequisites/4-load-balancer/image-6.png)
 
-   - Security Group: `ecs-lab-ui-sg` (cho phép inbound HTTP 80)
    - Listener: HTTP 80 forward đến target group `ui-application`
 ![Listener Configuration](/images/2-prerequisites/4-load-balancer/image-8.png)
 

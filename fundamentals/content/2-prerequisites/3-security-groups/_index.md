@@ -55,6 +55,7 @@ We will create 3 Security Groups for our architecture:
    - Inbound Rules:
      - Port 80 (HTTP)
      - Port 443 (HTTPS)
+     - Port 22 (SSH)
    - Outbound Rules: Allow all traffic
 4. Add tags (optional)
 5. Select Create Security Group

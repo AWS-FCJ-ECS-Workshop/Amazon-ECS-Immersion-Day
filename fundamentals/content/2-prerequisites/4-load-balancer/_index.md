@@ -77,9 +77,10 @@ Target Group defines the destinations (targets) that the Load Balancer will forw
 ![ALB Basic Configuration](/images/2-prerequisites/4-load-balancer/image-5.png)
 
    - Network: Select VPC and public subnets
+   - Security Group: `ecs-lab-public-sg` (allows inbound HTTP 80 & HTTPS 443)
+
 ![Network Configuration](/images/2-prerequisites/4-load-balancer/image-6.png)
 
-   - Security Group: `ecs-lab-ui-sg` (allows inbound HTTP 80)
    - Listener: HTTP 80 forward to target group `ui-application`
 ![Listener Configuration](/images/2-prerequisites/4-load-balancer/image-8.png)
 

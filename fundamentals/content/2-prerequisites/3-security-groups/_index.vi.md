@@ -56,6 +56,7 @@ Chúng ta sẽ khởi tạo 3 Security Group cho kiến trúc của mình:
    - Inbound Rules:
      - Port 80 (HTTP)
      - Port 443 (HTTPS)
+     - Port 22 (SSH)
    - Outbound Rules: Cho phép tất cả lưu lượng
 4. Thêm tags (tùy chọn)
 5. Chọn Create Security Group
