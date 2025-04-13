@@ -16,6 +16,8 @@ This workshop series includes **7 practical exercises** to help you comprehensiv
 4. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Build comprehensive monitoring and observation systems
 5. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Deploy security solutions and access control
 6. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Automate application deployment processes
+7. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Using EFS File System for storing assets
+
 
 ![alt text](/images/image.png)
 

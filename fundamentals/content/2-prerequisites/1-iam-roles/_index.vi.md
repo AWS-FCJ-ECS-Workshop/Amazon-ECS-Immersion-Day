@@ -17,24 +17,9 @@ Một đặc tính quan trọng của IAM Role là không có thông tin chứng
 
 ![IAM ROLE](/images/2-prerequisites/1-iam-roles/ECS-Lab-IAM-Role.png)
 
-<!-- TODO: tách phần này thành 2.1. chuẩn bị môi trường development -->
+
 ---
-#### 1. Tạo IAM Role cho EC2 Instance
-
-IAM Role cho phép EC2 instance truy cập an toàn đến các dịch vụ AWS như S3, CloudWatch Logs và Systems Manager mà không cần credentials cố định.
-
-**Các bước thực hiện:**
-
-1. Truy cập [IAM Dashboard](https://console.aws.amazon.com/iam/home)
-2. Chọn **Roles** > **Create Role**
-3. Tại giao diện **Create Role**:
-   - **Trusted entity type**: Chọn `AWS Service`
-   - **Use case**: Chọn `EC2`
-   - Nhấn **Next**
-   - Chọn policy phù hợp (ví dụ: `AmazonSSMManagedInstanceCore`)
-   - Hoàn tất tạo role
-
-#### 2. Tạo IAM Role cho ECS Task Execution
+#### 1. Tạo IAM Role cho ECS Task Execution
 
 Role này cho phép ECS thực hiện các tác vụ hệ thống như pull container images và ghi logs.
 
@@ -68,7 +53,7 @@ Kết quả sau khi tạo thành công:
 
 ![Role đã tạo](/images/2-prerequisites/1-iam-roles/image-4.png)
 
-#### 3. Tạo IAM Role cho ECS Task (Application Role)
+#### 2. Tạo IAM Role cho ECS Task (Application Role)
 
 Role này cho phép ứng dụng trong container truy cập các dịch vụ AWS và thực thi lệnh.
 

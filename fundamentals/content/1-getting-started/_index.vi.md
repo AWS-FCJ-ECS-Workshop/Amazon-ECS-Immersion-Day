@@ -33,7 +33,7 @@ Mã nguồn đầy đủ có sẵn trên [GitHub](https://github.com/aws-contain
 
 #### Đóng gói các khối lượng công việc container
 
-Trước khi triển khai khối lượng công việc lên Amazon ECS, chúng cần được đóng gói thành container /images/1-getting-started/image và đẩy lên container registry. Mặc dù workshop này không đề cập đến các khái niệm cơ bản về container, nhưng các container /images/1-getting-started/image được xây dựng sẵn cho ứng dụng mẫu đã có sẵn trong Amazon Elastic Container Registry (ECR) để sử dụng trong các bài thực hành.
+Trước khi triển khai khối lượng công việc lên Amazon ECS, chúng cần được đóng gói thành container image và đẩy lên container registry. Mặc dù workshop này không đề cập đến các khái niệm cơ bản về container, nhưng các container image được xây dựng sẵn cho ứng dụng mẫu đã có sẵn trong Amazon Elastic Container Registry (ECR) để sử dụng trong các bài thực hành.
 
 Dưới đây là bảng liệt kê các đường dẫn tới ECR repository và Dockerfile tương ứng:
 

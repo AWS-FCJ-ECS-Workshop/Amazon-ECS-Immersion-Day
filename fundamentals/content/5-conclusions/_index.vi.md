@@ -23,6 +23,7 @@ Trong phần Fundamentals đầu tiên của chuỗi workshop Amazon ECS, chúng
 3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability) - Giám sát và quan sát hệ thống
 4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security) - Bảo mật và kiểm soát truy cập
 5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation) - Tự động hóa quy trình triển khai
+6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Lưu trữ assets sử dụng EFS File System
 
 Mỗi phần workshop sẽ giúp bạn xây dựng kiến thức chuyên sâu về một khía cạnh cụ thể của Amazon ECS, từ đó có thể vận dụng hiệu quả vào các dự án thực tế.
 
@@ -35,4 +36,5 @@ Trần Đoàn Công Lý - https://www.linkedin.com/in/trandoancongly/
 ### References
 
 Getting Started - https://catalog.workshops.aws/ecs-immersion-day/en-US/20-introduction
+
 Fundamentals - https://catalog.workshops.aws/ecs-immersion-day/en-US/30-basic

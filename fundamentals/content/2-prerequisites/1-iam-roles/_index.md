@@ -15,24 +15,7 @@ For an IAM User to assume an IAM Role, the role itself needs to allow the user t
 An important characteristic of IAM Roles is that they don't have credentials, so you cannot directly log into AWS accounts using IAM Roles.
 
 ![IAM ROLE](/images/2-prerequisites/1-iam-roles/ECS-Lab-IAM-Role.png)
-
-<!-- TODO: split this section into 2.1. preparing development environment -->
 ---
-#### 1. Create IAM Role for EC2 Instance
-
-IAM Role allows EC2 instances to securely access AWS services like S3, CloudWatch Logs, and Systems Manager without fixed credentials.
-
-**Steps:**
-
-1. Access [IAM Dashboard](https://console.aws.amazon.com/iam/home)
-2. Select **Roles** > **Create Role**
-3. In the **Create Role** interface:
-   - **Trusted entity type**: Select `AWS Service`
-   - **Use case**: Select `EC2`
-   - Click **Next**
-   - Select appropriate policy (e.g., `AmazonSSMManagedInstanceCore`)
-   - Complete role creation
-
 #### 2. Create IAM Role for ECS Task Execution
 
 This role allows ECS to perform system tasks like pulling container images and writing logs.
@@ -67,7 +50,7 @@ Result after successful creation:
 
 ![Created Role](/images/2-prerequisites/1-iam-roles/image-4.png)
 
-#### 3. Create IAM Role for ECS Task (Application Role)
+#### 2. Create IAM Role for ECS Task (Application Role)
 
 This role allows applications in containers to access AWS services and execute commands.
 

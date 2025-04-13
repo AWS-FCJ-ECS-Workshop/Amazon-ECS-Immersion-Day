@@ -24,6 +24,7 @@ To continue your journey exploring Amazon ECS, we invite you to discover the fol
 3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - System monitoring and observation
 4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Security and access control
 5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Automate deployment processes
+6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Using EFS File System for storing assets
 
 Each workshop section will help you build in-depth knowledge about a specific aspect of Amazon ECS, enabling you to effectively apply it to real projects.
 
@@ -36,4 +37,5 @@ Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 ### References
 
 Getting Started - https://catalog.workshops.aws/ecs-immersion-day/en-US/20-introduction
+
 Fundamentals - https://catalog.workshops.aws/ecs-immersion-day/en-US/30-basic

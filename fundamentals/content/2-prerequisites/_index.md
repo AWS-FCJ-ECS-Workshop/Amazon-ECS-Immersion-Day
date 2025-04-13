@@ -18,7 +18,6 @@ Before deploying applications on Amazon ECS and AWS Fargate, we need to build a 
 
 In this workshop, you will create:
 
-- **EC2 Instance Role**: Grants EC2 access to services like CloudWatch or S3.
 - **ECS Task Execution Role**: Allows ECS to pull container images from Amazon ECR and write logs to CloudWatch.
 - **ECS Service Role**: Required when ECS integrates with services like Application Load Balancer for automatic task registration/deregistration.
 

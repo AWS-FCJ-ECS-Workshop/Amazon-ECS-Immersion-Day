@@ -36,8 +36,8 @@ Amazon ECS (Elastic Container Service) bao gồm 4 thành phần cốt lõi sau:
 #### Task Definition
 - Blueprint cho việc chạy containers trong ECS
 - Xác định:
-  - Container images
-  /images/3-fundamentals/- Yêu cầu về CPU và Memory
+  - Container images 
+  - Yêu cầu về CPU và Memory
   - Ports và volumes mapping
   - Cấu hình networking
   - IAM roles
