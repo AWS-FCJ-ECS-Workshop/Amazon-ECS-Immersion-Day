@@ -1,40 +1,60 @@
-+++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
-weight = 1
-chapter = false
-+++
+---
+title : "Tự động điều chỉnh quy mô với Amazon ECS"
+date :  "`r Sys.Date()`" 
+chapter : false
+---
 
-# Tạo tài khoản AWS đầu tiên
+# Tự động điều chỉnh quy mô với Amazon ECS
 
-#### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
-
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
-
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
+{{% notice info %}}
+**Yêu cầu tiên quyết**: Hoàn thành chương [Cơ bản](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) trước khi bắt đầu bài thực hành này.
 {{% /notice %}}
 
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
+Dựa trên việc thiết lập môi trường cơ bản và cụm ECS trước đó, bài thực hành này sẽ khám phá cách triển khai tự động điều chỉnh quy mô hiệu quả với Amazon Elastic Container Service (Amazon ECS).
 
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
+### Tìm hiểu về Tự động điều chỉnh quy mô trong Amazon ECS
 
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
+#### Phân bổ tài nguyên trong Fargate
 
+Trong Amazon ECS với Fargate, mỗi tác vụ chạy trong môi trường độc lập riêng. Khi tạo định nghĩa tác vụ, bạn phải chỉ định:
+- Đơn vị CPU
+- Phân bổ bộ nhớ
 
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
+Phân bổ tài nguyên hợp lý là yếu tố quan trọng để đạt hiệu suất tối ưu. Các tác vụ của bạn cần có đủ tài nguyên để:
+- Xử lý khối lượng công việc dự kiến
+- Duy trì mức hiệu suất mong muốn
+- Xử lý yêu cầu hiệu quả
 
+#### Tối ưu hóa kích thước tác vụ
 
-#### Nội dung chính
+Để xác định phân bổ tài nguyên phù hợp:
+1. Tiến hành đo lường hiệu suất
+2. Thực hiện kiểm tra tải toàn diện
+3. Giám sát các chỉ số hiệu suất chính
+4. Phân tích mô hình sử dụng tài nguyên
 
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+Nếu tác vụ gặp vấn đề về hiệu suất hoặc hạn chế tài nguyên, hãy điều chỉnh phân bổ CPU và bộ nhớ cho phù hợp.
+
+#### Mở rộng quy mô theo chiều ngang
+
+Sau khi tối ưu hóa tài nguyên cho từng tác vụ, triển khai mở rộng theo chiều ngang bằng cách thêm nhiều phiên bản tác vụ. Phương pháp này được khuyến nghị cho các ứng dụng container hóa cloud-native vì:
+- Cải thiện tính sẵn sàng
+- Tăng cường khả năng chịu lỗi
+- Phân phối tải hiệu quả
+
+#### Tự động điều chỉnh quy mô dịch vụ
+
+Amazon ECS cung cấp tính năng tự động điều chỉnh quy mô tác vụ thông qua Service Auto Scaling, sử dụng [Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
+
+Các yếu tố quan trọng cần xem xét để tự động điều chỉnh quy mô hiệu quả:
+- Sử dụng các chỉ số tỷ lệ
+- Đảm bảo các chỉ số tăng tuyến tính với tải
+- Cấu hình ngưỡng điều chỉnh quy mô phù hợp
+
+Ví dụ: Nếu tải của dịch vụ tăng gấp đôi trong khi duy trì cùng số lượng tác vụ, chỉ số được chọn cũng nên tăng gấp đôi.
+
+{{% notice note %}}
+Khi sử dụng Amazon ECS với các phiên bản EC2, hãy cân nhắc việc triển khai capacity providers để quản lý dung lượng phiên bản EC2. Bài thực hành này tập trung vào triển khai Fargate và không đề cập đến EC2 capacity providers.
+{{% /notice %}}
+
+{{< youtube YDbqnZ32NdM >}}
