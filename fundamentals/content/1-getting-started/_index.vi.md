@@ -67,7 +67,7 @@ Bạn có thể xem và tùy chỉnh ước tính này bằng [AWS Pricing Calcu
 
 | Tên dịch vụ                 | Mô tả                              | Chi phí hàng tháng (USD) | Chi phí 12 tháng (USD) |
 |----------------------------|------------------------------------|---------------------------|-------------------------|
-| **AWS Fargate**            | Thực thi task container            | $28.81                    | $345.72                 |
+| **AWS Fargate**            | Thực thi task container            | $1.80                    | $21.6                 |
 | **Application Load Balancer** | Phân phối lưu lượng đến ECS task | $33.00                    | $396.00                 |
 | **Data Transfer**          | Lưu lượng internet & giữa các dịch vụ | $0.00                  | $0.00                   |
 | **NAT Gateway**            | Cho phép truy cập internet đi ra   | $43.13                    | $517.56                 |

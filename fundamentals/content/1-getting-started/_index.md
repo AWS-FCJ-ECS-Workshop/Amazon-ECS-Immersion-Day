@@ -66,7 +66,7 @@ You can view and customize this estimate using the [AWS Pricing Calculator](http
 
 | Service Name | Description | Monthly Cost (USD) | 12 Month Cost (USD) |
 |----------------------------|------------------------------------|---------------------------|-------------------------|
-| **AWS Fargate** | Container task execution | $28.81 | $345.72 |
+| **AWS Fargate** | Container task execution | $1.80                    | $21.6                 |
 | **Application Load Balancer** | Traffic distribution to ECS tasks | $33.00 | $396.00 |
 | **Data Transfer** | Internet & inter-service traffic | $0.00 | $0.00 |
 | **NAT Gateway** | Enables outbound internet access | $43.13 | $517.56 |
