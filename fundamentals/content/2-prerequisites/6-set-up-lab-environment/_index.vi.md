@@ -32,6 +32,59 @@ Trong phần này, bạn sẽ thiết lập EC2 cùng với các tài nguyên m�
 
 4. Chọn **Launch instance**
 
+### Cấp quyền cho EC2 Instance
+
+Để cho phép EC2 instance thực thi các lệnh AWS CLI thay bạn, chúng ta cần phải gán một IAM Role cho EC2 Service. Trong bài lab này, chúng ta sẽ tạo một IAM Role (được EC2 assume) và gán Policy `AdministratorAccess` cho role này.
+
+{{% notice warning %}}
+Việc sử dụng `AdministratorAccess` Policy chỉ phù hợp cho môi trường phát triển (development). Khi triển khai hệ thống trong môi trường sản phẩm (Production), bạn nên tuân thủ nguyên tắc least privilege - chỉ cấp những quyền tối thiểu cần thiết cho Users và Services.
+{{% /notice %}}
+
+#### Các bước thực hiện:
+
+1. **Tạo IAM Role mới**
+   - Truy cập [IAM Roles Dashboard](https://console.aws.amazon.com/iam/home#/roles)
+   - Chọn **Create Role**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-5.png)
+
+2. **Thiết lập Trust Policy**
+   - Trong phần **Select trusted entity**:
+     - Chọn **AWS Services**
+     - Use case: **EC2**
+   - Chọn **Next**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-6.png)
+
+3. **Thêm Permissions**
+   - Tìm và chọn policy **AdministratorAccess**
+   - Chọn **Next**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-7.png)
+
+4. **Đặt tên và xem lại cấu hình**
+   - Nhập tên Role
+   - Kiểm tra lại các cấu hình
+   - Chọn **Create Role**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-8.png)
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-9.png)
+
+5. **Gán Role cho EC2 Instance**
+   - Truy cập [EC2 Instances Dashboard](https://console.aws.amazon.com/ec2#Instances)
+   - Chọn EC2 instance cần gán role
+   - Từ menu **Actions**, chọn **Security** > **Modify IAM Role**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-10.png)
+
+   - Trong giao diện **Modify IAM Role**:
+     - Chọn IAM Role `ecs-lab-admin-ec2`
+     - Chọn **Update IAM Role**
+
+![alt text](/images/2-prerequisites/6-set-up-lab-environment/image-11.png)
+
+Sau khi hoàn tất các bước trên, EC2 instance của bạn đã được cấp quyền và có thể thực thi các lệnh AWS CLI để tương tác với các dịch vụ AWS khác.
+
 ### Kết nối SSH vào EC2
 
 1. Sau khi tạo thành công, chọn EC2 instance và nhấn **Connect**
