@@ -1,44 +1,40 @@
 +++
-title = "Setting up an AWS account"
-date = 2021
+title = "Automation with Amazon ECS"
+date = 2024
 weight = 1
 chapter = false
 +++
 
-# Creating your first AWS account
+# Automation with Amazon ECS
 
-#### Overview
-In this first lab, you will be creating your new **AWS** account and use Multi-factor Authentication (**MFA**) to improve your account security. Next, you will create an **Administrator Group** and **Admin User** to manage access to resources in your account instead of using the root user. \
-Finally, we will step through account authentication with **AWS Support** in the event you experience authentication problems.
+In this chapter, we’ll explore how to automate the deployment of containerized applications to **Amazon ECS** using **AWS CodePipeline**. Automating this process simplifies application delivery, reduces manual intervention, and ensures faster, more reliable software releases.
 
-#### AWS Account
-**An AWS account** is the basic container for all the AWS resources you can create as an AWS customer. By default, each AWS account will have a _root user_. The _root user_ has full access within your AWS account, and root user permissions cannot be limited. When you first create your AWS account, you will be assessing it as the _root user_.
+### AWS CodePipeline with Amazon ECS
 
-{{% notice note%}}
-As a best practice, do not use the AWS account _root user_ for any task where it's not required. Instead, create a new IAM user for each person that requires administrator access. Thereafter, the users in the administrators user group should set up the user groups, users, and so on, for the AWS account. All future interaction should be through the AWS account's users and their own keys instead of the root user. However, to perform some account and service management tasks, you must log in using the root user credentials.
-{{% /notice%}}
+**AWS CodePipeline** is a fully managed Continuous Integration and Continuous Delivery (CI/CD) service that automates your software release process. Every time a change is made to your source code, CodePipeline can automatically build, test, and deploy your application based on the release workflow you define.
 
-#### Multi-Factor Authentication (MFA)
-**MFA** adds extra security because it requires users to provide unique authentication from an AWS supported MFA mechanism in addition to their regular sign-in credentials when they access AWS websites or services.
+![AWS-CodePipeline](/images/1/AWS-Code-Pipeline.png?width=90pc)
 
-#### IAM User Group 
-An **IAM user group** is a collection of IAM users. User groups let you specify permissions for multiple users, which can make it easier to manage the permissions for those users. Any user in that user group automatically has the permissions that are assigned to the user group. 
+When integrated with **Amazon Elastic Container Service (ECS)** — a fully managed container orchestration service — CodePipeline allows you to automate the deployment of containerized applications into ECS tasks and services. This automation ensures that updates to your application are seamlessly and consistently reflected in your production environment.
 
-#### IAM User
-An **IAM user** is an entity that you create in AWS to represent the person or application that uses it to interact with AWS. A user in AWS consists of a name and credentials. \
-Please note that an IAM user with administrator permissions is not the same thing as the AWS account root user.
+### Overview of the ECS Deployment Workflow
 
+A typical deployment pipeline for containerized applications into ECS using CodePipeline involves four main stages:
 
-#### AWS Support
-AWS Basic Support offers all AWS customers access to our Resource Center, Service Health Dashboard, Product FAQs, Discussion Forums, and Support for Health Checks – at no additional charge. Customers who desire a deeper level of support can subscribe to AWS Support at the Developer, Business, or Enterprise level.
+1. **Source Stage:** In this stage, CodePipeline pulls the latest code from your source repository, such as **GitHub**, **AWS CodeCommit**, or **Bitbucket**. The pipeline is triggered automatically upon every commit or code push, ensuring that every change enters the deployment flow.
 
-Customers who choose AWS Support gain one-on-one, fast-response support from AWS engineers. The service helps customers use AWS's products and features. With pay-by-the-month pricing and unlimited support cases, customers are freed from long-term commitments. Customers with operational issues or technical questions can contact a team of support engineers and receive predictable response times and personalized support.
+2. **Build Stage:** Here, the application code is compiled and Docker images are built using services like **AWS CodeBuild**. During this stage, you can also include unit tests or static code analysis tools to maintain code quality and catch errors early.
 
+3. **Registry Push:** Once the Docker image is successfully built, it is pushed to a container registry such as **Amazon Elastic Container Registry (ECR)**. At this point, optional security scanning can be performed to detect vulnerabilities or potential threats, ensuring the image is safe for deployment.
 
-#### Main Content
+4. **Deploy Stage:** In the final stage, the ECS service is updated with the new Docker image from ECR. This involves updating the ECS **task definition** to use the latest image version and instructing the ECS service to launch new tasks based on this updated definition. For more advanced deployment strategies, you can integrate **AWS CodeDeploy** to enable **blue/green deployments**, minimizing downtime and supporting automatic rollbacks if something goes wrong.
 
-1. [Creating a new AWS Account](1-create-new-aws-account/)
-2. [Setting up MFA for the AWS Account root user](2-MFA-Setup-For-AWS-User-(root))
-3. [Creating an Administrator Accounts and Groups](3-create-admin-user-and-group/)
-4. [Getting support for Account Authentication](4-verify-new-account/)
-<!-- need to remove parenthesis for path in Hugo 0.88.1 for Windows-->
+#### Key Benefits of Using CodePipeline with ECS
+
+1. **Faster releases:** Automate every step to reduce the time from code commit to deployment.
+
+2. **Fewer errors:** Automation minimizes manual steps, reducing the risk of human mistakes.
+
+3. **Increased visibility and control:** Monitor and customize each stage of your deployment workflow.
+
+4. **Improved security and reliability:** Incorporate testing, image scanning, and advanced deployment strategies like blue/green or canary deployments.
