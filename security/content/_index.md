@@ -7,7 +7,7 @@ chapter : false
 # Security
 
 {{% notice info %}}
-Prerequisites: Complete the [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) and [ECS Service Connect](/Amazon-ECS-Immersion-Day/networking/) chapters before starting this lab.
+Prerequisites: Complete the [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) and [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) chapters before starting this lab.
 {{% /notice %}}
 
 Amazon ECS Fargate provides serverless container orchestration that eliminates infrastructure management overhead. This workshop guides you through implementing comprehensive security controls for your containerized applications on ECS Fargate, covering critical aspects such as:

@@ -7,7 +7,7 @@ pre: "<b> 4. </b>"
 ---
 
 {{% notice info %}}
-Hoàn thành chương [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) trước khi tiếp tục với bài thực hành này.
+Hoàn thành chương [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) trước khi tiếp tục với bài thực hành này.
 {{% /notice %}}
 
 [Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html) là dịch vụ giám sát bảo mật liên tục phân tích và xử lý các nguồn dữ liệu để xác định các mối đe dọa đối với tài khoản và khối lượng công việc AWS của bạn. Nó cung cấp khả năng giám sát thời gian chạy được thiết kế đặc biệt cho các ECS cluster và container, phát hiện các mối đe dọa bảo mật tiềm ẩn và các hoạt động trái phép.

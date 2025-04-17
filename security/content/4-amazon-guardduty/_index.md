@@ -7,7 +7,7 @@ pre: "<b> 4. </b>"
 ---
 
 {{% notice info %}}
-Complete the [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) chapter before proceeding with this lab.
+Complete the [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) chapter before proceeding with this lab.
 {{% /notice %}}
 
 [Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html) is a continuous security monitoring service that analyzes and processes data sources to identify threats to your AWS accounts and workloads. It provides runtime monitoring capabilities specifically designed for ECS clusters and containers, detecting potential security threats and unauthorized activities.

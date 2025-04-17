@@ -7,7 +7,7 @@ chapter : false
 # Security
 
 {{% notice info %}}
-Điều kiện tiên quyết: Hoàn thành các chương [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) và [ECS Service Connect](/Amazon-ECS-Immersion-Day/networking/) trước khi bắt đầu bài thực hành này.
+Điều kiện tiên quyết: Hoàn thành các chương [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) và [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) trước khi bắt đầu bài thực hành này.
 {{% /notice %}}
 
 Amazon ECS Fargate cung cấp khả năng điều phối container serverless giúp loại bỏ gánh nặng quản lý cơ sở hạ tầng. Workshop này hướng dẫn bạn triển khai các biện pháp kiểm soát bảo mật toàn diện cho ứng dụng container của bạn trên ECS Fargate, bao gồm các khía cạnh quan trọng như:
