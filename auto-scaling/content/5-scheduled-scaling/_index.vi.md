@@ -9,7 +9,7 @@ pre: "<b> 5. </b>"
 {{% notice info %}}
 Quan trọng
 Bạn phải hoàn thành các chương sau như điều kiện tiên quyết cho bài lab này:
-[Target Tracking Scaling](/target-tracking-scaling)
+[Target Tracking Scaling](/3-target-tracking-scaling)
 {{% /notice %}}
 
 Phần này hướng dẫn cách cấu hình Amazon ECS Service Auto Scaling sử dụng các chính sách scaling theo lịch trình. Scheduled scaling cho phép bạn tự động điều chỉnh năng lực service dựa trên các mẫu tải có thể dự đoán được bằng các quy tắc dựa trên thời gian. Chúng ta sẽ cấu hình service UI để scale out và in sử dụng biểu thức cron.

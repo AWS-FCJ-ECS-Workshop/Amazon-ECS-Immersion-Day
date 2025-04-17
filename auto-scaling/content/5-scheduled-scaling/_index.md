@@ -9,7 +9,7 @@ pre: "<b> 5. </b>"
 {{% notice info %}}
 Important
 You must have completed the following chapters as pre-requisites for this lab:
-[Target Tracking Scaling](/target-tracking-scaling)
+[Target Tracking Scaling](/3-target-tracking-scaling)
 {{% /notice %}}
 
 This section demonstrates how to configure Amazon ECS Service Auto Scaling using scheduled scaling policies. Scheduled scaling allows you to automatically adjust your service capacity based on predictable load patterns using time-based rules. We will configure the UI service to scale out and in using cron expressions.
