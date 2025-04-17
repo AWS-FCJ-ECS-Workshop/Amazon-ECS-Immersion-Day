@@ -1,48 +1,113 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Cập nhật dịch vụ UI"
+date: "`r Sys.Date()`"
+weight: 3
+chapter: false
+pre: "<b> 3.3. </b>"
+---
 
+Phần này đề cập đến việc cập nhật dịch vụ `UI` để tích hợp với dịch vụ `Carts`. Việc tích hợp cho phép ứng dụng Retail Store Sample lưu trữ các mặt hàng trong giỏ hàng của khách hàng trong [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) thông qua dịch vụ `Carts`.
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+Để kết nối dịch vụ `UI` với dịch vụ `Carts`, thêm biến môi trường sau vào task definition của UI:
 
-#### Tạo tài khoản AWS
+```json
+    "environment": [
+        {
+            "name": "ENDPOINTS_CARTS",
+            "value": "http://carts"
+        }
+    ]
+```
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+Cập nhật **UI task definition** bằng cách thực thi các lệnh sau:
 
-#### Thêm phương thức thanh toán
+```bash
+    cat << EOF > retail-store-ecs-ui-updatedforcart-taskdef.json
+    {
+        "family": "retail-store-ecs-ui",
+        "executionRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskExecutionRole",
+        "taskRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskRole",
+        "networkMode": "awsvpc",
+        "requiresCompatibilities": [
+            "FARGATE"
+        ],
+        "cpu": "1024",
+        "memory": "2048",
+        "runtimePlatform": {
+            "cpuArchitecture": "X86_64",
+            "operatingSystemFamily": "LINUX"
+        },
+        "containerDefinitions": [
+            {
+                "name": "application",
+                "image": "public.ecr.aws/aws-containers/retail-store-sample-ui:0.7.0",
+                "portMappings": [
+                    {
+                        "name": "application",
+                        "containerPort": 8080,
+                        "hostPort": 8080,
+                        "protocol": "tcp",
+                        "appProtocol": "http"
+                    }
+                ],
+                "essential": true,
+                "linuxParameters": {
+                    "initProcessEnabled": true
+                },
+                "environment": [
+                    {
+                        "name": "ENDPOINTS_CATALOG",
+                        "value": "http://catalog"
+                    },
+                    {
+                        "name": "ENDPOINTS_ASSETS",
+                        "value": "http://assets"
+                    },
+                    {
+                         "name": "ENDPOINTS_CARTS",
+                         "value": "http://carts"
+                    }
+                ],
+                "healthCheck": {
+                    "command": [
+                        "CMD-SHELL",
+                        "curl -f http://localhost:8080/actuator/health || exit 1"
+                    ],
+                    "interval": 10,
+                    "timeout": 5,
+                    "retries": 3,
+                    "startPeriod": 60
+                },
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "retail-store-ecs-tasks",
+                        "awslogs-region": "$AWS_REGION",
+                        "awslogs-stream-prefix": "ui-service"
+                    }
+                }
+            }
+        ]
+    }
+    EOF
+    
+    aws ecs register-task-definition --cli-input-json file://retail-store-ecs-ui-updatedforcart-taskdef.json
+```
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+Cập nhật dịch vụ ECS với task definition mới nhất (quá trình này mất khoảng 6 phút):
 
-#### Xác thực số điện thoại của bạn
+```bash
+    aws ecs update-service \
+        --cluster retail-store-ecs-cluster \
+        --service ui \
+        --task-definition retail-store-ecs-ui
+    
+    echo "Waiting for service to stabilize..."
+    
+    aws ecs wait services-stable --cluster retail-store-ecs-cluster --services ui
+```
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+![Triển khai thành công](/images/3-iam-roles/3.3-update-ui-service/image.png)
+*Hình 1. Xác nhận triển khai thành công*
 
-#### Chọn Support Plan
-
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
-
-#### Đợi account của bạn được kích hoạt
-
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Sau khi triển khai hoàn tất thành công, hãy chuyển sang phần tiếp theo để xác minh việc tích hợp dịch vụ `Cart` với Amazon DynamoDB.

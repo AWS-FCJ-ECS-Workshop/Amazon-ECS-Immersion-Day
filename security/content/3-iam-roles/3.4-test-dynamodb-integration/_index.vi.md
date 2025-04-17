@@ -1,48 +1,76 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Kiểm tra tích hợp DynamoDB"
+date: "`r Sys.Date()`"
+weight: 4
+chapter: false
+pre: "<b> 3.4. </b>"
+---
 
+Phần này hướng dẫn cách xác minh rằng service `Carts` lưu trữ chính xác các mặt hàng mua sắm trong [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+Đầu tiên, kiểm tra nội dung hiện tại của bảng DynamoDB. Nếu bạn chưa thêm bất kỳ mặt hàng nào vào giỏ hàng sau khi triển khai service `Carts`, bảng sẽ trống:
 
-#### Tạo tài khoản AWS
+```bash
+aws dynamodb scan --table-name retail-store-ecs-carts
+```
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+Kết quả mong đợi cho bảng trống:
 
-#### Thêm phương thức thanh toán
+```json
+{
+    "Items": [],
+    "Count": 0,
+    "ScannedCount": 0,
+    "ConsumedCapacity": null
+}
+```
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+Tiếp theo, truy cập ứng dụng cửa hàng bán lẻ để thêm mặt hàng vào giỏ hàng. Lấy URL ứng dụng bằng cách:
 
-#### Xác thực số điện thoại của bạn
+```bash
+export RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
+    --query 'LoadBalancers[0].DNSName' --output text)
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+echo http://${RETAIL_ALB} ; echo
+```
 
-#### Chọn Support Plan
+![Thêm mặt hàng vào Giỏ hàng](/images/3-iam-roles/3.4-test-dynamodb-integration/image.png)
+*Hình 1. Thêm mặt hàng vào Giỏ hàng*
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Sau khi thêm mặt hàng vào giỏ hàng, xác minh rằng chúng được lưu trữ trong DynamoDB bằng cách chạy lại lệnh scan bảng:
 
-#### Đợi account của bạn được kích hoạt
+```bash
+aws dynamodb scan --table-name retail-store-ecs-carts
+```
 
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Lệnh scan bây giờ sẽ hiển thị các mặt hàng được lưu trữ trong bảng DynamoDB:
+
+```json
+{
+    "Items": [
+        {
+            "quantity": {
+                "N": "1"
+            },
+            "unitPrice": {
+                "N": "5100"
+            },
+            "itemId": {
+                "S": "808a2de1-1aaa-4c25-a9b9-6612e8f29a38"
+            },
+            "id": {
+                "S": "2b81546e-5dc8-47e6-be81-eca8dd704af9:808a2de1-1aaa-4c25-a9b9-6612e8f29a38"
+            },
+            "customerId": {
+                "S": "2b81546e-5dc8-47e6-be81-eca8dd704af9"
+            }
+        },
+        ...
+    ],
+    "Count": 3,
+    "ScannedCount": 3,
+    "ConsumedCapacity": null
+}
+```
+
+Bây giờ bạn đã xác minh rằng tích hợp DynamoDB với service `Carts` đang hoạt động chính xác.

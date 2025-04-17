@@ -1,48 +1,76 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Kiểm tra thiết lập GuardDuty"
+date: "`r Sys.Date()`"
+weight: 1
+chapter: false
+pre: "<b> 4.1. </b>"
+---
 
+Amazon GuardDuty tạo một detector trong mỗi AWS Region để giám sát và xác định các mối đe dọa bảo mật tiềm ẩn trong tài khoản AWS của bạn. Detector đại diện cho dịch vụ GuardDuty và các cài đặt cấu hình của nó.
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+Trong workshop này, giám sát runtime của Amazon GuardDuty cho Amazon ECS đã được kích hoạt sẵn trong tài khoản của bạn. Xác minh trạng thái cấu hình bằng cách chạy lệnh sau để kiểm tra các tính năng của detector của bạn (được xác định bởi `$GUARDDUTY_DETECTOR_ID`):
 
-#### Tạo tài khoản AWS
+```bash
+aws guardduty get-detector --detector-id $GUARDDUTY_DETECTOR_ID | grep -i '"RUNTIME_MONITORING' -B 1 -A 20
+```
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+Kết quả lệnh xác nhận rằng `RUNTIME_MONITORING` đã được kích hoạt với `ECS_FARGATE_AGENT_MANAGEMENT` được cấu hình:
 
-#### Thêm phương thức thanh toán
+```json
+{
+    "Name": "RUNTIME_MONITORING",
+    "Status": "ENABLED",
+    "UpdatedAt": "2024-09-08T16:07:24+00:00",
+    "AdditionalConfiguration": [
+        {
+            "Name": "EKS_ADDON_MANAGEMENT",
+            "Status": "DISABLED",
+            "UpdatedAt": "2024-09-08T14:36:17+00:00"
+        },
+        {
+            "Name": "ECS_FARGATE_AGENT_MANAGEMENT",
+            "Status": "ENABLED",
+            "UpdatedAt": "2024-09-08T16:07:24+00:00"
+        },
+        {
+            "Name": "EC2_AGENT_MANAGEMENT",
+            "Status": "DISABLED",
+            "UpdatedAt": "2024-09-08T14:36:17+00:00"
+        }
+    ]
+}
+```
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+---
+{{% expand "Mở rộng nếu Amazon GuardDuty chưa được kích hoạt" %}}
 
-#### Xác thực số điện thoại của bạn
+Thực hiện các bước sau để kích hoạt Amazon GuardDuty nếu nó chưa được kích hoạt:
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+*⚠️ Lưu ý: Lệnh này sẽ trả về lỗi nếu detector GuardDuty đã tồn tại*
 
-#### Chọn Support Plan
+```bash
+aws guardduty create-detector --enable
+```
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Lưu ID detector vào một biến môi trường:
 
-#### Đợi account của bạn được kích hoạt
+```bash
+DETECTOR_ID=$(aws guardduty list-detectors | jq -r '.DetectorIds[]')
+echo $DETECTOR_ID
+```
 
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Kích hoạt giám sát runtime ECS cho detector:
+
+```bash
+aws guardduty update-detector \
+    --detector-id $DETECTOR_ID \
+    --features Name=RUNTIME_MONITORING,Status=ENABLED,AdditionalConfiguration="[{Name=ECS_FARGATE_AGENT_MANAGEMENT,Status=ENABLED}]"
+```
+
+Xác nhận giám sát runtime ECS đã được kích hoạt:
+
+```bash
+aws guardduty get-detector --detector-id $DETECTOR_ID | grep -i '"RUNTIME_MONITORING' -B 1 -A 20
+```
+
+{{% /expand %}}

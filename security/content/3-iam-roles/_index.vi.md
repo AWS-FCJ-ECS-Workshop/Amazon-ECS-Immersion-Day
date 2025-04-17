@@ -10,29 +10,35 @@ pre: "<b> 3. </b>"
 Điều kiện tiên quyết: Hoàn thành các bài thực hành sau trước khi tiếp tục: [Fundamentals](/ecs-immersion-day/en-US/30-basic), [ECS Service Connect](/ecs-immersion-day/en-US/60-networking/ecs-service-connect)
 {{% /notice %}}
 
-### Tìm hiểu về IAM Roles trong Amazon ECS
+#### Tìm hiểu về IAM Roles trong Amazon ECS
 
-Các task Amazon ECS có thể được gán IAM roles để cấp quyền cụ thể cho các container chạy trong task đó. Các role này cho phép tương tác an toàn giữa ứng dụng container của bạn và các dịch vụ AWS khác.
+![IAM-Role](/images/3-iam-roles/ECS-Lab-Networking-IAM-Role.png)
+*Hình 1. Sơ đồ IAM Roles*
+
+Amazon ECS sử dụng hai IAM role riêng biệt để quản lý quyền cho các ứng dụng container: Task Execution Role và Task IAM Role. Mỗi role phục vụ một mục đích cụ thể trong việc bảo mật khối lượng công việc container và tương tác của chúng với các dịch vụ AWS.
 
 #### Task Execution Role
 
-Task execution role cho phép Amazon ECS container agent thực hiện các hành động thay mặt bạn:
+Task Execution Role cấp quyền cho Amazon ECS container agent thực hiện các hoạt động quản lý container thiết yếu:
 
-- Kéo container images từ Amazon ECR
-- Ghi container logs vào Amazon CloudWatch Logs
-- Lấy thông tin nhạy cảm từ AWS Secrets Manager (ví dụ: image pull secrets)
+- Pull container image từ Amazon Elastic Container Registry (ECR)
+- Xuất bản container logs tới Amazon CloudWatch Logs
+- Truy xuất dữ liệu nhạy cảm từ AWS Secrets Manager hoặc AWS Systems Manager Parameter Store
+
+Nếu không có Task Execution Role được cấu hình đúng cách, ECS agent không thể thực hiện các hoạt động cơ bản này, có thể ngăn container của bạn khởi động thành công.
 
 #### Task IAM Role
 
-Task IAM roles cung cấp quyền trực tiếp cho mã ứng dụng của bạn chạy trong container:
+Task IAM Role cung cấp quyền trực tiếp cho mã ứng dụng chạy trong container:
 
-- Tuân theo nguyên tắc đặc quyền tối thiểu
-- Cho phép kiểm soát truy cập chi tiết đến các dịch vụ AWS
-- Cung cấp sự tách biệt với EC2 instance roles
+- Kiểm soát quyền truy cập vào các dịch vụ và tài nguyên AWS mà ứng dụng của bạn cần
+- Thực hiện nguyên tắc đặc quyền tối thiểu bằng cách giới hạn quyền chỉ ở mức cần thiết
+- Duy trì cách ly bảo mật giữa các task khác nhau và các EC2 instance cơ bản
+- Cho phép kiểm soát truy cập chi tiết thông qua IAM policies
 
 #### Trust Policy Bắt buộc
 
-Khi tạo task IAM roles, triển khai trust policy sau để đảm bảo việc đảm nhận role phù hợp:
+Để cho phép ECS tasks đảm nhận IAM role được chỉ định, hãy triển khai trust policy này:
 
 ```json
 {
@@ -50,9 +56,9 @@ Khi tạo task IAM roles, triển khai trust policy sau để đảm bảo việ
 }
 ```
 
-Trust policy này đảm bảo:
-- Tasks có thể đảm nhận IAM roles được chỉ định
-- Tách biệt role giữa tasks và EC2 instances
-- Ranh giới bảo mật phù hợp
+Cấu hình trust policy này:
+- Thiết lập mối quan hệ tin cậy cần thiết giữa ECS tasks và IAM roles
+- Đảm bảo ranh giới bảo mật phù hợp giữa các thành phần khác nhau
+- Cho phép đảm nhận role an toàn bởi ECS task runtime
 
-Để biết thêm hướng dẫn về bảo mật, tham khảo tài liệu [ECS Security Best Practices](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security.html).
+Xem tài liệu [ECS Security Best Practices](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security.html) để được hướng dẫn bảo mật toàn diện.

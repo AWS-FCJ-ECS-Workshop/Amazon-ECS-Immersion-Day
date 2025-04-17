@@ -6,14 +6,14 @@ chapter: false
 pre: "<b> 3.1. </b>"
 ---
 
-In this section, we will implement the `Carts` microservice. This service provides a dedicated API for managing user shopping carts, with data persistence handled by [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
+This section guides you through implementing the `Carts` microservice, which provides an API for managing user shopping carts. The service uses [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) for data persistence.
 
 ![Create cart service](/images/3-iam-roles/3.1-create-cart-service/ECS-Lab-Networking-cart-service.png)
-*Figure 1. Create cart service*
+*Figure 1: Cart Service Architecture*
 
 #### Create the ECS Task Definition
 
-First, create the ECS task definition for the Carts service:
+Create an ECS task definition for the Carts service by executing the following commands:
 
 ```bash
 cat << EOF > retail-store-ecs-carts-taskdef.json
@@ -81,11 +81,11 @@ EOF
 aws ecs register-task-definition --cli-input-json file://retail-store-ecs-carts-taskdef.json
 ```
 
-The task definition includes a `taskRoleArn` parameter that references an existing IAM role. We will examine this role's permissions later.
+Note: The task definition references an existing IAM role through the `taskRoleArn` parameter. We will examine the required permissions later.
 
 #### Deploy the Carts Service
 
-Create the ECS service using the following command:
+Deploy the ECS service using this command:
 
 ```bash
 aws ecs create-service \
@@ -115,22 +115,21 @@ aws ecs create-service \
 
 #### Monitor and Troubleshoot Deployment
 
-1. Navigate to the [ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/carts/tasks) to monitor the deployment.
+1. Access the [ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/carts/tasks) to monitor deployment progress.
 
-2. If the deployment status remains **In progress**, filter for **Stopped** tasks to investigate failures.
+2. For deployments stuck in **In progress** status, check **Stopped** tasks to identify issues.
 
 ![Failed tasks console](/images/3-iam-roles/3.1-create-cart-service/image.png)
 
-3. Review the container logs in the **Logs** tab:
+3. Examine container logs in the **Logs** tab:
 
 ![Logs from failed task](/images/3-iam-roles/3.1-create-cart-service/image-1.png)
 
-You may encounter an error message similar to:
-
+Common error message:
 ```bash
 User: arn:aws:sts::XXXXXXXXXXXX:assumed-role/retailStoreEcsTaskRole/172891fb75674ba998f05e9fe855fc74
 is not authorized to perform: dynamodb:Query on resource: arn:aws:dynamodb:us-west-2:XXXXXXXXXXXX:table/retail-store-ecs-carts/index/idx_global_customerId
 because no identity-based policy allows the dynamodb:Query action
 ```
 
-This error indicates insufficient IAM permissions for accessing the DynamoDB table. Review the current permissions in the [IAM console](https://console.aws.amazon.com/iam/home#/roles/details/retailStoreEcsTaskRole?section=permissions).
+This error indicates missing DynamoDB permissions. Verify the current permissions in the [IAM console](https://console.aws.amazon.com/iam/home#/roles/details/retailStoreEcsTaskRole?section=permissions).

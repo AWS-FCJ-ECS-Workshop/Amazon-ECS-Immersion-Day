@@ -1,16 +1,19 @@
 ---
-title: "Create Cart Service"
+title: "Tạo Cart Service"
 date: "`r Sys.Date()`"
 weight: 1
 chapter: false
 pre: "<b> 3.1. </b>"
 ---
 
-Trong phần này, chúng ta sẽ triển khai microservice `Carts`. Service này cung cấp API chuyên dụng để quản lý giỏ hàng của người dùng, với việc lưu trữ dữ liệu được xử lý bởi [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
+Phần này hướng dẫn bạn triển khai microservice `Carts`, cung cấp API để quản lý giỏ hàng của người dùng. Service này sử dụng [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) để lưu trữ dữ liệu.
 
-## Tạo ECS Task Definition
+![Create cart service](/images/3-iam-roles/3.1-create-cart-service/ECS-Lab-Networking-cart-service.png)
+*Hình 1: Kiến trúc Cart Service*
 
-Đầu tiên, tạo ECS task definition cho service Carts:
+#### Tạo ECS Task Definition
+
+Tạo ECS task definition cho service Carts bằng cách chạy các lệnh sau:
 
 ```bash
 cat << EOF > retail-store-ecs-carts-taskdef.json
@@ -34,7 +37,7 @@ cat << EOF > retail-store-ecs-carts-taskdef.json
          "image": "public.ecr.aws/aws-containers/retail-store-sample-cart:0.8.0",
          "portMappings": [
             {
-               "name": "application", 
+               "name": "application",
                "containerPort": 8080,
                "hostPort": 8080,
                "protocol": "tcp",
@@ -78,11 +81,11 @@ EOF
 aws ecs register-task-definition --cli-input-json file://retail-store-ecs-carts-taskdef.json
 ```
 
-Task definition bao gồm tham số `taskRoleArn` tham chiếu đến một IAM role hiện có. Chúng ta sẽ xem xét quyền của role này sau.
+Lưu ý: Task definition tham chiếu đến một IAM role đã tồn tại thông qua tham số `taskRoleArn`. Chúng ta sẽ xem xét các quyền cần thiết sau.
 
-## Triển khai Carts Service
+#### Triển khai Carts Service
 
-Tạo ECS service bằng lệnh sau:
+Triển khai ECS service bằng lệnh sau:
 
 ```bash
 aws ecs create-service \
@@ -110,24 +113,23 @@ aws ecs create-service \
   }'
 ```
 
-## Giám sát và Xử lý sự cố Triển khai
+#### Giám sát và Xử lý sự cố Triển khai
 
-1. Truy cập vào [ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/carts/tasks) để theo dõi việc triển khai.
+1. Truy cập [ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/carts/tasks) để theo dõi tiến trình triển khai.
 
-2. Nếu trạng thái triển khai vẫn là **In progress**, lọc các task **Stopped** để điều tra lỗi.
+2. Đối với các triển khai bị kẹt ở trạng thái **In progress**, kiểm tra các task **Stopped** để xác định vấn đề.
 
-![Failed tasks console](image.png)
+![Failed tasks console](/images/3-iam-roles/3.1-create-cart-service/image.png)
 
-3. Xem logs container trong tab **Logs**:
+3. Kiểm tra logs container trong tab **Logs**:
 
-![Logs from failed task](image-1.png)
+![Logs from failed task](/images/3-iam-roles/3.1-create-cart-service/image-1.png)
 
-Bạn có thể gặp thông báo lỗi tương tự:
-
+Thông báo lỗi phổ biến:
 ```bash
 User: arn:aws:sts::XXXXXXXXXXXX:assumed-role/retailStoreEcsTaskRole/172891fb75674ba998f05e9fe855fc74
 is not authorized to perform: dynamodb:Query on resource: arn:aws:dynamodb:us-west-2:XXXXXXXXXXXX:table/retail-store-ecs-carts/index/idx_global_customerId
 because no identity-based policy allows the dynamodb:Query action
 ```
 
-Lỗi này cho thấy không đủ quyền IAM để truy cập bảng DynamoDB. Kiểm tra quyền hiện tại trong [IAM console](https://console.aws.amazon.com/iam/home#/roles/details/retailStoreEcsTaskRole?section=permissions).
+Lỗi này cho thấy thiếu quyền DynamoDB. Kiểm tra các quyền hiện tại trong [IAM console](https://console.aws.amazon.com/iam/home#/roles/details/retailStoreEcsTaskRole?section=permissions).

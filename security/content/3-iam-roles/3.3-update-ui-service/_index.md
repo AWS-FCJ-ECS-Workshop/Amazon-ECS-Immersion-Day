@@ -6,9 +6,9 @@ chapter: false
 pre: "<b> 3.3. </b>"
 ---
 
-In this section, we will update the `UI` service to integrate with the new `Carts` service. This integration will enable the Retail Store Sample application to store users' shopped items in the [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)  database by leveraging the `Carts` service.
+This section covers updating the `UI` service to integrate with the `Carts` service. The integration enables the Retail Store Sample application to store customer shopping cart items in [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) through the `Carts` service.
 
-To link the `UI` service with the `Carts` service, we need to add the following environment variable to the UI task definition:
+To connect the `UI` service with the `Carts` service, add the following environment variable to the UI task definition:
 
 ```json
     "environment": [
@@ -19,7 +19,7 @@ To link the `UI` service with the `Carts` service, we need to add the following 
     ]
 ```
 
-Let's update the **UI task definition** with the new environment variable:
+Update the **UI task definition** by executing these commands:
 
 ```bash
     cat << EOF > retail-store-ecs-ui-updatedforcart-taskdef.json
@@ -93,9 +93,8 @@ Let's update the **UI task definition** with the new environment variable:
     
     aws ecs register-task-definition --cli-input-json file://retail-store-ecs-ui-updatedforcart-taskdef.json
 ```
-    
 
-Now, let's update the ECS service to use the latest task definition revision (**~ 6 min**):
+Update the ECS service with the latest task definition (this process takes approximately 6 minutes):
 
 ```bash
     aws ecs update-service \
@@ -109,7 +108,6 @@ Now, let's update the ECS service to use the latest task definition revision (**
 ```
 
 ![Deployment successfully](/images/3-iam-roles/3.3-update-ui-service/image.png)
-*Figure 1. Deployment successfully*
+*Figure 1. Successful deployment confirmation*
 
-
-Once the deployment is complete, proceed to the next section to test the `Cart` service integration with Amazon DynamoDB.
+After the deployment completes successfully, proceed to the next section to verify the `Cart` service integration with Amazon DynamoDB.

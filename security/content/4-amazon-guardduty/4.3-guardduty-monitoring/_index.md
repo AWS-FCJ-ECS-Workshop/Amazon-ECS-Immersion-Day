@@ -6,24 +6,30 @@ chapter: false
 pre: "<b> 4.3. </b>"
 ---
 
-When you enable Runtime Monitoring, GuardDuty becomes prepared to consume runtime events from tasks. These tasks run within Amazon ECS clusters, which in turn operate on AWS Fargate (Fargate) instances. For GuardDuty to receive these runtime events, it utilizes a fully-managed, dedicated security agent.
+GuardDuty Runtime Monitoring enables security monitoring of tasks running within Amazon ECS clusters on AWS Fargate through a fully-managed security agent. When enabled, GuardDuty automatically deploys this security agent to monitor new Fargate tasks in your ECS clusters.
 
-Once enabled, GuardDuty will begin deploying the security agent to new Fargate tasks launched in your Amazon ECS clusters. [Learn more about how Runtime Monitoring works](https://docs.aws.amazon.com/guardduty/latest/ug/how-runtime-monitoring-works-ecs-fargate.html) 
+#### Security Agent Deployment Through Sidecar Containers
 
-
-#### GuardDuty adds a sidecar container
-
-For each new Fargate task or service that starts running, GuardDuty attaches a container (sidecar) to every container within the Amazon ECS Fargate task. The GuardDuty security agent operates within this attached GuardDuty container. This approach enables GuardDuty to collect runtime events from each container running within these tasks. [Find out more about what happens after configuration](https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring-after-configuration.html) 
+For each new Fargate task or service, GuardDuty automatically attaches a sidecar container to every container within the ECS Fargate task. The GuardDuty security agent runs within this sidecar container, collecting runtime events from all containers within these tasks.
 
 {{% notice note %}}
-Note that Fargate tasks are immutable by default. GuardDuty will not deploy the sidecar to tasks that are already in a running state.
+Runtime Monitoring only applies to new Fargate tasks. Existing running tasks will not receive the GuardDuty sidecar container due to the immutable nature of Fargate tasks.
 {{% /notice %}}
 
-To examine the GuardDuty agent, navigate to the Amazon ECS console and inspect one of the running tasks of the `ui` service. Scroll down to the containers section, where you'll observe the `aws-guardduty-agent` running alongside the `application` container.
+To verify the GuardDuty agent deployment:
 
-[Open Amazon ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/ui/tasks)
+1. Navigate to the Amazon ECS console
+2. Select the `ui` service tasks
+3. Locate the containers section
+4. Verify the presence of `aws-guardduty-agent` running alongside the `application` container
+
+[Access Amazon ECS Console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/ui/tasks)
 
 ![Guardduty ECS SideCard Container](/images/4-amazon-guardduty/4.3-guardduty-monitoring/image.png)
 *Figure 1. Guardduty ECS SideCard Container*
 
-In the upcoming section, we will deploy a malicious ECS task that performs an unauthorized activity to demonstrate GuardDuty's detection capabilities.
+The next section demonstrates GuardDuty's detection capabilities by deploying a test ECS task that simulates unauthorized activity.
+
+Additional Resources:
+- [Runtime Monitoring Documentation](https://docs.aws.amazon.com/guardduty/latest/ug/how-runtime-monitoring-works-ecs-fargate.html)
+- [Post-Configuration Details](https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring-after-configuration.html)

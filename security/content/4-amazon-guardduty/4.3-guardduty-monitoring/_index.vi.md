@@ -1,48 +1,35 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "GuardDuty Runtime Monitoring"
+date: "`r Sys.Date()`"
+weight: 3
+chapter: false
+pre: "<b> 4.3. </b>"
+---
 
+GuardDuty Runtime Monitoring cho phép giám sát bảo mật các task đang chạy trong Amazon ECS clusters trên AWS Fargate thông qua một security agent được quản lý hoàn toàn. Khi được kích hoạt, GuardDuty sẽ tự động triển khai security agent này để giám sát các Fargate task mới trong ECS clusters của bạn.
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+#### Triển khai Security Agent thông qua Sidecar Containers
 
-#### Tạo tài khoản AWS
+Đối với mỗi Fargate task hoặc service mới, GuardDuty tự động gắn một sidecar container vào mọi container trong ECS Fargate task. GuardDuty security agent chạy trong sidecar container này, thu thập các sự kiện runtime từ tất cả các container trong các task này.
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+{{% notice note %}}
+Runtime Monitoring chỉ áp dụng cho các Fargate task mới. Các task đang chạy hiện tại sẽ không nhận được GuardDuty sidecar container do tính chất không thể thay đổi của Fargate tasks.
+{{% /notice %}}
 
-#### Thêm phương thức thanh toán
+Để xác minh việc triển khai GuardDuty agent:
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+1. Điều hướng đến Amazon ECS console
+2. Chọn các task của service `ui`
+3. Tìm phần containers
+4. Xác nhận sự hiện diện của `aws-guardduty-agent` đang chạy cùng với container `application`
 
-#### Xác thực số điện thoại của bạn
+[Truy cập Amazon ECS Console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services/ui/tasks)
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+![Guardduty ECS SideCard Container](/images/4-amazon-guardduty/4.3-guardduty-monitoring/image.png)
+*Hình 1. Guardduty ECS SideCard Container*
 
-#### Chọn Support Plan
+Phần tiếp theo sẽ trình bày khả năng phát hiện của GuardDuty bằng cách triển khai một ECS task thử nghiệm mô phỏng hoạt động trái phép.
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
-
-#### Đợi account của bạn được kích hoạt
-
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Tài nguyên bổ sung:
+- [Runtime Monitoring Documentation](https://docs.aws.amazon.com/guardduty/latest/ug/how-runtime-monitoring-works-ecs-fargate.html)
+- [Post-Configuration Details](https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring-after-configuration.html)

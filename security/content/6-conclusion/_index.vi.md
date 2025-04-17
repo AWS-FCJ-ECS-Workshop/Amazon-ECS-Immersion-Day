@@ -1,48 +1,42 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title : "Kết luận"
+date :  "`r Sys.Date()`" 
+weight : 6
+chapter : false
+pre: "<b> 6. </b>"
+---
 
+Trong module Security này, chúng ta đã triển khai thành công một số thành phần chính:
+- Tạo service Cart với tích hợp DynamoDB
+- Nâng cấp UI Service để giao tiếp với Cart service  
+- Kích hoạt Amazon GuardDuty để phát hiện mối đe dọa trên các tài khoản Amazon
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+![alt text](/images/6-conclusion/image.png)
+*Hình 1: Sơ đồ kiến trúc cuối cùng*
 
-#### Tạo tài khoản AWS
+#### Các bước tiếp theo
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+Tiếp tục hành trình học Amazon ECS bằng cách khám phá các module workshop chuyên biệt sau:
 
-#### Thêm phương thức thanh toán
+1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Học cách mở rộng ứng dụng một cách linh hoạt
+2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Làm chủ các khái niệm và triển khai mạng ECS
+3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Triển khai giải pháp giám sát toàn diện
+4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Triển khai các biện pháp kiểm soát bảo mật và thực hành tốt nhất
+5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Tối ưu hóa quy trình triển khai
+6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Tích hợp Amazon EFS cho lưu trữ liên tục
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+Mỗi module cung cấp trải nghiệm thực hành chi tiết để giúp bạn xây dựng ứng dụng ECS sẵn sàng cho môi trường production.
 
-#### Xác thực số điện thoại của bạn
+#### Người đóng góp
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
-#### Chọn Support Plan
+Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275
 
-#### Đợi account của bạn được kích hoạt
+#### Tài liệu tham khảo
 
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Security Chapter - https://catalog.workshops.aws/ecs-immersion-day/en-US/70-security
+
+Amazon GuardDuty - https://aws.amazon.com/vi/guardduty/

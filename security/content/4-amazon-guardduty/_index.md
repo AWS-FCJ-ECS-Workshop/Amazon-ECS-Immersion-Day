@@ -6,16 +6,28 @@ chapter : false
 pre: "<b> 4. </b>"
 ---
 
-
 {{% notice info %}}
-You must have completed the following chapters as pre-requisites for this lab: [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/)
+Complete the [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) chapter before proceeding with this lab.
 {{% /notice %}}
 
-[Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html) is a threat detection service that continuously monitors for malicious or unauthorized behavior in your AWS accounts and workloads. This powerful tool can be particularly valuable for runtime monitoring of ECS clusters and containers, helping to detect potential security issues or compromised instances.
+[Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html) is a continuous security monitoring service that analyzes and processes data sources to identify threats to your AWS accounts and workloads. It provides runtime monitoring capabilities specifically designed for ECS clusters and containers, detecting potential security threats and unauthorized activities.
 
-In this chapter, you will explore the process of enabling GuardDuty and integrating it with your ECS clusters. You'll learn how to set up monitoring for suspicious API calls, potentially compromised instances, and communications with known malicious IP addresses.
+This chapter guides you through:
 
-By the conclusion of this chapter, you will have established a robust runtime threat monitoring and alerting system for your ECS workloads using GuardDuty. You'll gain the knowledge and skills necessary to effectively respond to and resolve GuardDuty findings through the AWS console, enhancing the security posture of your containerized applications.
+- Enabling and configuring GuardDuty for your AWS environment
+- Integrating GuardDuty with your ECS clusters
+- Monitoring ECS-specific security events including:
+  - Suspicious API activity
+  - Potentially compromised container instances
+  - Communication with known malicious IP addresses
+  - Anomalous container behavior
+
+Upon completion, you will have implemented a comprehensive threat detection system for your ECS workloads. You will understand how to:
+
+- Monitor GuardDuty findings through the AWS Management Console
+- Interpret security alerts related to your containerized applications
+- Take appropriate remediation actions based on GuardDuty findings
+- Configure automated responses to security events
 
 ![alt text](/images/4-amazon-guardduty/image.png)
-*Figure 1. Amazon Guarduty monitors ECS Tasks*
+*Figure 1: Amazon GuardDuty monitoring ECS tasks for security threats*

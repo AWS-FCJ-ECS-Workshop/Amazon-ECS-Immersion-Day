@@ -1,40 +1,54 @@
-+++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
-weight = 1
-chapter = false
-+++
+---
+title : "Amazon ECS Series: Security"
+date :  "`r Sys.Date()`" 
+chapter : false
+---
 
-# Tạo tài khoản AWS đầu tiên
+# Security
 
-#### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
-
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
-
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
+{{% notice info %}}
+Điều kiện tiên quyết: Hoàn thành các chương [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) và [ECS Service Connect](/Amazon-ECS-Immersion-Day/networking/) trước khi bắt đầu bài thực hành này.
 {{% /notice %}}
 
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
+Amazon ECS Fargate cung cấp khả năng điều phối container serverless giúp loại bỏ gánh nặng quản lý cơ sở hạ tầng. Workshop này hướng dẫn bạn triển khai các biện pháp kiểm soát bảo mật toàn diện cho ứng dụng container của bạn trên ECS Fargate, bao gồm các khía cạnh quan trọng như:
+- Cấu hình bảo mật mạng
+- Quản lý định danh và truy cập
+- Xử lý bảo mật thông tin nhạy cảm
+- Yêu cầu tuân thủ
+- Giám sát bảo mật runtime
 
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
+#### Ước tính chi phí
 
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
+| Dịch vụ              | Khu vực                 | Chi phí ban đầu | Hàng tháng | Tổng 12 tháng | Tiền tệ | Tóm tắt cấu hình |
+|-----------------------|-------------------------|-----------------|------------|----------------|----------|------------------------|
+| AWS Fargate           | Châu Á Thái Bình Dương (Sydney) | 0             | 0.45       | 5.40           | USD      | Linux, x86, 15 phút mỗi task hàng ngày, 20 GB lưu trữ, 2 GB bộ nhớ |
+| DynamoDB On-Demand    | Châu Á Thái Bình Dương (Sydney) | 0             | 2.85       | 34.20          | USD      | Bảng tiêu chuẩn, item 5 KB, 10 GB lưu trữ |
+| Amazon GuardDuty      | Châu Á Thái Bình Dương (Sydney) | -             | -          | -              | USD      | Giám sát runtime container |
+| **Tổng cộng**        |                         | **0**          | **3.30**   | **39.60**      | USD      |                        |
 
+#### Các module Workshop
 
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
+1. [Mô hình chia sẻ trách nhiệm](1-shared-responsibility-model/)
+2. [Điều kiện tiên quyết](2-prerequisites/)
+3. [IAM Roles](3-iam-roles/)
+   
+    3.1. [Tạo Cart Service](3-iam-roles/3.1-create-cart-service/)
 
+    3.2. [Cấu hình quyền IAM](3-iam-roles/3.2-fix-iam-permissions/)
 
-#### Nội dung chính
+    3.3. [Cập nhật UI Service](3-iam-roles/3.3-update-ui-service/)
 
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+    3.4. [Kiểm tra tích hợp DynamoDB](3-iam-roles/3.4-test-dynamodb-integration/)
+
+4. [Amazon GuardDuty](4-amazon-guardduty/)
+
+    4.1. [Xem xét cấu hình GuardDuty](4-amazon-guardduty/4.1-review-guardduty-setup/)
+
+    4.2. [Triển khai chính sách IAM](4-amazon-guardduty/4.2-attach-iam-policy/)
+
+    4.3. [Giám sát Runtime với GuardDuty](4-amazon-guardduty/4.3-guardduty-monitoring/)
+
+    4.4. [Mô phỏng Task độc hại](4-amazon-guardduty/4.4-create-malicious-task)
+    
+5. [Dọn dẹp tài nguyên](5-clean-resources/)
+6. [Kết luận](6-conclusion/)

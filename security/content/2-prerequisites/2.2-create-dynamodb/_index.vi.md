@@ -6,36 +6,36 @@ chapter: false
 pre: "<b> 2.2. </b>"
 ---
 
-Trong phần này, chúng ta sẽ tạo một bảng DynamoDB để lưu trữ thông tin chi tiết giỏ hàng.
+Tạo bảng DynamoDB để lưu trữ thông tin giỏ hàng cho ứng dụng cửa hàng bán lẻ.
 
 {{% notice info %}}
-Sử dụng chính xác tên bảng và chỉ mục được chỉ định dưới đây, vì chúng sẽ được tham chiếu trong các lệnh AWS CLI sau này.
+Tên bảng và index phải khớp chính xác như được chỉ định, vì chúng sẽ được tham chiếu trong các lệnh AWS CLI tiếp theo.
 {{% /notice %}}
 
-#### Tạo Bảng DynamoDB
+#### Tạo bảng DynamoDB
 
-1. Điều hướng đến dịch vụ **DynamoDB** trong AWS Management Console và chọn **Create table**
+1. Truy cập AWS Management Console và điều hướng đến dịch vụ **DynamoDB**
 
-2. Cấu hình các thiết lập bảng sau:
+2. Chọn **Create table** và nhập các thông tin cấu hình sau:
    * Table name: `retail-store-ecs-carts`
-   * Partition key: `id` (String)
-   * Giữ nguyên các thiết lập khác mặc định
+   * Partition key: `id` (String) 
+   * Giữ tất cả các cài đặt khác ở giá trị mặc định
 
-![alt text](image.png)
-*Hình 2: Thiết lập tạo bảng DynamoDB*
+![alt text](/images/2-prerequisites/2.2-create-dynamodb/image.png)
+*Hình 2: Cấu hình bảng DynamoDB*
 
-3. Sau khi tạo xong, bạn sẽ thấy trạng thái bảng là "Active"
+3. Đợi quá trình tạo bảng hoàn tất. Trạng thái bảng sẽ hiển thị là "Active" khi sẵn sàng
 
-![alt text](image-1.png)
-*Hình 3: Tạo bảng DynamoDB thành công*
+![alt text](/images/2-prerequisites/2.2-create-dynamodb/image-1.png)
+*Hình 3: Bảng DynamoDB đã được tạo thành công*
 
 #### Thêm Global Secondary Index
 
-1. Trong trang chi tiết bảng `retail-store-ecs-carts`, chọn tab **Indexes** và nhấp vào **Create index**
+1. Trên trang chi tiết bảng `retail-store-ecs-carts`, điều hướng đến tab **Indexes** và chọn **Create index**
 
-2. Cấu hình chỉ mục với các thiết lập sau:
+2. Thiết lập index với các tham số sau:
    * Partition key: `customerId` (String)
    * Index name: `idx_global_customerId`
 
-![alt text](image-2.png)
-*Hình 4: Tạo global secondary index*
+![alt text](/images/2-prerequisites/2.2-create-dynamodb/image-2.png)
+*Hình 4: Cấu hình Global secondary index*

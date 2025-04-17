@@ -7,43 +7,49 @@ chapter : false
 # Security
 
 {{% notice info %}}
-// warning: finish Fundamentals and ECS service connect!
+Prerequisites: Complete the [Fundamentals](/Amazon-ECS-Immersion-Day/fundamentals/) and [ECS Service Connect](/Amazon-ECS-Immersion-Day/networking/) chapters before starting this lab.
 {{% /notice %}}
 
+Amazon ECS Fargate provides serverless container orchestration that eliminates infrastructure management overhead. This workshop guides you through implementing comprehensive security controls for your containerized applications on ECS Fargate, covering critical aspects such as:
 
-Amazon ECS Fargate offers a serverless approach to running containerized applications, enabling developers to concentrate on their application logic without the need to manage the underlying infrastructure. However, ensuring robust security for these applications is paramount. This guide delves into the essential aspects of security in ECS Fargate, encompassing network isolation, IAM roles, secrets management, and compliance considerations.
+- Network security configuration
+- Identity and access management
+- Secure secrets handling
+- Compliance requirements
+- Runtime security monitoring
 
-#### Detailed Estimate
+#### Cost Estimation
 
 | Service               | Region                  | Upfront | Monthly | 12-Month Total | Currency | Configuration Summary |
 |-----------------------|-------------------------|---------|---------|----------------|----------|------------------------|
-| AWS Fargate           | Asia Pacific (Sydney)   | 0       | 0.45    | 5.40           | USD      | Linux, x86, 15 min/task/day, 20 GB storage, 2 GB memory |
-| DynamoDB On-Demand    | Asia Pacific (Sydney)   | 0       | 2.85    | 34.20          | USD      | Standard, 5 KB item, 10 GB storage |
-| Amazon GuardDuty      | Asia Pacific (Sydney)   |        |        |            | USD      |                        |
+| AWS Fargate           | Asia Pacific (Sydney)   | 0       | 0.45    | 5.40           | USD      | Linux, x86, 15 minutes per task daily, 20 GB storage, 2 GB memory |
+| DynamoDB On-Demand    | Asia Pacific (Sydney)   | 0       | 2.85    | 34.20          | USD      | Standard tables, 5 KB items, 10 GB storage |
+| Amazon GuardDuty      | Asia Pacific (Sydney)   | -       | -       | -              | USD      | Container runtime monitoring |
 | **Total**             |                         | **0**   | **3.30**| **39.60**      | USD      |                        |
 
-#### Key Concepts
+#### Workshop Modules
 
-1. [Shared Responbility Model](1-shared-responsibility-model/)
-2. [IAM roles](2-iam-roles/)
+1. [Shared Responsibility Model](1-shared-responsibility-model/)
+2. [Prerequisites](2-prerequisites/)
+3. [IAM Roles](3-iam-roles/)
    
-    2.1. [Create Cart service](2.1-create-cart-service/)
+    3.1. [Cart Service Creation](3-iam-roles/3.1-create-cart-service/)
 
-    2.2. [Fix IAM permissions](2.2-fix-iam-permissions/)
+    3.2. [IAM Permission Configuration](3-iam-roles/3.2-fix-iam-permissions/)
 
-    2.3. [Update the UI Service](2.3-update-ui-service/)
+    3.3. [UI Service Updates](3-iam-roles/3.3-update-ui-service/)
 
-    2.4. [Test the DynamoDB integration](2.4-test-dynamo-db/)
+    3.4. [DynamoDB Integration Testing](3-iam-roles/3.4-test-dynamodb-integration/)
 
-3. [Amazon GuardDuty](3-amazon-guardduty/)
+4. [Amazon GuardDuty](4-amazon-guardduty/)
 
-    3.1. [Review GuardDuty setup](3.1-review-guardduty-setup/)
+    4.1. [GuardDuty Configuration Review](4-amazon-guardduty/4.1-review-guardduty-setup/)
 
-    3.2. [Attach necessary IAM Policy](3.2-attach-iam-policy/)
+    4.2. [IAM Policy Implementation](4-amazon-guardduty/4.2-attach-iam-policy/)
 
-    3.3. [GuardDuty runtime monitoring](3.3-guardduty-runtime-monitoring)
+    4.3. [Runtime Monitoring with GuardDuty](4-amazon-guardduty/4.3-guardduty-monitoring/)
 
-    3.4. [Create a Malicious Task](3.4-create-malicious-task)
+    4.4. [Malicious Task Simulation](4-amazon-guardduty/4.4-create-malicious-task)
     
-4. [Clean Resources](4-clean-resources/)
-5. [Conclusion](5-conclusion/)
+5. [Resource Cleanup](5-clean-resources/)
+6. [Conclusion](6-conclusion/)
