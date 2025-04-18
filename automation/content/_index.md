@@ -1,9 +1,9 @@
-+++
-title = "Automation with Amazon ECS"
-date = 2024
-weight = 1
-chapter = false
-+++
+---
+title: "Automation with Amazon ECS"
+date: "`r Sys.Date()`"
+chapter: false
+---
+
 
 # Automation with Amazon ECS
 
