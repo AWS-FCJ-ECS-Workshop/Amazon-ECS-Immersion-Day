@@ -32,24 +32,6 @@ Amazon ECS Fargate provides serverless container orchestration that eliminates i
 1. [Shared Responsibility Model](1-shared-responsibility-model/)
 2. [Prerequisites](2-prerequisites/)
 3. [IAM Roles](3-iam-roles/)
-   
-    3.1. [Cart Service Creation](3-iam-roles/3.1-create-cart-service/)
-
-    3.2. [IAM Permission Configuration](3-iam-roles/3.2-fix-iam-permissions/)
-
-    3.3. [UI Service Updates](3-iam-roles/3.3-update-ui-service/)
-
-    3.4. [DynamoDB Integration Testing](3-iam-roles/3.4-test-dynamodb-integration/)
-
 4. [Amazon GuardDuty](4-amazon-guardduty/)
-
-    4.1. [GuardDuty Configuration Review](4-amazon-guardduty/4.1-review-guardduty-setup/)
-
-    4.2. [IAM Policy Implementation](4-amazon-guardduty/4.2-attach-iam-policy/)
-
-    4.3. [Runtime Monitoring with GuardDuty](4-amazon-guardduty/4.3-guardduty-monitoring/)
-
-    4.4. [Malicious Task Simulation](4-amazon-guardduty/4.4-create-malicious-task)
-    
 5. [Resource Cleanup](5-clean-resources/)
 6. [Conclusion](6-conclusion/)
