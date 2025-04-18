@@ -1,5 +1,5 @@
 +++
-title = "Conclution"
+title = "Conclusion"
 date = 2024-08-19T00:38:32+07:00
 weight = 7
 chapter = false
