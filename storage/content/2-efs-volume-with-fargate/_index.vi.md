@@ -1,48 +1,148 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Amazon EFS Volume với Fargate"
+date: "`r Sys.Date()`"
+weight: 2
+chapter: false
+pre: "<b> 2. </b>"
+---
 
+Phần này hướng dẫn cách gắn kết một volume Amazon EFS vào **Assets service** và cập nhật hình ảnh sản phẩm.
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+![alt text](/images/2-efs-volume-with-fargate/ECS-Lab-Networking-EFS.png)
+*Hình 1. Thư mục asset hình ảnh hiện tại*
 
-#### Tạo tài khoản AWS
+Để gắn kết volume EFS vào container Assets application, thêm cấu hình mount point sau vào task definition:
+```json
+    "mountPoints": [{
+        "sourceVolume": "efsVolume",
+        "containerPath": "/usr/share/nginx/html/assets"
+    }]
+```
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+Các thành phần cấu hình chính:
 
-#### Thêm phương thức thanh toán
+* `sourceVolume`: Tên của volume EFS cần gắn kết
+* `containerPath`: Vị trí mount point trong container Assets (**_/usr/share/nginx/html/assets_**) nơi lưu trữ hình ảnh sản phẩm
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+Thêm cấu hình volume EFS vào task definition:
 
-#### Xác thực số điện thoại của bạn
+```json
+    "volumes": [{
+        "name": "efsVolume",
+        "efsVolumeConfiguration": {
+            "fileSystemId": "$EFS_ID", // Thêm biến môi trường EFS_ID
+            "rootDirectory": "/",
+            "transitEncryption": "ENABLED",
+            "authorizationConfig": {
+                "iam": "ENABLED"
+            }
+        }
+    }]
+```
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+Cấu hình task role để xác thực phiên tương tác:
 
-#### Chọn Support Plan
+```json
+    "taskRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskRole",
+```
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Cập nhật task definition ECS cho Assets service:
 
-#### Đợi account của bạn được kích hoạt
+```bash
+   cat << EOF > retail-store-ecs-asset-storage-taskdef.json
+    {
+        "family": "retail-store-ecs-assets",
+        "executionRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskExecutionRole",
+        "taskRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskRole",
+        "networkMode": "awsvpc",
+        "requiresCompatibilities": [
+            "FARGATE"
+        ],
+        "cpu": "1024",
+        "memory": "2048",
+        "runtimePlatform": {
+            "cpuArchitecture": "X86_64",
+            "operatingSystemFamily": "LINUX"
+        },
+        "containerDefinitions": [
+            {
+                "name": "application",
+                "image": "public.ecr.aws/aws-containers/retail-store-sample-assets:0.7.0",
+                "cpu": 0,
+                "portMappings": [
+                    {
+                        "name": "application",
+                        "containerPort": 8080,
+                        "hostPort": 8080,
+                        "protocol": "tcp",
+                        "appProtocol": "http"
+                    }
+                ],
+                "essential": true,
+                # Updated
+                "mountPoints": [
+                    {
+                        "sourceVolume": "efsVolume",
+                        "containerPath": "/usr/share/nginx/html/assets"
+                    }
+                ],
+                "healthCheck": {
+                    "command": [
+                        "CMD-SHELL",
+                        "curl -f http://localhost:8080/health.html || exit 1"
+                    ],
+                    "interval": 10,
+                    "timeout": 5,
+                    "retries": 3,
+                    "startPeriod": 60
+                },
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "retail-store-ecs-tasks",
+                        "awslogs-region": "$AWS_REGION",
+                        "awslogs-stream-prefix": "assets-service"
+                    }
+                }
+            }
+        ],
+        # Updated
+        "volumes": [
+            {
+                "name": "efsVolume",
+                "efsVolumeConfiguration": {
+                    "fileSystemId": "$EFS_ID",
+                    "rootDirectory": "/",
+                    "transitEncryption": "ENABLED",
+                    "authorizationConfig": {
+                        "iam": "ENABLED"
+                    }
+                }
+            }
+        ]
+    }
+    EOF
+    
+    aws ecs register-task-definition --cli-input-json file://retail-store-ecs-asset-storage-taskdef.json
+```
 
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Cập nhật Assets service để duy trì hai task cho tính sẵn sàng cao (khoảng 5 phút):
+
+```bash
+    aws ecs update-service \
+    --cluster retail-store-ecs-cluster \
+    --service assets \
+    --desired-count 2 \
+    --task-definition retail-store-ecs-assets \
+    --enable-execute-command \
+    --force-new-deployment
+    
+    echo "Đang chờ service ổn định..."
+    
+    aws ecs wait services-stable --cluster retail-store-ecs-cluster --services assets
+```
+
+![alt text](/images/2-efs-volume-with-fargate/ECS-Lab-Networking-EFS-mounting.png)
+*Hình 2. Volume EFS được gắn kết vào Assets Service*
+
+Volume EFS hiện đã được gắn kết vào các task của Assets service đang chạy trên cụm ECS Fargate. Tiếp tục sang phần tiếp theo để xác minh cấu hình.

@@ -1,53 +1,29 @@
-+++
-title = "Getting Support for Account Authentication"
-date = 2020
-weight = 4
-chapter = false
-pre = "<b>4. </b>"
-+++
+---
+title: "Conclusion"
+date: "`r Sys.Date()`"
+weight: 5
+chapter: false
+pre: "<b> 5. </b>"
+---
 
-During AWS account setup, sometimes problems may arise when validating contact number information, such as failure to receive SMS messages or calls from the AWS. To remediate this issue, please follow the following steps to complete the vation of the account information:
+In this chapter, we explored different volume types used with ECS Tasks and learned how to mount EFS volumes for the **Assets Service** to manage product image updates.
 
-**Content:**
-- [Verify your account information](#verify-your-account-information)
-- [Create a support case with AWS Support](#create-a-support-case-with-aws-support)
+This concludes our Amazon ECS Workshop series. Thank you for following along and completing all the chapters!
 
-#### Verify your account information
+#### Next steps
 
-Kindly check your account details again and make sure they are entered correctly:
-  - Check that the phone number and international calling code are correctly enetered to receive SMS or calls.
-  - If you use a mobile phone, check your phone to make sure you are still within coverage to receive SMS or calls.
-  - Check that the payment method information has been entered correctly.
+To further enhance your knowledge, explore the comprehensive [Container and ECS Workshop](https://ecsworkshop.com/). We encourage you to deploy your own microservices applications on Amazon ECS 🤗.
 
-#### Create a support case with AWS Support
+#### Authors
 
- If you are still not able to receive an SMS message or authentication call even after verifying your account information, please contact AWS Support to assist you in manually activating your account.
+Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
-1. Go to the [AWS Support Console](https://aws.amazon.com/support/) and select **Create case**.
+Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 
-![AWS Support](/images/1-account-setup/1.png?width=90pc)
+Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275
 
-2. Select **Account and billing support** and enter the support information:
-   
-   **Type:** Select **Account**.
-    
-   **Category:** Select **Activation**.
-   
-   **Subject:** Write your encounter briefly (e.g. **Did not receive an SMS message or call for verification**)
-   
-   **Description:** Provide details of your situation.
-   
-   **Attachments:** Attach any images which may lend greater clarify to the situation.
+#### References
 
-![AWS Support](/images/1-account-setup/2.png?width=90pc)
+Storage Workshop - https://catalog.workshops.aws/ecs-immersion-day/en-US/90-storage
 
-3. Under **Contact options**, select **Chat** in **Contact methods**.
-
-![AWS Support](/images/1-account-setup/3.png?width=90pc)
-
-4. Click **Submit**.
-5. The AWS Support team will contact you and assist in activating your account.
-
-{{% notice note%}}
-You can create support requests with AWS Support even if your account is not activated.
-{{% /notice%}}
+Amazon EFS Documentation - https://aws.amazon.com/efs/

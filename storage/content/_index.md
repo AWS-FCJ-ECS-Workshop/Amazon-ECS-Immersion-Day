@@ -1,20 +1,14 @@
 ---
-title: "Prerequisites"
+title: "Storage"
 date: "`r Sys.Date()`"
 chapter: false
 ---
 
+{{% notice info %}}
+Complete these prerequisite chapters before starting this lab: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
+{{% /notice %}}
 
-# Prerequisites
-
-Complete these chapters before proceeding:
-
-*   [Fundamentals](/ecs-immersion-day/en-US/30-basic)
-*   [ECS Service Connect](/ecs-immersion-day/en-US/60-networking/ecs-service-connect)
-
-# Storage Options for ECS Tasks
-
-Amazon ECS provides multiple volume types to support diverse storage requirements:
+Amazon ECS supports multiple volume types for container tasks:
 
 *   Amazon EBS
 *   Amazon EFS
@@ -22,35 +16,31 @@ Amazon ECS provides multiple volume types to support diverse storage requirement
 *   Docker Volumes
 *   Bind mounts
 
-For comprehensive details on all volume options, consult the [Amazon ECS storage documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html).
+For comprehensive details on volume options, consult the [Amazon ECS storage documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html). The following table compares the most commonly used volume types:
 
-Key storage solutions commonly used with ECS:
+| Volume Type  | Launch Type Support        | Data Persistence                                                            | Key Features                               | Common Applications                                |
+|--------------|---------------------------|----------------------------------------------------------------------------|--------------------------------------------|-------------------------------------------------|
+| Amazon EBS   | Fargate, Amazon EC2       | Persistent for standalone tasks; Ephemeral for service-managed tasks        | Cost-effective, durable, high-performance   | Transactional workloads, log processing, ETL jobs |
+| Amazon EFS   | Fargate, Amazon EC2       | Fully persistent                                                           | Scalable, shared file system                | Data analytics, media processing, web content     |
 
-Volume | Supported Launch Type | Persistence | Description | Use Cases
--------|---------------------|-------------|-------------|------------
-Amazon EBS | Fargate, Amazon EC2 | Persistent for standalone tasks; Ephemeral for service tasks | Cost-effective, durable block storage with high performance | Transactional workloads, log processing, ETL operations
-Amazon EFS | Fargate, Amazon EC2 | Persistent | Fully managed, scalable file system | Data analytics, media processing, content management, web serving
+#### Current State and Challenges
 
-# Current Architecture Limitations
+Your Assets service currently operates with a single task, creating a potential availability risk. Additionally, updating product images requires redeploying the entire application, which is inefficient and time-consuming.
 
-Your existing Assets service deployment has two main limitations:
+#### Proposed Improvements
 
-1. Single task deployment creates a potential point of failure
-2. Product image updates require full application redeployment
+To enhance the Assets service reliability and maintainability:
 
-# Proposed Improvements
+*   Scale to multiple tasks for high availability
+*   Implement Amazon EFS for shared storage of product images
 
-To address these limitations, we will:
+#### Benefits of Amazon EFS Integration:
 
-1. Scale the Assets service to multiple tasks for high availability
-2. Implement Amazon EFS as shared storage for product images
+*   Enables concurrent file access across multiple tasks
+*   Simplifies image management without application redeployment
+*   Provides persistent storage across container instances
 
-Benefits of Amazon EFS integration:
+The improved architecture will look like this:
 
-* Enables multiple tasks to access shared image files simultaneously
-* Simplifies image content updates without application redeployment
-* Provides persistent storage across task instances
-
-The enhanced architecture will look like this:
-
-![Sample application ECS with EFS architecture](https://static.us-east-1.prod.workshops.aws/public/fe1738fc-3d5c-4d22-bac3-0be10a3ad36f/static/images/90-storage/retail-ui-assets-efs-architecture.png)
+![Sample application ECS with EFS architecture](/images/image.png)
+*Figure 1. Sample application ECS with EFS architecture*

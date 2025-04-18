@@ -6,11 +6,12 @@ chapter: false
 pre: "<b> 2. </b>"
 ---
 
-In this section, we will walk through the process of mounting an Amazon EFS volume to the **Assets service** and updating the product images.
----
-<!-- Understand about Amazon EFS Volume & images -->
+This section demonstrates how to mount an Amazon EFS volume to the **Assets service** and update product images.
 
-To mount the EFS volume to the Assets application container, we need to add the following mount point configuration to the task definition:
+![alt text](/images/2-efs-volume-with-fargate/ECS-Lab-Networking-EFS.png)
+*Figure 1. Current images asset folder*
+
+To mount an EFS volume to the Assets application container, add the following mount point configuration to the task definition:
 ```json
     "mountPoints": [{
         "sourceVolume": "efsVolume",
@@ -18,18 +19,18 @@ To mount the EFS volume to the Assets application container, we need to add the 
     }]
 ```
 
-Let's understand this configuration:
+Key configuration elements:
 
-*   `sourceVolume`: Specifies the name of the EFS volume to be mounted
-*   `containerPath`: Defines the mount point within the Assets container where the EFS volume will be attached. In this case, it's **_/usr/share/nginx/html/assets_**, which is the directory for storing product images.
+*   `sourceVolume`: The name of the EFS volume to mount
+*   `containerPath`: The mount point location within the Assets container (**_/usr/share/nginx/html/assets_**) where product images are stored
 
-We also need to define the EFS volume configuration in the task definition:
+Add the EFS volume configuration to the task definition:
 
 ```json
     "volumes": [{
         "name": "efsVolume",
         "efsVolumeConfiguration": {
-            "fileSystemId": "$EFS_ID",
+            "fileSystemId": "$EFS_ID", // Add your EFS_ID environment
             "rootDirectory": "/",
             "transitEncryption": "ENABLED",
             "authorizationConfig": {
@@ -39,13 +40,13 @@ We also need to define the EFS volume configuration in the task definition:
     }]
 ```
 
-Since we'll need to verify the EFS volume mount through an interactive session later, we must configure the task role:
+Configure the task role for interactive session verification:
 
 ```json
     "taskRoleArn": "arn:aws:iam::${ACCOUNT_ID}:role/retailStoreEcsTaskRole",
 ```
 
-Let's update the ECS task definition for the Assets service:
+Update the ECS task definition for the Assets service:
 
 ```bash
    cat << EOF > retail-store-ecs-asset-storage-taskdef.json
@@ -78,6 +79,7 @@ Let's update the ECS task definition for the Assets service:
                     }
                 ],
                 "essential": true,
+                # Updated
                 "mountPoints": [
                     {
                         "sourceVolume": "efsVolume",
@@ -104,6 +106,7 @@ Let's update the ECS task definition for the Assets service:
                 }
             }
         ],
+        # Updated
         "volumes": [
             {
                 "name": "efsVolume",
@@ -122,9 +125,8 @@ Let's update the ECS task definition for the Assets service:
     
     aws ecs register-task-definition --cli-input-json file://retail-store-ecs-asset-storage-taskdef.json
 ```
-    
 
-Now, let's update the Assets service. The following command will update the service to maintain two tasks using the new task definition, eliminating single points of failure (**~ 5 min**):
+Update the Assets service to maintain two tasks for high availability (approximately 5 minutes):
 
 ```bash
     aws ecs update-service \
@@ -140,4 +142,7 @@ Now, let's update the Assets service. The following command will update the serv
     aws ecs wait services-stable --cluster retail-store-ecs-cluster --services assets
 ```
 
-With these steps completed, the EFS volume is now successfully mounted to the Assets service tasks running on the ECS Fargate cluster. We can proceed to verify the configuration in the next phase.
+![alt text](/images/2-efs-volume-with-fargate/ECS-Lab-Networking-EFS-mounting.png)
+*Figure 2. EFS Volume mounted to the Assets Service*
+
+The EFS volume is now mounted to the Assets service tasks running on the ECS Fargate cluster. Proceed to the next section for configuration verification.

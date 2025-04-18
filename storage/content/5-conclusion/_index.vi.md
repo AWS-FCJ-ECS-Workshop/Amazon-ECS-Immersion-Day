@@ -1,17 +1,29 @@
 ---
-title: "Security Group - Resource-level Firewall"
+title: "Kết luận"
 date: "`r Sys.Date()`"
-weight: 3
+weight: 5
 chapter: false
-pre: "<b> 2.3. </b>"
+pre: "<b> 5. </b>"
 ---
 
-<!-- Kết luận các section trước đã làm được gì & final architecuture -->
+Trong chương này, chúng ta đã tìm hiểu các loại volume khác nhau được sử dụng với ECS Tasks và học cách gắn kết EFS volume cho **Assets Service** để quản lý cập nhật hình ảnh sản phẩm.
 
-<!-- Kết luận toàn series -->
+Đây là phần kết thúc chuỗi Workshop Amazon ECS của chúng ta. Cảm ơn bạn đã theo dõi và hoàn thành tất cả các chương!
 
-<!-- Next steps -->
+#### Các bước tiếp theo
 
-<!-- Giới thiệu nhóm tác giả -->
+Để nâng cao kiến thức của bạn, hãy khám phá [Container and ECS Workshop](https://ecsworkshop.com/) toàn diện. Chúng tôi khuyến khích bạn triển khai các ứng dụng microservices của riêng mình trên Amazon ECS 🤗.
 
-<!-- References -->
+#### Tác giả
+
+Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
+
+Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
+
+Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275
+
+#### Tài liệu tham khảo
+
+Storage Workshop - https://catalog.workshops.aws/ecs-immersion-day/en-US/90-storage
+
+Amazon EFS Documentation - https://aws.amazon.com/efs/

@@ -1,40 +1,46 @@
-+++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
-weight = 1
-chapter = false
-+++
+---
+title: "Storage"
+date: "`r Sys.Date()`"
+chapter: false
+---
 
-# Tạo tài khoản AWS đầu tiên
-
-#### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
-
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
-
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
+{{% notice info %}}
+Hoàn thành các chương tiên quyết này trước khi bắt đầu bài thực hành: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
 {{% /notice %}}
 
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
+Amazon ECS hỗ trợ nhiều loại volume cho các task container:
 
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
+*   Amazon EBS
+*   Amazon EFS  
+*   Amazon FSx for Windows File Server
+*   Docker Volumes
+*   Bind mounts
 
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
+Để biết chi tiết toàn diện về các tùy chọn volume, tham khảo [tài liệu storage của Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html). Bảng sau so sánh các loại volume được sử dụng phổ biến nhất:
 
+| Loại Volume | Hỗ trợ Launch Type | Tính bền vững của dữ liệu | Tính năng chính | Ứng dụng phổ biến |
+|--------------|---------------------------|----------------------------------------------------------------------------|--------------------------------------------|-------------------------------------------------|
+| Amazon EBS | Fargate, Amazon EC2 | Bền vững cho các task độc lập; Tạm thời cho các task được quản lý bởi service | Hiệu quả về chi phí, bền vững, hiệu năng cao | Khối lượng công việc giao dịch, xử lý log, công việc ETL |
+| Amazon EFS | Fargate, Amazon EC2 | Hoàn toàn bền vững | Hệ thống tệp có thể mở rộng và chia sẻ | Phân tích dữ liệu, xử lý media, nội dung web |
 
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
+#### Hiện trạng và Thách thức
 
+Service Assets của bạn hiện đang hoạt động với một task duy nhất, tạo ra rủi ro về tính khả dụng. Ngoài ra, việc cập nhật hình ảnh sản phẩm yêu cầu triển khai lại toàn bộ ứng dụng, điều này không hiệu quả và tốn thời gian.
 
-#### Nội dung chính
+#### Đề xuất Cải tiến
 
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+Để nâng cao độ tin cậy và khả năng bảo trì của service Assets:
+
+*   Mở rộng lên nhiều task để đảm bảo tính khả dụng cao
+*   Triển khai Amazon EFS để lưu trữ chia sẻ hình ảnh sản phẩm
+
+#### Lợi ích của tích hợp Amazon EFS:
+
+*   Cho phép truy cập file đồng thời trên nhiều task
+*   Đơn giản hóa việc quản lý hình ảnh mà không cần triển khai lại ứng dụng
+*   Cung cấp lưu trữ bền vững trên các container instance
+
+Kiến trúc cải tiến sẽ trông như thế này:
+
+![Kiến trúc ECS với EFS mẫu](/images/image.png)
+*Hình 1. Kiến trúc ECS với EFS*
