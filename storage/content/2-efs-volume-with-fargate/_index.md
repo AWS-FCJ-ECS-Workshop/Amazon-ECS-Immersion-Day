@@ -30,7 +30,7 @@ Add the EFS volume configuration to the task definition:
     "volumes": [{
         "name": "efsVolume",
         "efsVolumeConfiguration": {
-            "fileSystemId": "$EFS_ID", // Add your EFS_ID environment
+            "fileSystemId": "$EFS_ID",
             "rootDirectory": "/",
             "transitEncryption": "ENABLED",
             "authorizationConfig": {
@@ -111,7 +111,7 @@ Update the ECS task definition for the Assets service:
             {
                 "name": "efsVolume",
                 "efsVolumeConfiguration": {
-                    "fileSystemId": "$EFS_ID",
+                    "fileSystemId": "$EFS_ID", # Add your EFS_ID environment
                     "rootDirectory": "/",
                     "transitEncryption": "ENABLED",
                     "authorizationConfig": {

@@ -62,31 +62,23 @@ exit
 
 #### Import New Images to the EFS Volume
 
-The EFS volume mounted in the IDE environment allows direct image import. Verify the EFS mount information:
+The EFS volume mounted in the [EC2 environment](1-prerequisites/1.3-uploading/images-to-ec2) allows direct image import. Verify the EFS mount information:
 
 ```bash
 df -h
 ```
 
-Locate the EFS mount point in the output:
-
-```
-Filesystem        Size  Used Avail Use% Mounted on
-devtmpfs          4.0M     0  4.0M   0% /dev
-tmpfs             1.9G     0  1.9G   0% /dev/shm
-tmpfs             766M  516K  766M   1% /run
-/dev/nvme0n1p1     32G  3.3G   29G  11% /
-tmpfs             1.9G   77M  1.8G   4% /tmp
-/dev/nvme0n1p128   10M  1.3M  8.7M  13% /boot/efi
-tmpfs             383M     0  383M   0% /run/user/0
-127.0.0.1:/       8.0E     0  8.0E   0% /home/ec2-user/environment/labs/efs/mount-point
-```
+![alt text](image-1.png)
+*Figure 1. EFS mount point output*
 
 Copy the new images to the EFS mount point:
 
 ```bash
-sudo cp ~/environment/labs/efs/images/* ~/environment/labs/efs/mount-point/
+sudo cp images/* efs-mount-point/
 ```
+
+![alt text](/images/3-verify-efs-volume/image.png)
+*Figure 2. Images inside `efs-mount-point/`*
 
 #### Verify the Updated Images
 
