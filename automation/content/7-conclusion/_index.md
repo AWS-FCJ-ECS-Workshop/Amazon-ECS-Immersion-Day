@@ -38,18 +38,18 @@ In this Automation module, we successfully implemented several key components th
 
    - Configured automatic rollback to the last stable version if deployment fails.
 
-![Conclusion](/images/7/7-1.png?width=90pc)
+![Conclusion](/images/7/ECS-Pipeline-7-1.png?width=90pc)
 
 #### Next Steps
 
 Continue your Amazon ECS learning journey by exploring these specialized workshop modules:
 
-1. Auto Scaling - Learn to dynamically scale your applications
-2. Networking - Master ECS networking concepts and implementations
-3. Observability - Implement comprehensive monitoring solutions
-4. Security - Implement robust security controls and best practices
-5. Automation - Streamline deployment workflows
-6. Storage - Integrate Amazon EFS for persistent storage
+1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Learn to dynamically scale your applications
+2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Master ECS networking concepts and implementations
+3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Implement comprehensive monitoring solutions
+4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Implement robust security controls and best practices
+5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Streamline deployment workflows
+6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Integrate Amazon EFS for persistent storage
 
 Each module provides detailed hands-on experience to help you build production-ready ECS applications.
 

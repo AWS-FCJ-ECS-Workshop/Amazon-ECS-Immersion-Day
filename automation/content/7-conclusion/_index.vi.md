@@ -39,23 +39,23 @@ Trong mô-đun Tự động hóa này, chúng ta đã triển khai thành công 
 
    - Cấu hình tự động quay lại phiên bản ổn định trước đó nếu quá trình triển khai gặp lỗi.
 
-![Conclusion](/images/7/7-1.png?width=90pc)
+![Conclusion](/images/7/ECS-Pipeline-7-1.png?width=90pc)
 
 #### Các bước tiếp theo
 
 Tiếp tục hành trình học tập Amazon ECS của bạn bằng cách khám phá các mô-đun workshop chuyên sâu sau:
 
-1. Auto Scaling – Tìm hiểu cách mở rộng ứng dụng một cách linh hoạt theo nhu cầu
+1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) – Tìm hiểu cách mở rộng ứng dụng một cách linh hoạt theo nhu cầu
 
-2. Networking – Làm chủ các khái niệm và cách triển khai mạng trong ECS
+2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) – Làm chủ các khái niệm và cách triển khai mạng trong ECS
 
-3. Observability – Triển khai các giải pháp giám sát toàn diện
+3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) – Triển khai các giải pháp giám sát toàn diện
 
-4. Security – Áp dụng các biện pháp bảo mật mạnh mẽ và các thực tiễn tốt nhất
+4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) – Áp dụng các biện pháp bảo mật mạnh mẽ và các thực tiễn tốt nhất
 
-5. Automation – Tự động hóa các quy trình triển khai
+5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) – Tự động hóa các quy trình triển khai
 
-6. Storage – Tích hợp Amazon EFS để lưu trữ dữ liệu lâu dài
+6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) – Tích hợp Amazon EFS để lưu trữ dữ liệu lâu dài
 
 Mỗi mô-đun đều cung cấp trải nghiệm thực hành chi tiết giúp bạn xây dựng các ứng dụng ECS sẵn sàng cho môi trường sản xuất.
 
