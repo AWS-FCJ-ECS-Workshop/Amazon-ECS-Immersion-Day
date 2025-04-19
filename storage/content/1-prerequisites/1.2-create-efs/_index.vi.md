@@ -1,73 +1,72 @@
 ---
-title: "Điều kiện tiên quyết"
+title: "Tạo File System EFS"
 date: "`r Sys.Date()`"
-weight: 1
+weight: 2
 chapter: false
-pre: "<b> 1. </b>"
+pre: "<b> 2. </b>"
 ---
 
-Trước khi tiếp tục với các bài thực hành phần Storage, chúng ta cần tạo security group cho EFS để cho phép Asset truy cập vào EFS File System, và gắn policy cần thiết vào ECS IAM Role để cho phép ECS Cluster quản lý hệ thống tệp EFS.
+#### AWS Elastic File System là gì?
 
-![alt text](/images/1-prerequisites/ECS-Lab-Networking-Storage-1.png)
-*Hình 1. Kiến trúc Storage*
+Amazon Elastic File System (EFS) là một dịch vụ lưu trữ tập tin có khả năng mở rộng và được quản lý hoàn toàn, cho phép bạn chia sẻ dữ liệu tập tin đồng thời trên nhiều instance Amazon EC2. Nó cung cấp một hệ thống tập tin đơn giản, serverless và linh hoạt tự động tăng và giảm khi bạn thêm và xóa tập tin.
 
-#### Tạo Security Group
+#### EFS hoạt động như thế nào?
 
-Điều hướng đến [Security Group Dashboard](https://console.aws.amazon.com/ec2/home?#SecurityGroups:)
+Amazon EFS tạo và quản lý các hệ thống tập tin có thể được truy cập đồng thời bởi nhiều instance EC2 trên các Availability Zone khác nhau trong một region. Kiến trúc phân tán này đảm bảo tính sẵn sàng cao và độ bền của dữ liệu của bạn.
 
-Trong giao diện Create Security Group:
-- Nhập tên security group `ecs-lab-efs-sg`
-- Chọn VPC `ecs-lab-vpc`
-- Thêm Inbound rule: Type `NFS` - Source `ecs-lab-asset-sg`
+Để sử dụng EFS, bạn phải tạo các mount target trong VPC để kết nối giữa các instance EC2 và hệ thống tập tin EFS. Mount target hoạt động như các điểm truy cập mà ứng dụng của bạn có thể sử dụng để kết nối với hệ thống tập tin.
 
-![alt text](/images/1-prerequisites/image-1.png)
-*Hình 2. Giao diện tạo Security Group*
+![How does EFS Work?](/images/2-efs-volume-with-fargate/image.png)
+*Hình 1. EFS hoạt động như thế nào?*
 
-Kết quả:
+#### Tạo File System EFS
 
-![alt text](/images/1-prerequisites/image.png)
-*Hình 3. Tạo Security Group thành công*
-
-#### Tạo EFS File System
-
-1. Điều hướng đến [EFS Dashboard](https://console.aws.amazon.com/efs/home/file-systems) > Chọn Create File System
+1. Truy cập [EFS Dashboard](https://console.aws.amazon.com/efs/home/file-systems) và chọn **Create File System**
 
 ![alt text](/images/1-prerequisites/image-2.png)
 *Hình 4. Giao diện EFS Dashboard*
 
-2. Trong File System Settings > Nhập tên, giữ các tùy chọn mặc định
+2. Cấu hình File System Settings:
+   - Nhập tên mô tả cho hệ thống tập tin của bạn
+   - Giữ các tùy chọn cấu hình mặc định
 
 ![alt text](/images/1-prerequisites/image-3.png)
 *Hình 5. Giao diện File System Settings*
 
-3. Trong Network Access, chọn VPC `ecs-lab-vpc`, cấu hình mount targets trong 2 AZ với `ecs-lab-efs-sg`
+3. Cấu hình Network Access:
+   - Chọn VPC: `ecs-lab-vpc`
+   - Cấu hình mount target trong hai Availability Zone
+   - Chọn security group: `ecs-lab-efs-sg`
 
 ![alt text](/images/1-prerequisites/image-4.png)
 *Hình 6. Cấu hình Network Access*
 
-4. Hoàn tất tạo EFS file system
+4. Xác nhận việc tạo file system EFS
 
 ![alt text](/images/1-prerequisites/image-5.png)
-*Hình 7. Tạo EFS File System thành công*
+*Hình 7. EFS File System đã được tạo thành công*
 
 #### Gắn Policy vào ECS IAM Role
 
-1. Điều hướng đến [giao diện IAM Role](console.aws.amazon.com/iam/home?roles) và chọn `retailStoreECSTaskRole`
+1. Điều hướng đến [IAM Role console](console.aws.amazon.com/iam/home?roles) và chọn `retailStoreECSTaskRole`
 
 ![alt text](/images/1-prerequisites/image-6.png)
 *Hình 8. Giao diện IAM Role*
 
-2. Thêm policy vào IAM Role
+2. Chọn **Add permissions**
 
 ![alt text](/images/1-prerequisites/image-7.png)
 *Hình 9. Thêm policy vào IAM Role*
 
-3. Tìm kiếm và chọn `AmazonEFSCSIDriverPolicy` > Add Permissions
+3. Gắn policy cần thiết:
+   - Tìm kiếm `AmazonEFSCSIDriverPolicy`
+   - Chọn policy
+   - Chọn **Add permissions**
 
 ![alt text](/images/1-prerequisites/image-8.png)
 *Hình 10. Giao diện gắn policy*
 
-4. Gắn policy thành công:
+4. Xác nhận việc gắn policy
 
 ![alt text](/images/1-prerequisites/image-9.png)
-*Hình 11. Gắn policy thành công*
+*Hình 11. Policy đã được gắn thành công*

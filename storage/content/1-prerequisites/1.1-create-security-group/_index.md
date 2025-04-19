@@ -1,5 +1,5 @@
 ---
-title: "Creating secuity group"
+title: "Creating Security Group"
 date: "`r Sys.Date()`"
 weight: 1
 chapter: false
@@ -11,17 +11,22 @@ pre: "<b> 1. </b>"
 
 #### Create Security Group
 
-Navigate to [Security Group Dashboard](https://console.aws.amazon.com/ec2/home?#SecurityGroups:)
+1. Access the [Security Groups console](https://console.aws.amazon.com/ec2/home?#SecurityGroups:)
 
-In the Create Security Group interface:
-- Enter a security group name `ecs-lab-efs-sg`
-- Select VPC `ecs-lab-vpc`
-- Add Inbound rule: Type `NFS` - Source `ecs-lab-asset-sg`
+2. Configure the following settings in the Create Security Group page:
+
+   - Security group name: `ecs-lab-efs-sg`
+   - VPC: Select `ecs-lab-vpc`
+   - Inbound rules: 
+     - Type: `NFS`
+     - Source: `ecs-lab-asset-sg`
 
 ![alt text](/images/1-prerequisites/1.1-create-security-group/image-1.png)
 *Figure 2. Create Security Group interface*
 
-Result:
+3. Review the configuration and click **Create security group**
+
+After successful creation, you will see the new security group in the console:
 
 ![alt text](/images/1-prerequisites/1.1-create-security-group/image.png)
 *Figure 3. Security Group created successfully*

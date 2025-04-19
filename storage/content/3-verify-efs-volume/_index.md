@@ -6,7 +6,7 @@ chapter: false
 pre: "<b> 3. </b>"
 ---
 
-After integrating Amazon EFS with Amazon ECS, verify the mounted EFS volume functionality. Initially, the application displays broken image icons because the EFS volume is empty. Access the application URL using:
+After integrating Amazon EFS with Amazon ECS, verify that the EFS volume is properly mounted and functioning. Initially, the application shows broken image icons because the EFS volume is empty. To access the application, retrieve and use the Application Load Balancer URL:
 
 ```bash
 export RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
@@ -16,12 +16,12 @@ echo http://${RETAIL_ALB} ; echo
 ```
 
 {{% notice note %}}
-Clear your browser cache to view the latest changes.
+Clear your browser cache to ensure you see the most recent changes.
 {{% /notice %}}
 
 ![web browser with broken image](https://static.us-east-1.prod.workshops.aws/public/fe1738fc-3d5c-4d22-bac3-0be10a3ad36f/static/images/90-storage/ui-service-webapp-broken-image.png)
 
-Inspect the container directory contents by starting an interactive session:
+To examine the container directory contents, establish an interactive session:
 
 ```bash
 ECS_EXEC_TASK_ARN=$(aws ecs list-tasks --cluster retail-store-ecs-cluster \
@@ -39,13 +39,13 @@ aws ecs execute-command --cluster retail-store-ecs-cluster \
 fi
 ```
 
-View the directory contents:
+Inspect the directory contents:
 
 ```bash
 ls -al /usr/share/nginx/html/assets
 ```
 
-The output shows an empty directory:
+The output confirms an empty directory:
 
 ```bash
 bash-5.2# ls -al /usr/share/nginx/html/assets
@@ -54,7 +54,7 @@ drwxr-xr-x 2 root  root  6144 Oct 22 05:18 .
 drwxr-xr-x 1 nginx nginx 4096 Jan  9  2024 ..
 ```
 
-Exit the session:
+Exit the interactive session:
 
 ```bash
 exit
@@ -62,16 +62,16 @@ exit
 
 #### Import New Images to the EFS Volume
 
-The EFS volume mounted in the [EC2 environment](1-prerequisites/1.3-uploading/images-to-ec2) allows direct image import. Verify the EFS mount information:
+Using the EFS volume mounted in the [EC2 environment](1-prerequisites/1.3-uploading/images-to-ec2), import the images directly. First, verify the EFS mount information:
 
 ```bash
 df -h
 ```
 
-![alt text](image-1.png)
+![alt text](/images/3-verify-efs-volume/image-1.png)
 *Figure 1. EFS mount point output*
 
-Copy the new images to the EFS mount point:
+Transfer the images to the EFS mount point:
 
 ```bash
 sudo cp images/* efs-mount-point/
@@ -82,15 +82,15 @@ sudo cp images/* efs-mount-point/
 
 #### Verify the Updated Images
 
-Refresh your browser to view the updated product images.
+Refresh your browser to see the newly added product images.
 
 {{% notice tip %}}
-Clear your browser cache to ensure you see the latest changes.
+If the images don't appear immediately, clear your browser cache.
 {{% /notice %}}
 
 ![web site with updated images](https://static.us-east-1.prod.workshops.aws/public/fe1738fc-3d5c-4d22-bac3-0be10a3ad36f/static/images/90-storage/ui-service-webapp-updatedasset.png)
 
-Confirm the EFS volume mounting in the container by starting another interactive session:
+Verify the EFS volume mounting in the container by starting another interactive session:
 
 ```bash
 ECS_EXEC_TASK_ARN=$(aws ecs list-tasks --cluster retail-store-ecs-cluster \
@@ -108,13 +108,13 @@ aws ecs execute-command --cluster retail-store-ecs-cluster \
 fi
 ```
 
-Check the mounted EFS volume contents:
+Examine the mounted EFS volume contents:
 
 ```bash
 ls -al /usr/share/nginx/html/assets
 ```
 
-The output should display the newly copied images:
+The output should now show the newly copied images:
 
 ```
 bash-5.2# ls -al /usr/share/nginx/html/assets
@@ -130,7 +130,7 @@ drwxr-xr-x 1 nginx nginx  4096 Jan  9  2024 ..
 -rw-r--r-- 1 root  root  20280 Oct 22 06:03 wood_watch.jpg
 ```
 
-Exit the session:
+Exit the interactive session:
 
 ```bash
 exit

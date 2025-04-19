@@ -1,73 +1,54 @@
 ---
-title: "Điều kiện tiên quyết"
+title: "Tải ảnh lên Public EC2"
 date: "`r Sys.Date()`"
-weight: 1
+weight: 3
 chapter: false
-pre: "<b> 1. </b>"
+pre: "<b> 3. </b>"
 ---
 
-Trước khi tiếp tục với các bài thực hành phần Storage, chúng ta cần tạo security group cho EFS để cho phép Asset truy cập vào EFS File System, và gắn policy cần thiết vào ECS IAM Role để cho phép ECS Cluster quản lý hệ thống tệp EFS.
+1. Kết nối tới Public EC2 Instance
+- Nếu bạn chưa tạo EC2 instance, vui lòng làm theo hướng dẫn tại [Thiết lập môi trường lab](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/2-prerequisites/6-set-up-lab-environment/)
 
-![alt text](/images/1-prerequisites/ECS-Lab-Networking-Storage-1.png)
-*Hình 1. Kiến trúc Storage*
+Điều hướng đến EC2 Dashboard > Chọn Public EC2 instance của bạn > Nhấp Connect
+![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image.png)
+*Hình 1. EC2 Dashboard*
 
-#### Tạo Security Group
+Sao chép lệnh SSH mẫu và sửa đổi đường dẫn SSH key để kết nối tới EC2 instance của bạn
+![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image-1.png)
+*Hình 2. Chi tiết kết nối SSH EC2*
 
-Điều hướng đến [Security Group Dashboard](https://console.aws.amazon.com/ec2/home?#SecurityGroups:)
+Xác nhận kết nối SSH thành công
+![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image-2.png)
+*Hình 3. Kết nối SSH thành công tới EC2*
 
-Trong giao diện Create Security Group:
-- Nhập tên security group `ecs-lab-efs-sg`
-- Chọn VPC `ecs-lab-vpc`
-- Thêm Inbound rule: Type `NFS` - Source `ecs-lab-asset-sg`
+2. Gắn EFS Volume vào EC2 Instance
+    a. Tạo và cấu hình điểm gắn kết
+    
+    ```bash
+    mkdir efs-mount-point/    # Tạo thư mục cho EFS mount
+    sudo yum install -y amazon-efs-utils
+    sudo mount -t efs fs-078993d4880a9e44d efs-mount-point/    # Gắn EFS volume
+    ```
+    
+    ![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image-3.png)
+    *Hình 4. Tạo thư mục gắn kết*
+    
+    b. Chuyển ảnh từ máy local lên `efs-mount-point` của EC2
+    
+    Đảm bảo bạn có thư mục `images` chứa các ảnh cần thiết. Bạn có thể sử dụng ảnh của riêng mình hoặc [tải xuống các ảnh mẫu](https://drive.google.com/drive/folders/1Zv327_rLX_Skp_NWZ0FqkA886-WEmdrn?usp=drive_link). Tên ảnh phải khớp chính xác như bên dưới để tương thích với ứng dụng Assets.
 
-![alt text](/images/1-prerequisites/image-1.png)
-*Hình 2. Giao diện tạo Security Group*
+    ![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image-4.png)
+    *Hình 5. Nội dung thư mục images local*
+    
 
-Kết quả:
+    Sử dụng SCP (Secure Copy Protocol) để chuyển file từ máy local lên EC2 instance:
 
-![alt text](/images/1-prerequisites/image.png)
-*Hình 3. Tạo Security Group thành công*
+    ```bash
+    # Định dạng: scp -i /path/to/ssh-key -r /path/to/local/directory username@remote-host:/destination/path
+    sudo scp -i ~/.ssh/ecs-workshop-key-pairs.pem -r ~/Desktop/images/ ec2-user@ec2-54-79-164-169.ap-southeast-2.compute.amazonaws.com:.
+    ```
+    
+    ![alt text](/images/1-prerequisites/1.3-uploading-images-to-ec2/image-5.png)
+    *Hình 6. Chuyển file lên EC2 thành công*
 
-#### Tạo EFS File System
-
-1. Điều hướng đến [EFS Dashboard](https://console.aws.amazon.com/efs/home/file-systems) > Chọn Create File System
-
-![alt text](/images/1-prerequisites/image-2.png)
-*Hình 4. Giao diện EFS Dashboard*
-
-2. Trong File System Settings > Nhập tên, giữ các tùy chọn mặc định
-
-![alt text](/images/1-prerequisites/image-3.png)
-*Hình 5. Giao diện File System Settings*
-
-3. Trong Network Access, chọn VPC `ecs-lab-vpc`, cấu hình mount targets trong 2 AZ với `ecs-lab-efs-sg`
-
-![alt text](/images/1-prerequisites/image-4.png)
-*Hình 6. Cấu hình Network Access*
-
-4. Hoàn tất tạo EFS file system
-
-![alt text](/images/1-prerequisites/image-5.png)
-*Hình 7. Tạo EFS File System thành công*
-
-#### Gắn Policy vào ECS IAM Role
-
-1. Điều hướng đến [giao diện IAM Role](console.aws.amazon.com/iam/home?roles) và chọn `retailStoreECSTaskRole`
-
-![alt text](/images/1-prerequisites/image-6.png)
-*Hình 8. Giao diện IAM Role*
-
-2. Thêm policy vào IAM Role
-
-![alt text](/images/1-prerequisites/image-7.png)
-*Hình 9. Thêm policy vào IAM Role*
-
-3. Tìm kiếm và chọn `AmazonEFSCSIDriverPolicy` > Add Permissions
-
-![alt text](/images/1-prerequisites/image-8.png)
-*Hình 10. Giao diện gắn policy*
-
-4. Gắn policy thành công:
-
-![alt text](/images/1-prerequisites/image-9.png)
-*Hình 11. Gắn policy thành công*
+    Chúng ta đã tải lên thành công các hình ảnh vào EC2 instance. Trong các bước tiếp theo, chúng ta sẽ sao chép các hình ảnh này vào thư mục đã được mount.
