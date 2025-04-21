@@ -14,4 +14,3 @@ pre: "<b> 1. </b>"
 
 <!-- 4. Create DB Subnet & Security group & Create MySQL AuroraDB -->
 
-<!-- 5. Create secret manager -->
