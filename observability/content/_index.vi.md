@@ -1,40 +1,29 @@
 +++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
+title = "Khả năng quan sát với Amazon ECS"
+date = 2024
 weight = 1
 chapter = false
 +++
 
-# Tạo tài khoản AWS đầu tiên
+# Observability with Amazon ECS
 
-#### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
+Khả năng quan sát là khả năng liên tục tạo và khám phá những thông tin chi tiết hữu ích dựa trên các tín hiệu từ hệ thống đang được theo dõi. Nói cách khác, khả năng quan sát cho phép người dùng hiểu được trạng thái của hệ thống từ các đầu ra bên ngoài của nó và thực hiện các hành động phù hợp. Ba trụ cột của khả năng quan sát là số liệu (metrics), nhật ký (logs) và dấu vết (traces):
 
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
+#### Số liệu (Metrics)
 
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
-{{% /notice %}}
+- Số liệu biểu diễn dữ liệu số được đo lường theo các khoảng thời gian. Chúng tận dụng mô hình hóa và dự đoán toán học để hiểu hành vi của hệ thống ở cả hiện tại và tương lai.
+- Chúng hữu ích để xác định xu hướng và cho phép mô hình hóa và dự đoán toán học.
 
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
+#### Nhật ký (Logs)
 
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
+- Nhật ký bao gồm các bản ghi được đánh dấu thời gian, bất biến, ghi lại các sự kiện rời rạc khi chúng xảy ra theo thời gian. Chúng có giá trị trong việc phát hiện các hành vi mới nổi và khó lường.
+- Chúng đặc biệt hữu ích để khám phá các mô hình hành vi mới nổi và khó lường.
 
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
+#### Dấu vết (Traces)
 
+- Dấu vết mô tả một chuỗi các sự kiện phân tán, liên kết với nhau, vạch ra hành trình đầu cuối của một yêu cầu thông qua một hệ thống phân tán. Chúng cung cấp thông tin chi tiết, chẳng hạn như độ trễ, về đường đi của một yêu cầu và cấu trúc của nó.
+- Chúng cung cấp khả năng hiển thị cả đường đi mà một yêu cầu đã đi qua cũng như cấu trúc của một yêu cầu.
 
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
+![Observability](/images/1/Observability.png?width=90pc)
 
-
-#### Nội dung chính
-
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+Tóm lại, chúng ta có thể chia khả năng quan sát thành ba thành phần chính: CloudWatch Metrics, CloudWatch Logs và AWS X-Ray. Cùng nhau, chúng tạo thành một giải pháp khả năng quan sát toàn diện trên AWS, bao gồm giám sát số liệu, quản lý nhật ký và theo dõi phân tán. Các trụ cột này phối hợp với nhau để cung cấp cho người dùng những hiểu biết sâu sắc về hành vi, hiệu suất và độ tin cậy của môi trường và ứng dụng AWS của họ.
