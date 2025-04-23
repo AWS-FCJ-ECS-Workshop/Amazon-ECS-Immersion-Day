@@ -33,6 +33,21 @@ Trong phần Build projects:
 - Chọn **Delete**
   ![Delete-Pipeline-4](/images/6/6-4.png?width=90pc)
 
+### Delete S3
+
+Trong phần S3 Bucket
+
+- Chọn bucket đã tạo
+- Chọn **Empty**
+  ![Delete-S3](/images/6/6-5.png?width=90pc)
+- Nhập `permanently delete` để xác nhận việc xóa
+  ![Delete-S3](/images/6/6-6.png?width=90pc)
+- Tiếp tục chọn bucket đã tạo
+- Chọn **Delete**
+  ![Delete-S3](/images/6/6-7.png?width=90pc)
+- Nhập tên của bucket để xác nhận việc xóa
+  ![Delete-S3](/images/6/6-8.png?width=90pc)
+
 {{% notice info %}}
 Các tài nguyên còn lại sẽ được sử dụng cho bài lab tiếp theo.
 {{% /notice %}}
