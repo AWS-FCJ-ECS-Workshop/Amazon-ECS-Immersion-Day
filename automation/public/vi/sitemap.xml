@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>//localhost:1313/vi/</loc>
-    <lastmod>1969-12-31T16:33:44-08:00</lastmod>
+    <lastmod>1970-01-01T07:33:44+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -26,19 +26,6 @@
                 rel="alternate"
                 hreflang="vi"
                 href="//localhost:1313/vi/"
-                />
-  </url><url>
-    <loc>//localhost:1313/vi/2-prerequisites/1-iam-roles/</loc>
-    <lastmod>2020-05-14T00:38:32+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="//localhost:1313/2-prerequisites/1-iam-roles/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="//localhost:1313/vi/2-prerequisites/1-iam-roles/"
                 />
   </url><url>
     <loc>//localhost:1313/vi/2-prerequisites/</loc>
@@ -52,6 +39,19 @@
                 rel="alternate"
                 hreflang="vi"
                 href="//localhost:1313/vi/2-prerequisites/"
+                />
+  </url><url>
+    <loc>//localhost:1313/vi/2-prerequisites/1-iam-roles/</loc>
+    <lastmod>2020-05-14T00:38:32+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/2-prerequisites/1-iam-roles/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/2-prerequisites/1-iam-roles/"
                 />
   </url><url>
     <loc>//localhost:1313/vi/2-prerequisites/2-create-s3-bucket/</loc>
@@ -80,19 +80,6 @@
                 href="//localhost:1313/vi/3-create-build-stage/"
                 />
   </url><url>
-    <loc>//localhost:1313/vi/3-create-build-stage/1-create-codebuild/</loc>
-    <lastmod>2020-05-14T00:38:32+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="//localhost:1313/3-create-build-stage/1-create-codebuild/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="//localhost:1313/vi/3-create-build-stage/1-create-codebuild/"
-                />
-  </url><url>
     <loc>//localhost:1313/vi/3-create-build-stage/2-start-codebuild/</loc>
     <lastmod>2020-05-14T00:38:32+07:00</lastmod>
     <xhtml:link
@@ -106,8 +93,21 @@
                 href="//localhost:1313/vi/3-create-build-stage/2-start-codebuild/"
                 />
   </url><url>
+    <loc>//localhost:1313/vi/3-create-build-stage/1-create-codebuild/</loc>
+    <lastmod>2020-05-14T00:38:32+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/3-create-build-stage/1-create-codebuild/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/3-create-build-stage/1-create-codebuild/"
+                />
+  </url><url>
     <loc>//localhost:1313/vi/4-execute-rolling-deployment/</loc>
-    <lastmod>2024-08-19T00:38:32+07:00</lastmod>
+    <lastmod>2024-05-14T00:38:32+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -133,7 +133,7 @@
                 />
   </url><url>
     <loc>//localhost:1313/vi/6-clean-resources/</loc>
-    <lastmod>2024-08-19T00:38:32+07:00</lastmod>
+    <lastmod>2024-05-14T00:38:32+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"

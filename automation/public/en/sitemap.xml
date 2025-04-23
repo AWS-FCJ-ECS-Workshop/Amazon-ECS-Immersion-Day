@@ -15,19 +15,6 @@
                 href="//localhost:1313/1-introduction/"
                 />
   </url><url>
-    <loc>//localhost:1313/</loc>
-    <lastmod>1969-12-31T16:33:44-08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="//localhost:1313/vi/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="//localhost:1313/"
-                />
-  </url><url>
     <loc>//localhost:1313/2-prerequisites/1-iam-roles/</loc>
     <lastmod>2020-05-14T00:38:32+07:00</lastmod>
     <xhtml:link
@@ -156,6 +143,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="//localhost:1313/7-conclusion/"
+                />
+  </url><url>
+    <loc>//localhost:1313/</loc>
+    <lastmod>2024-08-19T00:38:32+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/"
                 />
   </url><url>
     <loc>//localhost:1313/categories/</loc>

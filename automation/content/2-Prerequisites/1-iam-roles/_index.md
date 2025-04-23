@@ -35,61 +35,8 @@ pre = "<b>2.1 </b>"
    ![IAM-6](/images/2/2.1-6.png?width=90pc)
 
 7. Select tab **JSON**
-   ![IAM-7](/images/2/2.1-7.png?width=90pc)
-   Add the following JSON:
 
-```
-{
-"Version": "2012-10-17",
-"Statement": [
-	{
-		"Effect": "Allow",
-		"Resource": [
-			"arn:aws:logs:$AWS_REGION:${ACCOUNT_ID}:log-group:/aws/codebuild/${NAME-CODEBUILD}", //Update the Region, Account ID, and CodeBuild name according to your environment.
-			"arn:aws:logs:$AWS_REGION:${ACCOUNT_ID}:log-group:/aws/codebuild/${NAME-CODEBUILD}:*" //Update the Region, Account ID, and CodeBuild name according to your environment.
-		],
-		"Action": [
-			"logs:CreateLogGroup",
-			"logs:CreateLogStream",
-			"logs:PutLogEvents"
-		]
-	},
-	{
-		"Effect": "Allow",
-		"Resource": [
-			"arn:aws:s3:::codepipeline-$AWS_REGION-*" //Update the Region name
-		],
-		"Action": [
-			"s3:PutObject",
-			"s3:GetObject",
-			"s3:GetObjectVersion",
-			"s3:GetBucketAcl",
-			"s3:GetBucketLocation"
-		]
-	},
-	{
-		"Effect": "Allow",
-		"Action": [
-			"codebuild:CreateReportGroup",
-			"codebuild:CreateReport",
-			"codebuild:UpdateReport",
-			"codebuild:BatchPutTestCases",
-			"codebuild:BatchPutCodeCoverages"
-		],
-		"Resource": [
-			"arn:aws:codebuild:$AWS_REGION:${ACCOUNT_ID}:report-group/codebuild/${NAME-CODEBUILD}-*" //Update the Region, Account ID, and CodeBuild name according to your environment.
-		]
-	}
-]
-}
-```
-
-8. Enter **Policy name**: `CodeBuildBasePolicy-ecs-workshop-rolling-deployment`
-   ![IAM-8](/images/2/2.1-8.png?width=90pc)
-9. Select **Create Policy**
-   ![IAM-9](/images/2/2.1-9.png?width=90pc)
-
-10. Repeat **step 6** to create another policy
+![IAM-10](/images/2/2.1-10.png?width=90pc)
 
 Add the following JSON:
 
@@ -107,8 +54,6 @@ Add the following JSON:
 	]
 }
 ```
-
-![IAM-10](/images/2/2.1-10.png?width=90pc)
 
 11. Enter **Policy name**: `IAM-role-used-by-CodeBuild-to-allow-it-to-write-to-Parameter-Store`
 

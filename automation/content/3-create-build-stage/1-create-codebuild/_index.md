@@ -99,25 +99,31 @@ pre = "<b>3.1 </b>"
 
    - Add the following JSON:
 
+{{% notice info %}}
+**Prerequisites:** Update the name your ECR
+{{% /notice %}}
+
 ```
+
 version: 0.2
 
 phases:
-install:
-commands:
-    - echo Build started on `date`
-pre_build:
+  install:
+    commands:
+      - echo Build started on `date`
+  pre_build:
     commands:
       - ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
       - echo Logging in to Amazon ECR in $AWS_REGION
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - IMAGE_TAG_I=i$(date +%Y%m%d%H%M%S)-${COMMIT_HASH:=latest}
-      - ECR_URI=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/retail-store-sample-ui //change the name your ecr
+      - ECR_URI=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/retail-store-sample-ui
       - echo ECR_URI=$ECR_URI
-      - echo IMAGE_TAG=$IMAGE_TAG - echo IMAGE_TAG_I=$IMAGE_TAG_I
+      - echo IMAGE_TAG=$IMAGE_TAG
+      - echo IMAGE_TAG_I=$IMAGE_TAG_I
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URI
-build:
+  build:
     commands:
       - echo Building a container image ...
       - component=ui
@@ -126,22 +132,24 @@ build:
       - docker build -t $ECR_URI:$IMAGE_TAG .
       - docker tag $ECR_URI:$IMAGE_TAG $ECR_URI:$IMAGE_TAG_I
       - docker images
-post_build:
+  post_build:
     commands:
-    - docker push $ECR_URI:$IMAGE_TAG_I
-    - docker push $ECR_URI:$IMAGE_TAG
-    - cd ../..
-    - echo Writing image definitions file...
-    - printf '[{"name":"application","imageUri":"%s"}]' $ECR_URI:$IMAGE_TAG_I > imagedefinitions.json
-    - printf '{"ImageURI":"%s"}' $ECR_URI:$IMAGE_TAG_I > imageDetail.json
-    - aws ssm put-parameter --name "/codebuild/retail-store-sample-ui-latest-image" --value "$IMAGE_TAG_I" --type "String" --overwrite
-    - echo Build completed on `date`
+      - docker push $ECR_URI:$IMAGE_TAG_I
+      - docker push $ECR_URI:$IMAGE_TAG
+      - cd ../..
+      - echo Writing image definitions file...
+      - printf '[{"name":"application","imageUri":"%s"}]' $ECR_URI:$IMAGE_TAG_I > imagedefinitions.json
+      - printf '{"ImageURI":"%s"}' $ECR_URI:$IMAGE_TAG_I > imageDetail.json
+      - aws ssm put-parameter --name "/codebuild/retail-store-sample-ui-latest-image" --value "$IMAGE_TAG_I" --type "String" --overwrite
+      - echo Build completed on `date`
+
 artifacts:
-    name: BuildArtifact
-    files:
-        - imagedefinitions.json
-        - imageDetail.json
-        - taskdef.json
+  name: BuildArtifact
+  files:
+    - imagedefinitions.json
+    - imageDetail.json
+    - taskdef.json
+
 ```
 
 ![CodeBuild-20](/images/3/3.1-20.png?width=90pc)
