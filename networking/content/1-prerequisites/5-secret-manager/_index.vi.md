@@ -1,29 +1,26 @@
 ---
-title: "Tạo Parameter trong Secret Manager"
+title: "Tạo Parameters trong Secret Manager"
 date: "`r Sys.Date()`"
-weight: 1
+weight: 5
 chapter: false
-pre: "<b> 1. </b>"
+pre: "<b> 5. </b>"
 ---
 
-<!-- 5. Create secret manager -->
+#### AWS Systems Manager
+AWS Systems Manager cho phép bạn quản lý tài nguyên AWS ở quy mô lớn trên các môi trường AWS, hybrid và multi-cloud.
 
-AWS Systems Manager
-Quản lý nút ở quy mô lớn trên AWS cũng như trong các môi trường kết hợp và môi trường đa đám mây
+#### AWS Secrets Manager
+AWS Secrets Manager giúp bạn bảo vệ quyền truy cập vào ứng dụng, dịch vụ và tài nguyên IT của mình. Dịch vụ này cho phép bạn dễ dàng xoay vòng, quản lý và truy xuất thông tin đăng nhập cơ sở dữ liệu, khóa API và các bí mật khác trong suốt vòng đời của chúng.
 
-Secret manager
-Trình quản lý thông tin bí mật của AWS cho phép bạn quản lý, truy xuất và xoay vòng thông tin chứng thực cơ sở dữ liệu, khóa API và các bí mật khác trong suốt vòng đời của chúng.
+#### Tạo Database Endpoint Parameter
 
----
-#### Tạo Database Endpoint node
+Sau khi tạo thành công instance cơ sở dữ liệu, truy cập chi tiết instance và sao chép endpoint:
 
-Sau khi tạo thành công database, bạn truy cập detail db instance, copy endpoint
-
-![alt text](image.png)
-Figure 1.
+![alt text](/images/1-prerequisites/5-secret-manager/image.png)
+*Hình 1: Chi tiết instance cơ sở dữ liệu được tạo trong phần 4*
 
 ```bash
-# change your value
+# Thay thế --value bằng endpoint của bạn
 aws ssm put-parameter \
   --name "/retail-store-ecs/catalog/db-endpoint" \
   --value "<your-mysql-url>:3306" \
@@ -33,10 +30,10 @@ aws ssm put-parameter \
 aws ssm get-parameter --name "/retail-store-ecs/catalog/db-endpoint"
 ```
 
-#### Tạo secret values
+#### Tạo Secret Values
 
 {{% notice info %}}
-Lưu ý: thay thế username & password nếu bạn đặt giá trị khác khi tạo database.
+Lưu ý: Thay thế `username` & `password` nếu bạn đã sử dụng các giá trị khác khi tạo cơ sở dữ liệu.
 {{% /notice %}}
 
 ```bash
@@ -47,5 +44,5 @@ aws secretsmanager create-secret \
 aws secretsmanager get-secret-value --secret-id "retail-store-ecs-catalog-db"
 ```
 
-![alt text](image-1.png)
-Figure 2. Tạo thành công value trong secret manager
+![alt text](/images/1-prerequisites/5-secret-manager/image-1.png)
+*Hình 2: Đã tạo thành công các giá trị trong AWS Secrets Manager*

@@ -6,42 +6,38 @@ chapter: false
 pre: "<b> 1. </b>"
 ---
 
-<!-- 1. Asset SG, Catalog SG-->
+In this section, we will create Security Groups for the Assets and Catalog services to enable communication with the UI Security Group.
 
-Section này chúng ta sẽ tạo Security Group cho services Assets và Catalog, mục đích cho phép UI Security Group giao tiếp với các services trên.
+Navigate to [Security Groups](https://console.aws.amazon.com/ec2/home?SecurityGroups:) > Create security group
 
-#### Tạo Assets Security Group
+Configure the following settings:
+- Security group name: `ecs-lab-asset-sg`
+- VPC: `ecs-lab-vpc`
+- Inbound rules: Allow TCP port 8080 from `ecs-lab-ui-sg`
+- Outbound rules: Allow all traffic
 
-Truy cập [Security Group](console.aws.amazon.com/ec2/home?SecurityGroups:) > Create security group
+![alt text](/images/1-prerequisites/1-security-groups/image.png)
+*Figure 1: Assets Security Group configuration*
 
-- Tạo security với tên `ecs-lab-asset-sg`
-- VPC `ecs-lab-vpc`
-- Inbound rules: Port TCP 8080 - `ecs-lab-ui-sg`
-- Allows all outbound rules
-
-![alt text](image.png)
-*Figure 1. Giao diện tạo Assets Security Group*
-
-![alt text](image-1.png)
-*Figure 2. Tạo thành công Assets SG*
+![alt text](/images/1-prerequisites/1-security-groups/image-1.png)
+*Figure 2: Successfully created Assets Security Group*
 
 ---
 
-#### Tạo Catalog Security Group
+#### Create Catalog Security Group
 
-Truy cập [Security Group](console.aws.amazon.com/ec2/home?SecurityGroups:) > Create security group
+Navigate to [Security Groups](https://console.aws.amazon.com/ec2/home?SecurityGroups:) > Create security group
 
-- Tạo security với tên `ecs-lab-catalog-sg`
-- VPC `ecs-lab-vpc`
-- Inbound rules: Port TCP 8080 - `ecs-lab-ui-sg`
-- Allows all outbound rules
+Configure the following settings:
+- Security group name: `ecs-lab-catalog-sg`
+- VPC: `ecs-lab-vpc`
+- Inbound rules: Allow TCP port 8080 from `ecs-lab-ui-sg`
+- Outbound rules: Allow all traffic
 
-![alt text](image-2.png)
-*Figure 3. Giao diện tạo Catalog Security Group*
+![alt text](/images/1-prerequisites/1-security-groups/image-2.png)
+*Figure 3: Catalog Security Group configuration*
 
-![alt text](image-3.png)
-*Figure 2. Tạo thành công Catalog SG*
+![alt text](/images/1-prerequisites/1-security-groups/image-3.png)
+*Figure 4: Successfully created Catalog Security Group*
 
-✅ Chúc mừng chúng ta đã tạo thành công Security Group cho service Assets và Catalog
-
-
+You have successfully created Security Groups for both the Assets and Catalog services.

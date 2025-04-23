@@ -6,32 +6,31 @@ chapter: false
 pre: "<b> 3. </b>"
 ---
 
-<!-- 3. cataologEcsTaskExecutionRole  -->
-Trong section này, chúng ta sẽ tiến hành tạo Catalog Task Execution Role, mục đích gán cho Catalog service giúp Catalog gọi các AWS services thay bạn.
+In this section, we will create a Catalog Task Execution Role that enables the Catalog service to interact with AWS services on your behalf.
 
-#### Tạo Catalog Task Execution Role
+#### Creating the Catalog Task Execution Role
 
-Truy cập [IAM Role Dashboard](https://console.aws.amazon.com/iam/home/roles) > Create Role
+Navigate to [IAM Role Dashboard](https://console.aws.amazon.com/iam/home/roles) and select Create Role
 
-Trong giao diện Select trusted entity:
-- Chọn AWS Service
-- Elastic Container Service use case
-- Elastic Container Service Task
+In the Select trusted entity interface:
+- Select AWS Service
+- Choose Elastic Container Service use case
+- Select Elastic Container Service Task
 
-![Giao diện Select trusted entity](image.png)
-*Figure 1. Giao diện Select trusted entity*
+![Select trusted entity interface](/images/1-prerequisites/3-iam-role/image.png)
+*Figure 1. Select trusted entity interface*
 
-Tại Add Permission, gán policy `AmazonECSTaskExecutionRolePolicy` > Next
+Under Add Permission, attach the `AmazonECSTaskExecutionRolePolicy` > Next
 
-![Add Permission](image-1.png)
-*Figure 2. Giao diện Add Permission*
+![Add Permission interface](/images/1-prerequisites/3-iam-role/image-1.png)
+*Figure 2. Add Permission interface*
 
-Khi tạo thành công, truy cập detail role, tại **Permission* tab chọn dropdown > Create Inline Policy
+After successful creation, access the role details. Under the **Permissions** tab, select the dropdown menu > Create Inline Policy
 
-![alt text](image-2.png)
-*Figure 3. Detail Catalog Role*
+![Catalog Role Details](/images/1-prerequisites/3-iam-role/image-2.png)
+*Figure 3. Catalog Role Details*
 
-Truy cập Policy Editor > tab JSON
+Access the Policy Editor > JSON tab and add the following policy:
 
 ```json
 {
@@ -49,17 +48,17 @@ Truy cập Policy Editor > tab JSON
 }
 ```
 
-Thêm policy này vào thông qua Policy Editor
+Add this policy through the Policy Editor
 
-![alt text](image-3.png)
-*Figure 4. Thêm inline policy*
+![Adding inline policy](/images/1-prerequisites/3-iam-role/image-3.png)
+*Figure 4. Adding inline policy*
 
-Tại bước Review and Create, đặt tên policy name `catalogTaskExecutionPolicy`
+In the Review and Create step, name the policy `catalogTaskExecutionPolicy`
 
-![alt text](image-4.png)
+![Review and Create step](/images/1-prerequisites/3-iam-role/image-4.png)
 *Figure 5. Review and Create step*
 
-Thêm Inline policy thành công:
+Successful inline policy addition:
 
-![alt text](image-5.png)
-*Figure 6. Thêm inline policy thành công*
+![Successful inline policy addition](/images/1-prerequisites/3-iam-role/image-5.png)
+*Figure 6. Successful inline policy addition*

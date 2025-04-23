@@ -6,59 +6,50 @@ chapter: false
 pre: "<b> 2. </b>"
 ---
 
-<!-- 2. Cloud Map - Create a Service Discovery Namespace -->
+![Cloud map icon](/images/3-service-connect/image.png?width=1pc)
+*Figure 1. Cloud Map Icon*
 
-[Cloud map icon](/images/3-service-connect/image.png)
-*Figure 1. Cloud map Icon*
+### What is AWS Cloud Map?
 
-### Cloud Map là gì ?
+AWS Cloud Map is a fully managed service discovery solution that enables you to map logical names to your application's backend services and resources. It helps your applications locate dependencies through a unified service registry.
 
-AWS Cloud Map is a fully managed solution that you can use to map logical names to the backend services and resources that your applications depend on.
-
-
-### Thành phần của Cloud Map
+### AWS Cloud Map Components
 
 #### Namespace
 
-A namespace identifies the name that you want to use to locate your resources and also specifies how you want to locate resources
+A namespace provides a unique scope for your resources and defines how you want to discover them. It acts as a container for your services and determines the discovery method - either through DNS queries, API calls, or both.
 
-#### Service
+#### Service 
 
-After creating a namespace, you create an AWS Cloud Map service for each type of resource for which you want to use AWS Cloud Map to locate endpoints.
-For example, you might create services for web servers and database servers.
+After creating a namespace, you define services to represent each type of resource you want to discover. For example, you might create separate services for web servers, application servers, and database servers.
 
 #### Service Instance
 
-When your application adds a resource, you can call the AWS Cloud Map RegisterInstance API action in the code, which creates a AWS Cloud Map service instance in a service.
+Service instances are the actual resources registered with AWS Cloud Map. When your application adds a resource, it calls the RegisterInstance API to create a service instance within a service. This enables other applications to discover and connect to these resources.
 
-<!-- TODO: Refer: https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html -->
+### Workshop Use Case
 
-### Use case trong bài lab
+In this workshop, we will use AWS Cloud Map to implement service discovery for three microservices: UI service, catalog service, and assets service. This demonstrates Cloud Map's service discovery capabilities in a microservices architecture.
 
-Dựa trên lý thuyết, trong bài lab này, chúng ta sẽ sử dụng cloud map để map logical names của ui service, catalog service, assets service. Điều này thể hiện khả năng service discovery của Cloud Map.
+#### Create a Service Discovery Namespace
 
----
+1. Navigate to [AWS Cloud Map Namespaces console](https://console.aws.amazon.com/cloudmap/home/namespaces) and select **Create Namespace**
 
-#### Tạo Service Discovery Namespace
+![Cloud Map Namespaces Console](/images/1-prerequisites/2-service-discovery/image.png)
 
-Truy cập [Giao diện Cloud Map Namespaces](https://console.aws.amazon.com/cloudmap/home/namespaces) > Create Namespace
+*Figure 2. Cloud Map Namespaces Console*
 
-![alt text](image.png)
+2. Configure the namespace with these settings:
+   - Namespace name: `retailstore.local`
+   - Instance discovery: `API calls and DNS Queries in VPCs`
+   - VPC: `ecs-lab-vpc`
 
-*Figure 2. Giao diện Cloud Map Namespaces*
+![Create Namespace Configuration](/images/1-prerequisites/2-service-discovery/image-1.png)
+*Figure 3. Create Namespace Configuration*
 
-Trong giao diện Create namespace,
-- Namespace name `retailstore.local`
-- Instance discovery `API calls and DNS Queries in VPCs`
-- VPC: `ecs-lab-vpc`
+3. Verify successful namespace creation:
 
-![Giao diện Create namespace](image-1.png)
-*Figure 3. Giao diện Create namespace*
+![Successful Namespace Creation](/images/1-prerequisites/2-service-discovery/image-2.png)
+*Figure 4. Successful Namespace Creation*
 
-
-Tạo thành công Namespace:
-
-![Tạo thành công Namespace](image-2.png)
-*Figure 4. Tạo thành công namespace*
-
-✅ Chúng ta đã hoàn thành tạo Cloud Map namespace
+✅ You have successfully created a Cloud Map namespace

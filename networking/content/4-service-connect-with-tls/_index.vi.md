@@ -1,50 +1,26 @@
-+++
-title = "Tạo Admin Group và Admin User"
-date = 2021
-weight = 3
-chapter = false
-pre = "<b>3. </b>"
-+++
+---
+title: "Amazon ECS Service Connect với TLS"
+date: "`r Sys.Date()`"
+weight: 4
+chapter: false
+pre: "<b> 4. </b>"
+---
 
-#### Tạo Admin Group
-
-1.	**Đăng nhập vào Bảng điều khiển** ở trang [AWS Web Service page](https://aws.amazon.com/)
-2.	Nhấn vào tên tài khoản ở góc trên bên phải và chọn **My Security Credentials**
-
-![Image](/images/1-account-setup/MySecurity.png?width=15pc)
-
-3.	Ở thanh bên trái, chọn **User Groups** sau đó chọn **Create Group**
-4.	Dưới mục **Name the group**, nhập tên Group (Ví dụ: *AdminGroup*) và cuộn chuột xuống dưới
-
-![Image](/images/1-account-setup/GroupName.png?width=90pc)
-
-5.	Ở phần **Attach permissions policies**, gõ **AdministratorAccess** vào thanh tìm kiếm và nhấn chọn nó. Cuối cùng, chọn **Create Group**.
-
-![Image](/images/1-account-setup/GroupPolicy.png?width=90pc)
-
-#### Tạo Admin User
-
-1.	Ở thanh bên trái, chọn **Users** sau đó chọn **Add User**
-2.	Nhập tên User (Ví dụ: *AdminUser*).
-  + Click **AWS Management Console access**. 
-  + Click **Programmatic Access**.
-  + Click **Custom password** rồi gõ một password tùy ý của bạn (lưu ý: bạn phải ghi nhớ mật khẩu này cho những lần đăng nhập trong tương lai). 
-  + Bỏ chọn mục **User must create a new password...**.
-  + Click **Next:Permissions**.
-
-![Image](/images/1-account-setup/AddUser.png?width=90pc)
-
-{{% notice note %}}
- Bằng cách chọn **AWS Management Console access**, bạn vừa cho phép IAM User được truy cập vào AWS thông qua bảng điều khiển AWS trên web.\
- Việc bỏ mục **User must create a new password...** cho phép người dùng khi lần đầu đăng nhập vào IAM User đó không cần phải tạo mật khẩu mới.
-{{% /notice %}}
-
-3.	Click tab **Add user to group** và click **AdminGroup** mà chúng ta tạo trước đó.
-4.	Click **Next:Tags**
-    - Tags (thẻ) là một tùy chọn không bắt buộc để tổ chức, theo dõi, hoặc điều khiển truy cập của user, thế nên bạn có thể thêm tags hoặc không.
-5.	Click **Next:Review**.
-6.	Kiểm tra thông tin chi tiết user sau đó chọn **Create User**.
 {{% notice info %}}
-Sau khi tạo user, bạn sẽ thấy hiện lên hộp thoại download thông tin access key và secret key. Đây là thông tin dùng để thực hiện **Programmatic access** tới các tài nguyên của AWS thông qua **AWS CLI** và **AWS SDK**. Tạm thời chúng ta sẽ chưa sử dụng tới.
-
+Hoàn thành các điều kiện tiên quyết sau trước khi bắt đầu bài thực hành này: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](../3-service-connect/)
 {{% /notice %}}
+
+Amazon ECS Service Connect cung cấp tính năng mã hóa lưu lượng tích hợp sử dụng chứng chỉ Transport Layer Security (TLS) cho các service ECS. Khi bạn cấu hình service ECS với AWS Private Certificate Authority (AWS Private CA), ECS tự động quản lý chứng chỉ TLS để mã hóa lưu lượng giữa các service được kích hoạt Service Connect. Điều này bao gồm:
+
+- Cấp phát chứng chỉ
+- Luân chuyển chứng chỉ
+- Phân phối chứng chỉ  
+- Mã hóa lưu lượng giữa các service
+
+Trong bài thực hành này, bạn sẽ:
+
+- Triển khai phiên bản UI service có hỗ trợ TLS (`ui-tls`)
+- Cấu hình mã hóa TLS cho Catalog và Assets service hiện có
+- Xác thực kết nối TLS giữa các service
+
+[Tìm hiểu thêm về ECS Service Connect TLS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-tls.html)

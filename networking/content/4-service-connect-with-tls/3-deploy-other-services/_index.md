@@ -6,13 +6,11 @@ chapter: false
 pre: "<b> 4.3 </b>"
 ---
 
-In the previous section, we configured ECS Service Connect on the UI Service to encrypt communication between the Application Load Balancer and the UI Service. In this section, we will set up ECS Service Connect for the communication between **UI-TLS**, **Catalog**, and **Asset** services.
+After configuring TLS encryption between the Application Load Balancer and UI Service using ECS Service Connect, we will now implement TLS encryption for communication between the **UI-TLS**, **Catalog**, and **Asset** services.
 
----
+#### Configure TLS for the Catalog Service
 
-### Set up TLS on ECS Service Connect for the Catalog Service
-
-Update the **Catalog** Service to enable TLS for ECS Service Connect:
+Execute the following command to enable TLS encryption for the Catalog Service using ECS Service Connect:
 
 ```bash
 aws ecs update-service \
@@ -44,11 +42,9 @@ aws ecs update-service \
   }'
 ```
 
----
+#### Configure TLS for the Assets Service
 
-### Set up TLS on ECS Service Connect for the Assets Service
-
-Update the **Assets** Service to enable TLS for ECS Service Connect:
+Execute the following command to enable TLS encryption for the Assets Service using ECS Service Connect:
 
 ```bash
 aws ecs update-service \
@@ -85,4 +81,4 @@ aws ecs wait services-stable --cluster retail-store-ecs-cluster --services catal
 aws ecs wait services-stable --cluster retail-store-ecs-cluster --services assets
 ```
 
-Now, all traffic between the **UI-TLS**, **Catalog**, and **Assets** services is encrypted.
+Upon completion of these configurations, all communication between the **UI-TLS**, **Catalog**, and **Assets** services will be encrypted using TLS, ensuring secure data transmission within your application.
