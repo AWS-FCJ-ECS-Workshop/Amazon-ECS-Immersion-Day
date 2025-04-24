@@ -8,7 +8,7 @@ pre = "<b>1.2 </b>"
 
 Hãy xem xét các nhật ký từ các ứng dụng của cluster cửa hàng bán lẻ và kiểm tra các nhật ký liên quan đến hiệu suất của cluster này.
 
-### Khám phá Application Log
+### Khám phá Application Logs
 
 Chúng tôi đã cấu hình các cài đặt nhật ký cho dịch vụ container UI trong [ECS task definition section](https://catalog.workshops.aws/ecs-immersion-day/en-US/30-basic/200-task-definition/) như sau. Chúng tôi đã sử dụng trình điều khiển awslogs mặc định để thu thập nhật ký từ container và một **log group**(nhóm nhật ký), đại diện cho một nhóm các log stream (luồng nhật ký) có chung cài đặt về thời gian lưu giữ, giám sát và kiểm soát truy cập.
 
@@ -32,7 +32,7 @@ Chúng tôi đã cấu hình các cài đặt nhật ký cho dịch vụ contain
 Một **log stream** (luồng nhật ký) bao gồm một chuỗi các sự kiện nhật ký bắt nguồn từ cùng một nguồn. Mỗi nguồn nhật ký riêng biệt trong CloudWatch Logs tạo thành một log stream riêng của nó.
 {{% /notice %}}
 
-Chuyển đến **Logs Insights** để phân tích dữ liệu nhật ký ứng dụng bằng CloudWatch Logs Insights. Chọn **retail-store-ecs-tasks** cho log group và chạy truy vấn sau. Kết quả là, bạn có thể truy xuất các nhật ký liên quan đến dịch vụ UI. Kết quả sẽ được hiển thị dưới dạng biểu đồ cột các sự kiện nhật ký trong log group này theo thời gian.
+Chuyển đến **Logs Insights** để phân tích dữ liệu nhật ký ứng dụng bằng CloudWatch Logs Insights. Chọn **retail-store-ecs-tasks** cho log group và chạy truy vấn sau. Kết quả là, bạn có thể truy xuất các log liên quan đến dịch vụ UI. Kết quả sẽ được hiển thị dưới dạng biểu đồ cột các sự kiện nhật ký trong log group này theo thời gian.
 
 ```
 fields @timestamp, @logStream, @message

@@ -10,7 +10,7 @@ pre = "<b>2.3 </b>"
 
 ### Triển khai Tự động Đo đạc (Injecting Auto-instrumentation)
 
-AWS Distro for OpenTelemetry (ADOT) cung cấp khả năng tự động đo đạc cho nhiều ngôn ngữ lập trình, bao gồm các dịch vụ .NET, Java, Node.js, Python và Go đang chạy trên Amazon ECS. Với ADOT, bạn có thể tạo dấu vết và số liệu mà không cần sửa đổi mã ứng dụng của mình.
+AWS Distro for OpenTelemetry (ADOT) cung cấp khả năng tự động đo đạc cho nhiều ngôn ngữ lập trình, bao gồm các dịch vụ .NET, Java, Node.js, Python và Go đang chạy trên Amazon ECS. Với ADOT, bạn có thể tạo traces và metrics mà không cần sửa đổi mã ứng dụng của mình.
 
 Khi bạn tích hợp ADOT với các task ECS của mình, bạn có được khả năng thu thập metadata từ các tài nguyên và dịch vụ được quản lý của AWS. Việc tích hợp này cho phép bạn tương quan dữ liệu hiệu suất ứng dụng với các số liệu cơ sở hạ tầng, giúp giảm thời gian trung bình để giải quyết vấn đề.
 
@@ -27,9 +27,9 @@ Bảng sau đây phác thảo các biến môi trường chính được sử d�
 | **Biến Môi Trường**         | **Mô Tả**                                                                                                                           |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | JAVA_TOOL_OPTIONS           | Chỉ định đường dẫn đến Java agent. Điều này hướng dẫn JVM tải OpenTelemetry agent khi khởi động ứng dụng.                           |
-| OTEL_SERVICE_NAME           | Đặt tên dịch vụ để xác định ứng dụng của bạn. Tên này được sử dụng để liên kết các dấu vết của ứng dụng với dịch vụ của nó.         |
+| OTEL_SERVICE_NAME           | Đặt tên dịch vụ để xác định ứng dụng của bạn. Tên này được sử dụng để liên kết các trace của ứng dụng với dịch vụ của nó.           |
 | OTEL_EXPORTER_OTLP_INSECURE | Cấu hình agent sử dụng kết nối không an toàn (ví dụ: không có TLS). Điều này được sử dụng để giao tiếp với OpenTelemetry Collector. |
-| OTEL_JAVAAGENT_ENABLED      | OpenTelemetry Java agent. Biến này phải được đặt thành true để kích hoạt agent cho việc thu thập dấu vết và số liệu.                |
+| OTEL_JAVAAGENT_ENABLED      | OpenTelemetry Java agent. Biến này phải được đặt thành true để kích hoạt agent cho việc thu thập trace và metric.                   |
 
 Để triển khai ADOT collector dưới dạng sidecar, chúng ta sẽ tạo một revision mới của định nghĩa task và cập nhật service để sử dụng phiên bản mới nhất này.
 

@@ -17,19 +17,23 @@ RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
 echo ${RETAIL_ALB}
 ```
 
-Sử dụng tên DNS hiển thị ở trên để truy cập ứng dụng của bạn trong trình duyệt web. Để tạo các dấu vết có ý nghĩa:
+Sử dụng tên DNS hiển thị ở trên để truy cập ứng dụng của bạn trong trình duyệt web. Để tạo meaningful traces:
 
 1. Nhấp vào từng sản phẩm để xem chi tiết của chúng
 2. Mở Catalog
 3. Duyệt qua các danh mục sản phẩm khác nhau
 
 {{% notice info %}}
+<<<<<<< HEAD
+Nếu thành phần giỏ hàng chưa được triển khai sau [Security Lab](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/), tránh thêm các mặt hàng vào giỏ hàng.
+=======
 Nếu thành phần giỏ hàng chưa được triển khai sau [Security Lab](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/3-iam-roles/), tránh thêm các mặt hàng vào giỏ hàng.
+>>>>>>> 1b1ad37ac852805294d1943864eda6bbf3c2792f
 {{% /notice %}}
 
-Các hành động này sẽ tạo ra các dấu vết cho các dịch vụ UI, Catalog và Assets. Nếu bạn không thấy dấu vết cho tất cả các dịch vụ ngay lập tức, hãy đợi vài phút và làm mới bảng điều khiển CloudWatch, vì có thể có một chút chậm trễ trong quá trình xử lý dữ liệu.
+Các hành động này sẽ tạo ra các trace cho các dịch vụ UI, Catalog và Assets. Nếu bạn không thấy traces cho tất cả các dịch vụ ngay lập tức, hãy đợi vài phút và làm mới bảng điều khiển CloudWatch, vì có thể có một chút chậm trễ trong quá trình xử lý dữ liệu.
 
-Để xem xét dữ liệu dấu vết, số liệu và nhật ký, hãy điều hướng đến bảng điều khiển CloudWatch bằng liên kết bên dưới.
+Để xem xét dữ liệu traces, metrics và logs, hãy điều hướng đến bảng điều khiển CloudWatch bằng liên kết bên dưới.
 
 {{% button href="https://console.aws.amazon.com/cloudwatch/home#container-insights:infrastructure" %}}Mở bảng điều khiển Amazon CloudWatch{{% /button %}}
 
@@ -39,7 +43,7 @@ Trong CloudWatch, hãy chuyển đến **X-Ray traces** và chọn **Trace map**
 
 ![image](/images/5/image.png?width=90pc)
 
-Bản đồ Dấu vết hiển thị các mối quan hệ và tương tác giữa các microservice và thành phần của bạn. Hình ảnh trực quan này giúp bạn hiểu cách các yêu cầu luồng qua kiến trúc ứng dụng của bạn. Bạn sẽ nhận thấy tên ui-application trong bản đồ dấu vết, tương ứng với _OTEL_SERVICE_NAME_ mà chúng ta đã cấu hình trước đó.
+Trace Map hiển thị các mối quan hệ và tương tác giữa các microservice và thành phần của bạn. Hình ảnh trực quan này giúp bạn hiểu cách các yêu cầu luồng qua kiến trúc ứng dụng của bạn. Bạn sẽ nhận thấy tên ui-application trong trace map, tương ứng với _OTEL_SERVICE_NAME_ mà chúng ta đã cấu hình trước đó.
 
 Bên dưới Trace Map là **Segment Timeline**, hiển thị các Segments khác nhau mà trace chứa.
 
@@ -62,7 +66,7 @@ CloudWatch Metrics cho phép bạn giám sát hiệu suất của ứng dụng J
 
 ### Xem EMF Logs trong CloudWatch Logs
 
-Cấu hình AWS Distro for OpenTelemetry (ADOT) sử dụng Embedded Metric Format (EMF) làm exporter, tự động chuyển đổi các số liệu ứng dụng của bạn thành số liệu CloudWatch. Các số đo này cũng có sẵn dưới dạng nhật ký trong CloudWatch Logs, cung cấp thêm ngữ cảnh cho hiệu suất ứng dụng của bạn.
+Cấu hình AWS Distro for OpenTelemetry (ADOT) sử dụng Embedded Metric Format (EMF) làm exporter, tự động chuyển đổi các số liệu ứng dụng của bạn thành số liệu CloudWatch. Các số đo này cũng có sẵn dưới dạng logs trong CloudWatch Logs, cung cấp thêm ngữ cảnh cho hiệu suất ứng dụng của bạn.
 
 Để xem xét cấu trúc của một mục nhật ký EMF:
 
