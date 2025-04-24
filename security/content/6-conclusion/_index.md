@@ -33,8 +33,6 @@ Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
 Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 
-Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275
-
 #### References
 
 Security Chapter - https://catalog.workshops.aws/ecs-immersion-day/en-US/70-security
