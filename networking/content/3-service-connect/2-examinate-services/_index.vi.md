@@ -1,83 +1,50 @@
-+++
-title = "Khóa bảo mật U2F"
-date = 2021
-weight = 2
-chapter = false
-pre = "<b>2.2. </b>"
-+++
+---
+title: "Kiểm tra các service"
+date: "`r Sys.Date()`"
+weight: 2
+chapter: false
+pre: "<b> 3.2. </b>"
+---
 
-**Nội dung**
-- [Kích hoạt khóa bảo mật U2F thông qua Console](#kích-hoạt-khóa-bảo-mật-u2f-thông-qua-console)
+Điều hướng đến Amazon ECS console để kiểm tra các service đã triển khai.
 
+[Mở Amazon ECS console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/services)
 
-{{%notice tip%}}
-Nếu bạn không có thiết bị phần cứng , có thể bỏ qua các thao tác dưới đây nhé.
-{{%/notice%}}
+Cluster chứa ba service đang chạy:
 
-#### Kích hoạt khóa bảo mật U2F thông qua Console
+![Danh sách Service trong Cluster](/images/3-service-connect/2-examinate-services/image.png)
+*Hình 1. Danh sách Service trong Cluster*
 
-U2F Security Key là một giao thức chứng thực mở cho phép người dùng có thể truy cập các dịch vụ trực tuyếp với một khóa bảo mật duy nhất mà không cần sử dụng đến bất kì phần mềm nào.
+Trong tab **Tasks**, bạn có thể xem tất cả các task đang chạy:
 
-1. Đăng nhập vào AWS Console.
-2. Góc trên bên phải, bạn sẽ thấy tên account của bạn, chọn vào và chọn **My Security Credentials** sau đó mở rộng Multi-factor authentication (MFA).
+![Danh sách Task trong Cluster](/images/3-service-connect/2-examinate-services/image-1.png)
+*Hình 2. Danh sách Task trong Cluster*
 
-![Image](/images/1-account-setup/MySecurity_v1.png?width=15pc)
+Chọn bất kỳ task đang chạy và điều hướng đến phần **Containers**. Mỗi task chứa ba container:
+- Container `application`
+- Container proxy `ecs-service-connect` cho service discovery và kết nối
+- Container `aws-guardduty-agent` cho giám sát bảo mật runtime
 
-3. Để quản lí khóa bảo mật U2F, bạn phải có quyền từ bộ quyền sau. ở thanh bên trái, chọn **Policies** sau đó chọn **Create policy**, chọn **JSON** tab và dán phần bên dưới vào:
+Để biết thêm chi tiết về Service Connect proxy, xem [tài liệu về khái niệm Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-concepts.html#service-connect-concepts-proxy).
 
-```js
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowManageOwnUserMFA",
-            "Effect": "Allow",
-            "Action": [
-                "iam:DeactivateMFADevice",
-                "iam:EnableMFADevice",
-                "iam:GetUser",
-                "iam:ListMFADevices",
-                "iam:ResyncMFADevice"
-            ],
-            "Resource": "arn:aws:iam::*:user/${aws:username}"
-        },
-        {
-            "Sid": "DenyAllExceptListedIfNoMFA",
-            "Effect": "Deny",
-            "NotAction": [
-                "iam:EnableMFADevice",
-                "iam:GetUser",
-                "iam:ListMFADevices",
-                "iam:ResyncMFADevice"
-            ],
-            "Resource": "arn:aws:iam::*:user/${aws:username}",
-            "Condition": {
-                "BoolIfExists": {
-                    "aws:MultiFactorAuthPresent": "false"
-                }
-            }
-        }
-    ]
-}
-```
+![Các container trong Task của Cluster](/images/3-service-connect/2-examinate-services/image-2.png)
+*Hình 3. Các container trong Task của Cluster*
 
-4. Chọn **Next: Tags**. Đây là màn hình về **Tags** một công cụ dùng để phân biệt các tài nguyên của AWS.
-5. Chọn  **Next: Review**. Đây là màn hình cho phép bạn review về bộ quyền mà bạn đang tạo ra. 
-5. Nhập tên bộ quyền (ví dụ: MFAHardDevice) và chọn **Create policy**.
+#### Namespace
 
-![MFA Policy](/images/1-account-setup/MFAPolicy.png?width=90pc)
+Service Connect sử dụng namespace [AWS Cloud Map](https://aws.amazon.com/cloud-map/) để nhóm các task Amazon ECS cần giao tiếp với nhau một cách logic. Các điểm chính về namespace:
 
-6. Ở thanh bên trái , chọn **Dashboard** và sau đó chọn **Enable MFA**.
+- Mỗi service Amazon ECS chỉ có thể thuộc về một namespace
+- Các service trong một namespace có thể trải rộng trên nhiều cluster Amazon ECS trong cùng Region và tài khoản AWS
 
-![Dashboard](/images/1-account-setup/Dashboard.png?width=90pc)
+Để xem Namespace của Cluster:
+1. Mở dashboard Amazon ECS
+2. Chọn **Namespace** từ menu điều hướng
 
-7. Mở rộng Multi-factor authentication (MFA) sau đó chọn **Active MFA**.
+![Namespace của Cluster](/images/3-service-connect/2-examinate-services/image-3.png)
+*Hình 4. Namespace của Cluster*
 
-![MFA Section](/images/1-account-setup/MFA.png?width=90pc)
+Chọn một namespace để xem chi tiết cấu hình AWS Cloud Map của nó. Trường **Discovery Name** hiển thị tên ngắn được sử dụng cho kết nối service trong cùng namespace (ví dụ: `http://assets`).
 
-8. Trong **Manage MFA Device**, chọn **U2F security key** sau đó nhấn **Continue**.
-9. Cắm khóa bảo mật U2F vào cổng USB của máy tính.
-
-![Image](/images/1-account-setup/U2FSK.png?width=30pc)
-
-10. Nhấn vào khóa bảo mật U2F, và sau đó chọn **Close** khi U2F thiết lập thành công.
+![Namespace của Cluster](/images/3-service-connect/2-examinate-services/image-4.png)
+*Hình 5. Các service trong namespace **retailstore.local***

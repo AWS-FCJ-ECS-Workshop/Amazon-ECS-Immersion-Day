@@ -6,47 +6,51 @@ chapter: false
 pre: "<b> 3.3. </b>"
 ---
 
+In this section, we'll explore the metrics that Service Connect provides for monitoring your resources.
 
-Now let's review the metrics that Service Connect makes available.
+Amazon ECS offers CloudWatch metrics to help you monitor your resources effectively. For a comprehensive list of available metrics, refer to the [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/available-metrics.html).
 
-Amazon ECS provides CloudWatch metrics you can use to monitor your resources. [Review the full list of available metrics here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/available-metrics.html) .
-
-Execute the following command to generate some synthetic traffic:
+To generate synthetic traffic for our analysis, execute the following command:
 
 ```bash
-    export RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
-      --query 'LoadBalancers[0].DNSName' --output text)
-    
-    hey -n 1000000 -c 1 -q 10 http://$RETAIL_ALB/home &
+export RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
+  --query 'LoadBalancers[0].DNSName' --output text)
+
+hey -n 1000000 -c 1 -q 10 http://$RETAIL_ALB/home &
 ```
 
+### Examining ECS Service Connect Metrics on the Traffic Health Dashboard
 
-#### Review ECS Service Connect metric on the Traffic Health dashboard
+1. Navigate to the Amazon ECS Console and select the `retail-store-ecs-cluster`.
+2. Go to the Service tab.
 
-Open the Amazon ECS Console, select the `retail-store-ecs-cluster`, and navigate to the Service tab.
+![Service List](/images/3-service-connect/3-metrics/image.png)
 
-![Service List](image.png)
+3. Select the `ui` service and scroll down to the **Traffic Health** dashboard.
 
-Select the `ui` service and scroll down to the **Traffic Health** dashboard.
+Amazon ECS transmits metrics to CloudWatch every minute, collecting multiple data points per minute. For more details, consult the [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/available-metrics.html).
 
-Amazon ECS sends metrics to CloudWatch every minute. When collecting metrics, Amazon ECS gathers multiple data points per minute. [More information can be found here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/available-metrics.html) 
+![Incoming Traffic](/images/3-service-connect/3-metrics/image-1.png)
 
-![Incoming Traffic](image-1.png)
+Note that Amazon ECS configures tasks and containers to route application connections through the proxy only for endpoint names within the same namespace. All other traffic bypasses the proxy, including IP addresses in the same VPC, AWS service endpoints, and external traffic. This explains the absence of outgoing traffic for the `Assets` and `Catalog` services. For more information, refer to the [Service Connect Concepts documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-concepts-deploy.html#service-connect-concepts-proxy).
 
-Amazon ECS configures tasks and containers so that applications only connect to the proxy if the application is connecting to endpoint names in the same namespace. All other traffic bypasses the proxy. This includes IP addresses in the same VPC, AWS service endpoints, and external traffic. [More information can be found here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-concepts-deploy.html#service-connect-concepts-proxy) . This explains why you won't find outgoing traffic for the `Assets` and `Catalog` services.
+### Analyzing ECS Service Connect Metrics in Amazon CloudWatch
 
-#### Review ECS Service Connect metric on Amazon CloudWatch
+1. Open the [Amazon CloudWatch metrics console](https://console.aws.amazon.com/cloudwatch/home#metricsV2?graph=~(view~'timeSeries~stacked~false~stat~'Average~period~300)&namespace=~'AWS*2fECS).
 
-Open the [Amazon CloudWatch metrics](https://console.aws.amazon.com/cloudwatch/home#metricsV2?graph=~(view~'timeSeries~stacked~false~stat~'Average~period~300)&namespace=~'AWS*2fECS)  console:
+![ECS CloudWatch Metrics](/images/3-service-connect/3-metrics/image-2.png)
 
-![ECS Cloud Watch Metrics](image-2.png)
+2. Click on the **Cluster, DiscoveryName, ServiceName** metrics.
+3. Search for `ui` to review the traffic metrics.
 
-Click on the **Cluster, DiscoveryName, ServiceName** metrics and search for `ui` to review the traffic metrics.
+![Discovery Name Metrics](/images/3-service-connect/3-metrics/image-3.png)
 
-![Discovery Name Metrics](image-3.png)
+For additional insights, explore the **Cluster, ServiceName, TargetDiscoveryName** metrics.
 
-You can also explore **Cluster, ServiceName, TargetDiscoveryName** for additional metrics.
+To terminate the synthetic traffic generation, run the following command:
 
-To stop the synthetic traffic generation, execute the following command:
+```bash
+pkill -9 hey
+```
 
-    pkill -9 hey
+By analyzing these metrics, you can gain valuable insights into the performance and behavior of your ECS services using Service Connect.

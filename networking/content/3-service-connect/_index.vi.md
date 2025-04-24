@@ -1,17 +1,28 @@
-+++
-title = "MFA cho Tài khoản AWS"
-date = 2021
-weight = 2
-chapter = false
-pre = "<b>2. </b>"
-+++
+---
+title: "ECS Service Connect"
+date: "`r Sys.Date()`"
+weight: 3
+chapter: false
+pre: "<b> 3. </b>"
+---
 
-Trong bước ngày, bạn có sử dụng ba thiết bị MFA khác nhau.  
-Một là các thiết bị (ứng dụng) MFA ảo trên smartphone như là Microsoft Authenticator, Google Authenticator, và Okta Verify.  
-Hai là khóa bảo mật U2F cứng.  
-Ba là các thiết bị MFA phần cứng khác như khóa bảo mật Gemalto.
-#### Nội Dung
+{{% notice info %}}
+Hoàn thành chương [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) trước khi tiếp tục với bài thực hành này.
+{{% /notice %}}
 
-1. [Thiết lập với thiết bị MFA ảo](1-virtual-mfa-device)
-2. [Thiết lập với Khóa Bảo mật U2F](2-u2f-security-key)
-3. [Thiết lập với thiết bị MFA phần cứng khác](3-other-hardware-mfa-device)
+![alt text](/images/3-service-connect/image.png?width=15pc)
+*Hình 1. AWS Cloud Map*
+
+**Amazon ECS Service Connect** cung cấp giải pháp đơn giản hóa cho việc giao tiếp giữa các service trong ứng dụng container của bạn. Nó cho phép khả năng khám phá service, kết nối và giám sát lưu lượng một cách liền mạch. Sử dụng Service Connect, các ứng dụng của bạn có thể giao tiếp thông qua tên service và cổng tiêu chuẩn trên:
+
+- Các service trong cùng một ECS cluster
+- Các service ở các cluster khác nhau
+- Các service trên các VPC khác nhau trong cùng AWS Region
+
+[Tìm hiểu thêm về Service Connect trong tài liệu AWS.](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-serviceconnect)
+
+Amazon ECS cung cấp các tùy chọn bổ sung để cấu hình giao tiếp giữa các service:
+
+* [Internal Application Load Balancer](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-elb) - Cho giao tiếp cân bằng tải giữa các service
+* [AWS Cloud Map Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-direct) - Cho khám phá service dựa trên DNS
+* [Amazon VPC Lattice](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-vpc-lattice.html) - Cho mạng ứng dụng trên nhiều VPC và tài khoản

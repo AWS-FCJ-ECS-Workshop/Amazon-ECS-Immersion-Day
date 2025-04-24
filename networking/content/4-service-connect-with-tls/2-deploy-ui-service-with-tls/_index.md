@@ -6,17 +6,17 @@ chapter: false
 pre: "<b> 4.2 </b>"
 ---
 
-In this section, we will deploy the UI service with TLS enabled ECS Service Connect and explore this service via HTTPS endpoint.
+This section covers deploying the UI service with TLS-enabled ECS Service Connect and accessing it through HTTPS.
 
 #### Deploy the UI service with TLS enabled in ECS Service Connect
 
-We are now ready to set up the new **ui-tls** service with ECS Service Connect, ensuring TLS encryption is enabled.
+First, retrieve the ECS Service Connect role ARN:
 
 ```bash
     export ECS_SERVICE_CONNECT_ROLE_ARN=$(aws iam get-role --role-name ecs-service-connect-certificate-role --query Role.Arn --output text)
 ```
 
-Let's create the ECS service:
+Create the ECS service with TLS configuration:
 
 ```bash
     aws ecs create-service \
@@ -52,7 +52,7 @@ Let's create the ECS service:
         }'
 ```
 
-You can wait for the service to stabilize using the AWS CLI (**~ 2 min**):
+Monitor the service deployment (approximately 2 minutes):
 
 ```bash
     echo "Waiting for service to stabilize..."
@@ -60,11 +60,9 @@ You can wait for the service to stabilize using the AWS CLI (**~ 2 min**):
     aws ecs wait services-stable --cluster retail-store-ecs-cluster --services ui-tls
 ```
 
-#### Review the new web application via the HTTPS endpoint
+#### Access the web application via HTTPS
 
-For this workshop, we used a self-signed certificate that will be considered invalid by your browser.
-
-Once the new **UI-TLS** service has been deployed, we can review the running application over **HTTPS**.
+Obtain the Application Load Balancer DNS name:
 
 ```bash
     export RETAIL_ALB=$(aws elbv2 describe-load-balancers --name retail-store-ecs-ui \
@@ -73,12 +71,16 @@ Once the new **UI-TLS** service has been deployed, we can review the running app
     echo https://${RETAIL_ALB} ; echo
 ```
 
-As shown in the image below, click the **Advanced** button and then click the link at the bottom stating `Proceed to retail-store-ecs-ui-XXXXXXXXXXX.us-west-2.elb.amazonaws.com (unsafe)`.
+Note: This workshop uses a self-signed certificate that browsers will flag as invalid.
 
-![Invalid Certificate Advanced](image.png)
+To access the application:
+1. Click the **Advanced** button in your browser
+2. Select `Proceed to retail-store-ecs-ui-XXXXXXXXXXX.us-west-2.elb.amazonaws.com (unsafe)`
+
+![Invalid Certificate Advanced](/images/4-service-connect-with-tls/2-deploy-ui-service-with-tls/image.png)
 *Figure 1. Invalid Certificate Advanced*
 
-After accessing the application, you should see the following page:
+The application homepage should now display:
 
-![App Home page with TLS enabled](image-1.png)
+![App Home page with TLS enabled](/images/4-service-connect-with-tls/2-deploy-ui-service-with-tls/image-1.png)
 *Figure 2. App Home page with TLS enabled*

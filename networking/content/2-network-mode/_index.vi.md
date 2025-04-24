@@ -1,48 +1,75 @@
-+++
-title = "Tạo mới tài khoản AWS"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Chế độ mạng Amazon ECS"
+date: "`r Sys.Date()`"
+weight: 2
+chapter: false
+pre: "<b> 2. </b>"
+---
 
+{{% notice info %}}
+Hoàn thành chương [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) trước khi tiếp tục bài lab này.
+{{% /notice %}}
 
-**Nội dung:**
-- [Tạo tài khoản AWS](#tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+Cấu hình mạng container là một khía cạnh quan trọng khi chạy container trên máy chủ. Phần này tập trung vào **chế độ mạng AWSVPC**, điều này là bắt buộc đối với Amazon ECS trên Fargate. Để biết thông tin chi tiết về việc lựa chọn chế độ mạng, tham khảo [tài liệu Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html).
 
-#### Tạo tài khoản AWS
+Với **chế độ AWSVPC**, Amazon ECS tạo và quản lý một Elastic Network Interface (ENI) cho mỗi task. Mỗi task nhận được một địa chỉ IP riêng trong VPC của bạn, cho phép kiểm soát chi tiết việc giao tiếp của task và service. Chế độ mạng AWSVPC hỗ trợ cả loại khởi chạy Amazon EC2 và Fargate. Tìm hiểu thêm về [mạng AWSVPC](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html).
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.  
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-3. Nhập thông tin tài khoảng và chọn **Continue**.  
-    - ***Quan Trọng**: Hãy chắc chắn bạn nhập đúng thông tin, đặc biệt là email.* 
-4. Chọn loại account.  
-    - ***Ghi chú**: Personal và Professional đều có chung tính năng.*
-5. Nhập thông tin công ty hoặc thông tin cá nhân của bạn.
-6. Đọc và đồng ý [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Chọn **Create Account** và **Continue**.
+{{% notice info %}}
+Chế độ mạng AWSVPC là bắt buộc đối với các task Amazon ECS chạy trên Fargate.
+{{% /notice %}}
 
-#### Thêm phương thức thanh toán
+![network mode awsvpc](/images/2-network-mode/image.png)
+*Hình 1. Chế độ mạng AWSVPC*
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.  
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.*
+#### Kiểm tra cấu hình mạng trong Amazon ECS Cluster
 
-#### Xác thực số điện thoại của bạn
+Điều hướng đến bảng điều khiển Amazon ECS để kiểm tra cấu hình service:
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Send SMS**.
-3. Nhập mã code được gửi đến số điện thoại của bạn.
+[Amazon ECS Console](https://console.aws.amazon.com/ecs/v2/clusters/retail-store-ecs-cluster/tasks)
 
-#### Chọn Support Plan
+![Danh sách Task trong Cluster](/images/2-network-mode/image-1.png)
+*Hình 2. Danh sách Task trong Cluster*
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa cách plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Chọn bất kỳ task đang chạy và cuộn xuống phần **Configuration** để xem:
+- Chế độ mạng
+- ID của ENI
+- Địa chỉ IP riêng
 
-#### Đợi account của bạn được kích hoạt
+![Chi tiết Task trong Cluster](/images/2-network-mode/image-2.png)
+*Hình 3. Chi tiết Task trong Cluster*
 
-- Sau khi chọn **Support plan**, account thường được kích sau sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.  
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+Để lấy thông tin task theo cách lập trình, thực thi lệnh AWS CLI sau cho service `ui`:
+
+```bash
+aws ecs describe-tasks \
+  --cluster retail-store-ecs-cluster \
+  --tasks $(aws ecs list-tasks --cluster retail-store-ecs-cluster --service ui --query 'taskArns[0]' --output text)
+```
+
+Kết quả mẫu:
+
+```json
+{
+    "tasks": [
+        {
+            "attachments": [
+                {
+                    "id": "464044b3-626f-44da-86ec-fa20a064d408",
+                    "type": "ElasticNetworkInterface",
+                    "status": "ATTACHED",
+                    ...
+                }
+            ],
+            ...
+            "networkInterfaces": [
+                {
+                    "attachmentId": "464044b3-626f-44da-86ec-fa20a064d408",
+                    "privateIpv4Address": "10.0.4.128"
+                }
+            ],
+            "healthStatus": "HEALTHY",
+            "cpu": "0"
+        }
+    ]
+}
+```

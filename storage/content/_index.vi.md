@@ -5,7 +5,7 @@ chapter: false
 ---
 
 {{% notice info %}}
-Hoàn thành các chương tiên quyết này trước khi bắt đầu bài thực hành: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
+Hoàn thành các chương tiên quyết này trước khi bắt đầu bài thực hành: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/3-service-connect/)
 {{% /notice %}}
 
 Amazon ECS hỗ trợ nhiều loại volume cho các task container:

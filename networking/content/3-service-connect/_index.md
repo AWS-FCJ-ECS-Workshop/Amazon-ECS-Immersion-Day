@@ -7,15 +7,22 @@ pre: "<b> 3. </b>"
 ---
 
 {{% notice info %}}
-You must have completed the following chapters as pre-requisites for this lab: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/)
+Complete the [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/) chapter before proceeding with this lab.
 {{% /notice %}}
 
-![alt text](image.png)
+![alt text](/images/3-service-connect/image.png?width=15pc)
+*Figure 1. AWS Cloud Map*
 
-**ECS Service Connect** is the recommended approach for handling service-to-service communication, offering features such as service discovery, connectivity, and traffic monitoring. With Service Connect, your applications can utilize short names and standard ports to connect to ECS services within the same cluster, across different clusters, and even across VPCs within the same AWS Region. [For more detailed information, please refer to the AWS documentation.](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-serviceconnect) 
+**Amazon ECS Service Connect** provides a streamlined solution for service-to-service communication within your containerized applications. It enables seamless service discovery, connectivity, and traffic monitoring capabilities. Using Service Connect, your applications can communicate through simple service names and standard ports across:
 
-Alternative options for configuring inter-service communication within Amazon ECS Services include:
+- Services within the same ECS cluster
+- Services in different clusters 
+- Services across VPCs within the same AWS Region
 
-*   [Internal Load Balancer](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-elb) 
-*   [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-direct) 
-*   [Amazon VPC Lattice](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-vpc-lattice.html) 
+[Learn more about Service Connect in the AWS documentation.](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-serviceconnect)
+
+Amazon ECS offers additional options for configuring service-to-service communication:
+
+* [Internal Application Load Balancer](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-elb) - For load-balanced communication between services
+* [AWS Cloud Map Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networking-connecting-services.html#networking-connecting-services-direct) - For DNS-based service discovery
+* [Amazon VPC Lattice](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-vpc-lattice.html) - For application networking across VPCs and accounts

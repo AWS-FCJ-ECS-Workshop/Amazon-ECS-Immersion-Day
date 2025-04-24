@@ -24,7 +24,7 @@ Use the DNS name displayed above to access your application in a web browser. To
 3. Browse through different product categories
 
 {{% notice info %}}
-If the cart component has not yet been deployed following the [Security Lab](https://catalog.workshops.aws/ecs-immersion-day/en-US/70-Security/iam-roles), avoid adding items to the cart.
+If the cart component has not yet been deployed following the [Security Lab](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/3-iam-roles/), avoid adding items to the cart.
 {{% /notice %}}
 
 These actions should generate traces for the UI, Catalog, and Assets services. If you don't see traces for all services immediately, wait a few minutes and refresh the CloudWatch console, as there may be a slight delay in data processing.

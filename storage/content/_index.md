@@ -5,7 +5,7 @@ chapter: false
 ---
 
 {{% notice info %}}
-Complete these prerequisite chapters before starting this lab: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
+Complete these prerequisite chapters before starting this lab: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/3-service-connect/)
 {{% /notice %}}
 
 Amazon ECS supports multiple volume types for container tasks:

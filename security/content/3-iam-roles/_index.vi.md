@@ -7,7 +7,7 @@ pre: "<b> 3. </b>"
 ---
 
 {{% notice info %}}
-Điều kiện tiên quyết: Hoàn thành các bài thực hành sau trước khi tiếp tục: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
+Điều kiện tiên quyết: Hoàn thành các bài thực hành sau trước khi tiếp tục: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/3-service-connect/)
 {{% /notice %}}
 
 #### Tìm hiểu về IAM Roles trong Amazon ECS

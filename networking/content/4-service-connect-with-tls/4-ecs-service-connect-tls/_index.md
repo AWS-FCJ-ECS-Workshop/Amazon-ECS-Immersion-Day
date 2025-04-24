@@ -6,22 +6,20 @@ chapter: false
 pre: "<b> 4.4 </b>"
 ---
 
-Now that we have completed the ECS Service Connect setup, we will verify our configuration to ensure that ECS Service Connect TLS is correctly enabled. In this section, we will perform the following steps:
+After completing the ECS Service Connect setup, verify that TLS is properly enabled. This section guides you through the verification process using the following steps:
 
-- Retrieve the private IP of tasks  
-- Connect to a running task with `enableExecuteCommand` enabled  
-- Install the `openssl` command on the running container  
-- Verify the TLS certificate  
+1. Retrieve task private IP addresses
+2. Connect to a task with execute command capability
+3. Install OpenSSL for certificate verification
+4. Verify the TLS certificate configuration
 
----
-
-### Retrieve the private IP of tasks
+#### Retrieve Task Private IP Addresses
 
 {{% notice note %}}
-Calling the DNS name directly does not reveal the certificate.
+Direct DNS name queries will not expose the certificate information.
 {{% /notice %}}
 
-Run the following command to retrieve the private IP address of a running **UI-TLS** task and save the result in an environment variable:
+Execute these commands to obtain and store the private IP address of a running **UI-TLS** task:
 
 ```bash
 task_arn=$(aws ecs list-tasks --cluster retail-store-ecs-cluster \
@@ -32,17 +30,15 @@ UI_TLS_PRIVATE_IP=$(aws ecs describe-tasks --cluster retail-store-ecs-cluster --
   | jq -r '.tasks[].containers[] | select(.name == "application") | .networkInterfaces[0].privateIpv4Address')
 ```
 
-You can verify the IP address with:
+Confirm the IP address:
 
 ```bash
 echo ${UI_TLS_PRIVATE_IP}
 ```
 
----
+#### Connect to Task with Execute Command
 
-### Connect to a running task with `enableExecuteCommand` enabled
-
-Run the following command to select one of the **UI** tasks with `enableExecuteCommand` enabled:
+Select a **UI** task that has execute command capability:
 
 ```bash
 export ECS_EXEC_TASK_ARN=$(aws ecs list-tasks --cluster retail-store-ecs-cluster \
@@ -54,7 +50,7 @@ export ECS_EXEC_TASK_ARN=$(aws ecs list-tasks --cluster retail-store-ecs-cluster
 echo ${ECS_EXEC_TASK_ARN}
 ```
 
-Copy the environment variable to the running task:
+Transfer the IP address variable to the task:
 
 ```bash
 aws ecs execute-command --cluster retail-store-ecs-cluster \
@@ -64,7 +60,7 @@ aws ecs execute-command --cluster retail-store-ecs-cluster \
   --command "/bin/bash -c 'echo UI_TLS_PRIVATE_IP=$(echo $UI_TLS_PRIVATE_IP) > /app/private_ip.env'"
 ```
 
-Start an interactive `/bin/bash` session in the running task:
+Initiate an interactive shell session:
 
 ```bash
 aws ecs execute-command --cluster retail-store-ecs-cluster \
@@ -74,75 +70,40 @@ aws ecs execute-command --cluster retail-store-ecs-cluster \
   --command "/bin/bash"
 ```
 
----
+#### Configure the Environment
 
-### Set up the environment
-
-Load the environment variable into the current session:
+Import the environment variable:
 
 ```bash
 source /app/private_ip.env
 ```
 
-Install the `openssl` command on the running container:
+Install OpenSSL:
 
 ```bash
 yum install openssl -y
 ```
 
----
+#### Verify TLS Certificate
 
-### Verify the TLS Certificate on the `ui-tls` task
-
-Run the following command to retrieve and review the certificate:
+Examine the certificate details:
 
 ```bash
 openssl s_client -connect $UI_TLS_PRIVATE_IP:8080 < /dev/null 2> /dev/null \
   | openssl x509 -noout -text
 ```
 
-Example output:
+The output should display certificate details including:
+- Version and serial number
+- Signature algorithm
+- Issuer information
+- Validity period
+- Subject details
+- Public key information
+- X.509v3 extensions
+- Signature
 
-```
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number: 11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C = US, O = ECS Immersion Day, OU = Workshop
-        Validity
-            Not Before: Aug 18 13:55:27 2024 GMT
-            Not After : Aug 25 14:55:27 2024 GMT
-        Subject: OU = Workshop, O = ECS Immersion Day, C = US
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub:
-                    04:85:6e:c0:43:44:f9:e9:7d:ba:ec:6c:fe:0e:37:...
-                    53:82:c2:a2:20
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Subject Alternative Name:
-                DNS:ui-tls.retailstore.local
-            X509v3 Basic Constraints:
-                CA:FALSE
-            X509v3 Authority Key Identifier:
-                11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11
-            X509v3 Subject Key Identifier:
-                11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11
-            X509v3 Key Usage: critical
-                Digital Signature, Key Encipherment
-            X509v3 Extended Key Usage:
-                TLS Web Server Authentication, TLS Web Client Authentication
-    Signature Algorithm: sha256WithRSAEncryption
-    Signature Value:
-        a7:dc:2e:28:9b:ae:2d:93:de:05:93:56:e3:c8:81:50:fe:3f:...
-        70:92:7b:c1:b7:16:9b:8a:16:61:c1:aa:ab:9e:de:d3:e4:e7:
-        cb:05:86:00
-```
-
-To terminate your exec session:
+To exit the session:
 
 ```bash
 exit
