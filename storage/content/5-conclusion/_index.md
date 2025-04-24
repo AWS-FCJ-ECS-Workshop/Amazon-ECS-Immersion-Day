@@ -22,8 +22,6 @@ Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
 Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
 
-Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275
-
 #### References
 
 Storage Workshop - https://catalog.workshops.aws/ecs-immersion-day/en-US/90-storage
