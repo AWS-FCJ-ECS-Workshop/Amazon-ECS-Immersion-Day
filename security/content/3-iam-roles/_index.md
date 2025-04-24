@@ -7,7 +7,7 @@ pre: "<b> 3. </b>"
 ---
 
 {{% notice info %}}
-Prerequisites: Complete the following labs before proceeding: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/ecs-service-connect)
+Prerequisites: Complete the following labs before proceeding: [Fundamentals](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/fundamentals/), [ECS Service Connect](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/3-service-connect/)
 {{% /notice %}}
 
 #### Understanding IAM Roles in Amazon ECS
