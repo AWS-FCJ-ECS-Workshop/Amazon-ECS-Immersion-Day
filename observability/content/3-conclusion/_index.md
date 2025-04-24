@@ -1,9 +1,9 @@
 +++
 title = "Conclusion"
 date = 2024-08-19T00:38:32+07:00
-weight = 4
+weight = 3
 chapter = false
-pre = "<b>4. </b>"
+pre = "<b>3. </b>"
 +++
 
 In conclusion, observability stands as a critical capability for modern, complex systems. It empowers us to move beyond simple monitoring by continuously generating and enabling the discovery of actionable insights derived from system signals. This allows for a profound understanding of a system's internal state through its external manifestations, facilitating informed and timely interventions.

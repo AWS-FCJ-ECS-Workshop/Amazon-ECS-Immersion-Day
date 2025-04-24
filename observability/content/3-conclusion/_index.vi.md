@@ -1,9 +1,9 @@
 +++
 title = "Kết luận"
 date = 2024-08-19T00:38:32+07:00
-weight = 4
+weight = 3
 chapter = false
-pre = "<b>4. </b>"
+pre = "<b>3. </b>"
 +++
 
 Tóm lại, khả năng quan sát đóng vai trò là một năng lực quan trọng đối với các hệ thống hiện đại và phức tạp. Nó trao quyền cho chúng ta vượt xa việc giám sát đơn thuần bằng cách liên tục tạo ra và cho phép khám phá các thông tin chi tiết hữu ích có được từ các tín hiệu hệ thống. Điều này cho phép hiểu sâu sắc về trạng thái bên trong của hệ thống thông qua các biểu hiện bên ngoài của nó, tạo điều kiện cho các can thiệp sáng suốt và kịp thời.
