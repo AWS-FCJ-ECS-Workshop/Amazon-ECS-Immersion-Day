@@ -53,7 +53,7 @@ Add this policy through the Policy Editor
 ![Adding inline policy](/images/1-prerequisites/3-iam-role/image-3.png)
 *Figure 4. Adding inline policy*
 
-In the Review and Create step, name the policy `catalogTaskExecutionPolicy`
+In the Review and Create step, name the policy `cataologTaskExecutionPolicy`
 
 ![Review and Create step](/images/1-prerequisites/3-iam-role/image-4.png)
 *Figure 5. Review and Create step*

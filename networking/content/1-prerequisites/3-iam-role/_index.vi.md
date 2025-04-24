@@ -53,7 +53,7 @@ Thêm policy này thông qua Policy Editor
 ![Thêm inline policy](/images/1-prerequisites/3-iam-role/image-3.png)
 *Hình 4. Thêm inline policy*
 
-Trong bước Review and Create, đặt tên policy là `catalogTaskExecutionPolicy`
+Trong bước Review and Create, đặt tên policy là `cataologTaskExecutionPolicy`
 
 ![Bước Review and Create](/images/1-prerequisites/3-iam-role/image-4.png)
 *Hình 5. Bước Review and Create*
