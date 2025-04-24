@@ -24,7 +24,7 @@ Sử dụng tên DNS hiển thị ở trên để truy cập ứng dụng của 
 3. Duyệt qua các danh mục sản phẩm khác nhau
 
 {{% notice info %}}
-Nếu thành phần giỏ hàng chưa được triển khai sau [Security Lab](https://catalog.workshops.aws/ecs-immersion-day/en-US/70-Security/iam-roles), tránh thêm các mặt hàng vào giỏ hàng.
+Nếu thành phần giỏ hàng chưa được triển khai sau [Security Lab](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/3-iam-roles/), tránh thêm các mặt hàng vào giỏ hàng.
 {{% /notice %}}
 
 Các hành động này sẽ tạo ra các dấu vết cho các dịch vụ UI, Catalog và Assets. Nếu bạn không thấy dấu vết cho tất cả các dịch vụ ngay lập tức, hãy đợi vài phút và làm mới bảng điều khiển CloudWatch, vì có thể có một chút chậm trễ trong quá trình xử lý dữ liệu.
