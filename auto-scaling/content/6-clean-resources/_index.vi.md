@@ -42,4 +42,4 @@ pre: "<b> 6. </b>"
    - Cân nhắc triển khai CloudWatch alarms để giám sát thủ công
    - Lưu giữ lịch sử triển khai để có thể rollback nếu cần
 
-![alt text](/images/6-clean-resourcesimage.png)
+![alt text](/images/6-clean-resources/image.png)
