@@ -10,7 +10,7 @@ Trong workshop này, chúng ta sẽ triển khai AWS Distro for OpenTelemetry Co
 
 ### Các Chính sách Cần thiết cho ADOT Collector
 
-Để vận hành ADOT Collector trên Amazon ECS một cách hiệu quả, các quyền IAM cụ thể phải được đính kèm vào vai trò task ECS của bạn. Các quyền này cho phép ADOT Collector thu thập và truyền nhật ký, dấu vết và số liệu đến các dịch vụ AWS khác nhau bao gồm CloudWatch, X-Ray và các dịch vụ khác.
+Để vận hành ADOT Collector trên Amazon ECS một cách hiệu quả, các quyền IAM cụ thể phải được đính kèm vào vai trò task ECS của bạn. Các quyền này cho phép ADOT Collector thu thập và truyền logs, traces và metrics đến các dịch vụ AWS khác nhau bao gồm CloudWatch, X-Ray và các dịch vụ khác.
 
 Hãy bắt đầu bằng cách tạo chính sách IAM cho OpenTelemetry Collector. Chính sách này cấp các quyền cần thiết cho việc thu thập telemetry toàn diện.
 
@@ -54,7 +54,7 @@ aws iam attach-role-policy \
 
 ### Tìm hiểu về Cấu hình ADOT Mặc định
 
-Cấu hình ADOT Collector chỉ định cách dữ liệu telemetry (nhật ký, dấu vết và số liệu) được xử lý và xuất. AWS cung cấp một cấu hình mặc định được tối ưu hóa cho môi trường Amazon ECS. Bạn có thể xem xét cấu hình mặc định hoàn chỉnh [tại đây](https://github.com/aws-observability/aws-otel-collector/blob/main/config/ecs/ecs-cloudwatch-xray.yaml).
+Cấu hình ADOT Collector chỉ định cách dữ liệu telemetry (logs, traces và metrics) được xử lý và xuất. AWS cung cấp một cấu hình mặc định được tối ưu hóa cho môi trường Amazon ECS. Bạn có thể xem xét cấu hình mặc định hoàn chỉnh [tại đây](https://github.com/aws-observability/aws-otel-collector/blob/main/config/ecs/ecs-cloudwatch-xray.yaml).
 
 ### Phân tích Cấu hình
 
@@ -79,7 +79,7 @@ receivers:
 
 **Processors:** Cấu hình bao gồm một số processor:
 
-- _batch/traces_ và _batch/metrics_ xử lý việc gom nhóm dữ liệu dấu vết và số liệu
+- _batch/traces_ và _batch/metrics_ xử lý việc gom nhóm dữ liệu traces và số liệu
 - _resourcedetection_ tự động xác định các thuộc tính tài nguyên từ môi trường, ECS và các nguồn EC2
 - _resource_ quản lý các thuộc tính tài nguyên thông qua các hoạt động thiết lập và xóa
 
@@ -153,7 +153,7 @@ processors:
 
 **Exporters:** Cấu hình định nghĩa hai exporter:
 
-- _awsxray_ để truyền dữ liệu dấu vết đến AWS X-Ray
+- _awsxray_ để truyền dữ liệu traces đến AWS X-Ray
 - _awsemf/application_ để gửi số liệu đến Amazon CloudWatch với các cài đặt log group và namespace cụ thể
 
 ```
@@ -169,7 +169,7 @@ exporters:
 
 **Services:** Cấu hình thiết lập hai pipeline chính:
 
-Một _traces_ pipeline để xử lý và xuất dữ liệu dấu vết
+Một _traces_ pipeline để xử lý và xuất dữ liệu traces
 Một _metrics/application_ để xử lý số liệu Cả hai pipeline đều tích hợp với extension health_check để giám sát trạng thái của collector.
 
 ```

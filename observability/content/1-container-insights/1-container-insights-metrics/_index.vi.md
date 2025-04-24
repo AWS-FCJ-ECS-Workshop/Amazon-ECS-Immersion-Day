@@ -6,7 +6,7 @@ chapter = false
 pre = "<b>1.1 </b>"
 +++
 
-CloudWatch Container Insights thu thập các số liệu và nhật ký từ các ứng dụng và dịch vụ vi mô được chứa trong container của bạn. Nó sử dụng một tác nhân CloudWatch được chứa trong container để khám phá và thu thập dữ liệu hiệu suất từ tất cả các container đang chạy trong một cluster. Dữ liệu này sau đó được sử dụng để tạo ra các số liệu tổng hợp ở cấp độ cluster, service và task, bao gồm các số liệu về mức sử dụng tài nguyên cho CPU, bộ nhớ, đĩa và mạng.
+CloudWatch Container Insights thu thập các metric và log từ các ứng dụng và microservices được chứa trong container của bạn. Nó sử dụng một CloudWatch agent được chứa trong container để khám phá và thu thập dữ liệu hiệu suất từ tất cả các container đang chạy trong một cluster. Dữ liệu này sau đó được sử dụng để tạo ra các số liệu tổng hợp ở cấp độ cluster, service và task, bao gồm các số liệu về mức sử dụng tài nguyên cho CPU, bộ nhớ, đĩa và mạng.
 
 Khi bạn cần các số liệu thống kê thường xuyên về dữ liệu tổng hợp theo thời gian, bạn nên sử dụng các số liệu (metrics) hơn là nhật ký (logs). Các số liệu rất lý tưởng để tạo cảnh báo hoặc biểu đồ trên dashboard.
 
