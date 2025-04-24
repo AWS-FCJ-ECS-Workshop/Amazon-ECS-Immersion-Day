@@ -45,17 +45,7 @@ Trong mô-đun Tự động hóa này, chúng ta đã triển khai thành công 
 
 Tiếp tục hành trình học tập Amazon ECS của bạn bằng cách khám phá các mô-đun workshop chuyên sâu sau:
 
-1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) – Tìm hiểu cách mở rộng ứng dụng một cách linh hoạt theo nhu cầu
-
-2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) – Làm chủ các khái niệm và cách triển khai mạng trong ECS
-
-3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) – Triển khai các giải pháp giám sát toàn diện
-
-4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) – Áp dụng các biện pháp bảo mật mạnh mẽ và các thực tiễn tốt nhất
-
-5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) – Tự động hóa các quy trình triển khai
-
-6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) – Tích hợp Amazon EFS để lưu trữ dữ liệu lâu dài
+1. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) – Tích hợp Amazon EFS để lưu trữ dữ liệu lâu dài
 
 Mỗi mô-đun đều cung cấp trải nghiệm thực hành chi tiết giúp bạn xây dựng các ứng dụng ECS sẵn sàng cho môi trường sản xuất.
 
@@ -64,8 +54,6 @@ Mỗi mô-đun đều cung cấp trải nghiệm thực hành chi tiết giúp b
 Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
 Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
-
-Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275/
 
 #### Tài liệu tham khảo
 

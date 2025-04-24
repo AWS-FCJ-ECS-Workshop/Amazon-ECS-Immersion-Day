@@ -44,12 +44,7 @@ In this Automation module, we successfully implemented several key components th
 
 Continue your Amazon ECS learning journey by exploring these specialized workshop modules:
 
-1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Learn to dynamically scale your applications
-2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Master ECS networking concepts and implementations
-3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Implement comprehensive monitoring solutions
-4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Implement robust security controls and best practices
-5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Streamline deployment workflows
-6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Integrate Amazon EFS for persistent storage
+1. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Integrate Amazon EFS for persistent storage
 
 Each module provides detailed hands-on experience to help you build production-ready ECS applications.
 
@@ -58,8 +53,6 @@ Each module provides detailed hands-on experience to help you build production-r
 Le Minh Nghia - https://www.linkedin.com/in/minhnghia2k3/
 
 Tran Doan Cong Ly - https://www.linkedin.com/in/trandoancongly/
-
-Tran Anh Truong - www.linkedin.com/in/trường-trần-494a35275/
 
 #### References
 
