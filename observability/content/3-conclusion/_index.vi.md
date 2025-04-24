@@ -20,12 +20,9 @@ Trên nền tảng AWS, các trụ cột này được giải quyết một các
 
 Tiếp tục hành trình học tập Amazon ECS của bạn bằng cách khám phá các module workshop chuyên biệt sau:
 
-1. [Auto Scaling](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/auto-scaling/) - Tìm hiểu cách tự động điều chỉnh quy mô ứng dụng của bạn một cách linh hoạt
-2. [Networking](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/networking/) - Nắm vững các khái niệm và cách triển khai mạng trong ECS
-3. [Observability](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/observability/) - Triển khai các giải pháp giám sát toàn diện
-4. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Triển khai các biện pháp kiểm soát bảo mật mạnh mẽ và các phương pháp hay nhất
-5. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Tối ưu hóa quy trình triển khai
-6. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Tích hợp Amazon EFS cho lưu trữ bền bỉ
+1. [Security](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/security/) - Triển khai các biện pháp kiểm soát bảo mật mạnh mẽ và các phương pháp hay nhất
+2. [Automation](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/automation/) - Tối ưu hóa quy trình triển khai
+3. [Storage](https://aws-fcj-ecs-workshop.github.io/Amazon-ECS-Immersion-Day/storage) - Tích hợp Amazon EFS cho lưu trữ bền bỉ
 
 Mỗi module cung cấp trải nghiệm thực hành chi tiết để giúp bạn xây dựng các ứng dụng ECS sẵn sàng cho môi trường production.
 
