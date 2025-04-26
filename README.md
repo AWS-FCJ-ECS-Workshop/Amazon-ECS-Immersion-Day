@@ -15,6 +15,7 @@ The workshop is divided into the following sections:
 - `observability` – Monitor and trace ECS workloads.
 - `security` – Secure your ECS applications and infrastructure.
 - `storage` – Integrate persistent storage with ECS tasks.
+- `cost-optimizations` - Utilizing AWS Fargate spot instance to optimize pricing.
 
 Each folder is a self-contained Hugo site and can be built independently via GitHub Actions in `.github/workflows`.
 
